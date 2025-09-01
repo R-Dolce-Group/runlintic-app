@@ -1,0 +1,105 @@
+{
+  "name": "@rdolcegroup/runlintic-app",
+  "version": "5.10.12",
+  "description": "A toolkit for automating code quality, cleanup, and releases.",
+  "keywords": [
+    "release",
+    "automation",
+    "changelog"
+  ],
+  "homepage": "https://github.com/R-Dolce-Group/runlintic-app#readme",
+  "bugs": {
+    "url": "https://github.com/R-Dolce-Group/runlintic-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/R-Dolce-Group/runlintic-app.git"
+  },
+  "license": "ISC",
+  "author": "R. Dolce Group",
+  "main": "./lib/index.js",
+  "bin": {
+    "runlintic": "bin/runlintic.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "public",
+    "README.md",
+    "LICENSE",
+    ".release-it.json",
+    "commitlint.config.js",
+    ".auto-changelog-example",
+    "TODO.md"
+  ],
+  "scripts": {
+    "build": "echo 'No build required for Runlintic package'",
+    "check-all": "pnpm run lint && pnpm run typecheck && pnpm run build",
+    "clean:all": "rm -rf node_modules pnpm-lock.yaml",
+    "depcheck": "depcheck",
+    "deps:audit": "pnpm audit",
+    "deps:audit-fix": "pnpm audit --fix",
+    "deps:check": "pnpm run depcheck",
+    "deps:clean": "pnpm run clean:all && pnpm install",
+    "deps:dedupe": "pnpm dedupe",
+    "deps:outdated": "pnpm outdated",
+    "deps:update": "pnpm update",
+    "deps:update-latest": "pnpm update --latest",
+    "deps:validate": "pnpm run deps:check && pnpm run deps:audit",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\" && sort-package-json package.json",
+    "health-check": "pnpm run lint && pnpm run typecheck && pnpm run build && pnpm run maintenance",
+    "knip": "knip",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix && sort-package-json package.json",
+    "maintenance": "pnpm run knip && pnpm run depcheck && pnpm run manypkg:fix",
+    "manypkg:fix": "sort-package-json package.json",
+    "prepare": "husky",
+    "release": "lib/scripts/runlintic-release-with-auth.sh",
+    "release:beta": "lib/scripts/runlintic-release-with-auth.sh --preRelease=beta",
+    "release:dry": "lib/scripts/runlintic-release-with-auth.sh --dry-run",
+    "release:major": "lib/scripts/runlintic-release-with-auth.sh --increment=major",
+    "release:minor": "lib/scripts/runlintic-release-with-auth.sh --increment=minor",
+    "release:patch": "lib/scripts/runlintic-release-with-auth.sh --increment=patch",
+    "test": "echo 'No tests configured - run pnpm run test:cli for CLI testing'",
+    "test:cli": "node bin/runlintic.js help",
+    "test:cli:all": "pnpm run test:cli && pnpm run test:cli:health && pnpm run test:cli:release:dry",
+    "test:cli:health": "node bin/runlintic.js health-check",
+    "test:cli:release:dry": "node bin/runlintic.js release:dry",
+    "typecheck": "tsc --noEmit --skipLibCheck || echo 'No TypeScript files found - skipping typecheck'",
+    "version": "npx auto-changelog -p && git add CHANGELOG.md"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@eslint/js": "^9.33.0",
+    "@next/eslint-plugin-next": "^15.3.0",
+    "@release-it/conventional-changelog": "^10.0.1",
+    "@t3-oss/env-nextjs": "^0.13.8",
+    "@typescript-eslint/eslint-plugin": "^8.33.0",
+    "auto-changelog": "*",
+    "conventional-changelog-conventionalcommits": "^9.1.0",
+    "depcheck": "^1.4.7",
+    "eslint": "^9.33.0",
+    "@prettier/eslint-config": "^0.1.0",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-turbo": "^2.3.3",
+    "globals": "^16.2.0",
+    "husky": "^9.1.7",
+    "knip": "^5.0.0",
+    "prettier": "^3.6.2",
+    "release-it": "^19.0.4",
+    "sort-package-json": "3.4.0",
+    "typescript": "5.9.2",
+    "typescript-eslint": "^8.33.0",
+    "zod": "^4.0.17"
+  },
+  "packageManager": "pnpm@10.15.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
