@@ -3,7 +3,7 @@
   "workspaces": {
     ".": {
       "ignoreBinaries": [
-        "lib/scripts/runlintic-release-with-auth.sh"
+        "lib/scripts/runlintic-app-release-with-auth.sh"
       ],
       "ignore": [
         "commitlint.config.cjs",
@@ -11,9 +11,7 @@
         ".github/**"
       ],
       "entry": [
-        "lib/index.js",
-        "lib/configs/*.js",
-        "env.mjs"
+        "lib/configs/*.js"
       ]
     }
   },
@@ -28,7 +26,6 @@
   ],
   "ignoreDependencies": [
     "@types/*",
-    "auto-changelog",
     "conventional-changelog-conventionalcommits",
     "eslint-plugin-turbo"
   ],

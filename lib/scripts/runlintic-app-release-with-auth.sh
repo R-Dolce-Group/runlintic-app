@@ -47,9 +47,9 @@ if [[ -z "${GH_TOKEN:-}" ]]; then
   exit 1
 fi
 
-# 5. Check if the GH_TOKEN variable is valid
-if [[ ! -z "${GH_TOKEN}" ]]; then
-  echo "❌ Error: GH_TOKEN variable is not valid in your .env file" >&2
+# 5. Check if the GH_TOKEN variable is valid (non-empty)
+if [[ -z "${GH_TOKEN}" ]]; then
+  echo "❌ Error: GH_TOKEN variable is empty in your .env file" >&2
   echo "💡 Please set it with: export GH_TOKEN=your_token" >&2
   exit 1
 fi
