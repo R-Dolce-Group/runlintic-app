@@ -18,6 +18,7 @@ cleanup() {
 
   # Clear any temporary environment variables
   unset GH_TOKEN 2>/dev/null || true
+  unset GITHUB_TOKEN 2>/dev/null || true
 
   echo "🧹 Cleaned up git configuration"
   exit $exit_code
@@ -167,7 +168,9 @@ echo "  - GH_TOKEN length: ${#GH_TOKEN} chars"
 echo "  - npm config list:" && npm config list --location=user 2>/dev/null | head -3 || echo "    npm config not accessible"
 echo ""
 
-#14. For now, run without timeout until we implement OS-independent solution
+#14. Export GITHUB_TOKEN for release-it (it expects this specific name)
+export GITHUB_TOKEN="${GH_TOKEN}"
+
 echo "🚀 Executing: npx release-it $@ ${DEFAULT_INCREMENT} --ci --git.requireCleanWorkingDir=false --git.requireUpstream=false --git.commitMessage=\"chore(release): v\${version}\""
 if npx release-it "$@" ${DEFAULT_INCREMENT} --ci --git.requireCleanWorkingDir=false --git.requireUpstream=false --git.commitMessage="chore(release): v\${version}"; then
   RELEASE_END_TIME=$(date +%s)
