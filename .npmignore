@@ -1,0 +1,6 @@
+.security/
+lib/scripts/
+*.sh
+*.env
+src/
+test/
