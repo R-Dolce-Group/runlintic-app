@@ -18,6 +18,13 @@
   "license": "ISC",
   "author": "R. Dolce Group",
   "main": "./lib/index.js",
+  "exports": {
+    ".": {
+      "require": "./lib/index.js",
+      "default": "./lib/index.js"
+    }
+  },
+  "sideEffects": false,
   "bin": {
     "runlintic": "bin/runlintic-app.js"
   },
@@ -27,10 +34,7 @@
     "lib/index.js",
     "public",
     "README.md",
-    "LICENSE",
-    ".release-it.json",
-    "commitlint.config.js",
-    ".auto-changelog-example"
+    "LICENSE"
   ],
   "scripts": {
     "check-all": "npm run lint && npm run typecheck",
@@ -53,6 +57,7 @@
     "maintenance": "npm run knip && npm run depcheck && npm run manypkg:fix",
     "manypkg:fix": "sort-package-json package.json",
     "prepare": "husky",
+    "prepack": "npm run lint && npm run typecheck",
     "release": "lib/scripts/runlintic-app-release-with-auth.sh",
     "release:beta": "lib/scripts/runlintic-app-release-with-auth.sh --preRelease=beta",
     "release:dry": "lib/scripts/runlintic-app-release-with-auth.sh --dry-run",
@@ -95,6 +100,7 @@
     "node": ">=22.16.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

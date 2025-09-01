@@ -270,3 +270,4 @@ CLAUDE.md
 !/.security/
 !/bin/runlintic-example.js
 bin/runlintic-example.js
+.security/
