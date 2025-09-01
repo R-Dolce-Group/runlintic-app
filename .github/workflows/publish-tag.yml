@@ -1,0 +1,48 @@
+name: Publish Tagged Release
+
+# Trigger only when version tags are pushed
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # Needed for npm provenance
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org/'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run quality checks
+        run: |
+          npm run lint
+          npm run typecheck
+          
+      - name: Verify package contents
+        run: |
+          echo "📦 Publishing tag: ${{ github.ref_name }}"
+          npm pack --dry-run
+          
+      - name: Publish to npm
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          
+      - name: Success notification
+        if: success()
+        run: |
+          echo "🎉 Successfully published @rdolcegroup/runlintic-app@${{ github.ref_name }}"
+          echo "📦 Check your package at: https://www.npmjs.com/package/@rdolcegroup/runlintic-app"
