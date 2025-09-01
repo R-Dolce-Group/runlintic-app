@@ -65,7 +65,7 @@
     "test:cli:health": "node bin/runlintic.js health-check",
     "test:cli:release:dry": "node bin/runlintic.js release:dry",
     "typecheck": "tsc --noEmit --skipLibCheck || echo 'No TypeScript files found - skipping typecheck'",
-    "version": "npx auto-changelog -p && git add CHANGELOG.md"
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
@@ -75,7 +75,7 @@
     "@release-it/conventional-changelog": "^10.0.1",
     "@t3-oss/env-nextjs": "^0.13.8",
     "@typescript-eslint/eslint-plugin": "^8.33.0",
-    "auto-changelog": "*",
+    "conventional-changelog-cli": "^5.0.0",
     "conventional-changelog-conventionalcommits": "^9.1.0",
     "depcheck": "^1.4.7",
     "eslint": "^9.33.0",

@@ -261,9 +261,7 @@ next-env.d.ts
 # User Custom
 /.idea
 _workflows/
-/CLAUDE.md
-/_builds/
-_builds/
+CLAUDE.md
 .claude/
 /_workflows/**
 
