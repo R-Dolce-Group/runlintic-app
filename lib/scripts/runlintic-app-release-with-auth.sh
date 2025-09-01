@@ -80,18 +80,29 @@ fi
 
 #7. Test NPM connectivity and token validity
 if curl -s -m 30 -H "Authorization: Bearer ${NPM_ACCESS_TOKEN}" \
-     -H "Accept: application/vnd.github.v3+json" \
-     "https://api.github.com/user" > /tmp/npm_test.json 2>/dev/null; then
-  echo "✅ NPM API test successful"
+     "https://registry.npmjs.org/-/whoami" > /tmp/npm_test.json 2>/dev/null; then
+  # Parse NPM username without requiring jq
+  if command -v jq >/dev/null 2>&1; then
+    NPM_USERNAME=$(jq -r '.username // empty' /tmp/npm_test.json 2>/dev/null)
+  elif command -v python3 >/dev/null 2>&1; then
+    NPM_USERNAME=$(python3 -c "import json; data=json.load(open('/tmp/npm_test.json')); print(data.get('username', ''))" 2>/dev/null || echo "")
+  else
+    # Fallback: grep for username field
+    NPM_USERNAME=$(grep -o '"username":"[^"]*"' /tmp/npm_test.json 2>/dev/null | sed 's/.*"username":"\([^"]*\)".*/\1/' || echo "")
+  fi
+  
+  if [[ -n "$NPM_USERNAME" ]]; then
+    echo "✅ NPM API test successful - authenticated as: $NPM_USERNAME"
+  else
+    echo "❌ Error: Failed to parse NPM username from API response" >&2
+    exit 1
+  fi
 else
   echo "❌ Error: NPM API test failed" >&2
   exit 1
 fi
 
-#8. Clean up temporary files
-rm -f /tmp/gh_test.json /tmp/npm_test.json
-
-#9. Parse JSON response without requiring jq
+#8. Parse JSON response without requiring jq
 if command -v jq >/dev/null 2>&1; then
   USER_LOGIN=$(jq -r '.login // empty' /tmp/gh_test.json 2>/dev/null)
 elif command -v python3 >/dev/null 2>&1; then
@@ -103,11 +114,18 @@ else
 fi
 
 if [[ -z "$USER_LOGIN" ]]; then
-  echo "❌ Error: Invalid GitHub token or API response." >&2
+  echo "❌ Error: Failed to parse GitHub user login from API response." >&2
+  echo "💡 This could indicate:" >&2
+  echo "   - Invalid or expired GitHub token" >&2
+  echo "   - Network connectivity issues" >&2
+  echo "   - GitHub API rate limiting" >&2
+  echo "   - Missing JSON parsing tools (jq/python3)" >&2
   exit 1
 fi
 echo "✅ GitHub API test successful - authenticated as: $USER_LOGIN"
-rm -f /tmp/gh_test.json
+
+#9. Clean up temporary files
+rm -f /tmp/gh_test.json /tmp/npm_test.json
 
 #10. Configure Git to use token-based authentication (safer approach)
 echo "🔧 Configuring git authentication..."

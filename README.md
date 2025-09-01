@@ -14,25 +14,25 @@ npm install -g @rdolcegroup/runlintic-app
 
 # Or install in your project
 npm install -D @rdolcegroup/runlintic-app
-# pnpm add -D @rdolcegroup/runlintic-app
 # yarn add -D @rdolcegroup/runlintic-app
+# pnpm add -D @rdolcegroup/runlintic-app
 ```
 
 ## 🚀 Quick Start
 
 ```bash
-# Initialize runlintic-app in your project
-runlintic-app init
+# Initialize runlintic in your project
+runlintic init
 
 # Run comprehensive health check
-runlintic-app health-check
+runlintic health-check
 
 # Run all quality checks (parallel execution)
-runlintic-app check-all
+runlintic check-all
 
 # Create a release
-runlintic-app release:dry    # Preview changes first
-runlintic-app release:patch  # Create patch release
+runlintic release:dry    # Preview changes first
+runlintic release:patch  # Create patch release
 ```
 
 ## ✨ Features
@@ -45,7 +45,7 @@ runlintic-app release:patch  # Create patch release
 - 🛡️ **Robust Error Handling** – Fail-fast scripts with comprehensive cleanup
 - 🎯 **TypeScript Ready** – ES2022 targets with strict type checking
 - 📊 **Smart Caching** – Turbo-powered incremental builds
-- 🎨 **CLI Interface** – Simple commands for all operations
+- 🎨 **CLI Interface** – Simple `runlintic <command>` interface
 - 🔌 **Zero Config** – Works out of the box with sensible defaults
 
 ## 🎯 What Runlintic App Does
@@ -65,51 +65,51 @@ runlintic-app release:patch  # Create patch release
 
 ### ✅ **Developer Experience**
 
-- **CLI commands**: Simple `runlintic-app <command>` interface
-- **Project initialization**: `runlintic-app init` sets up configs in any project
+- **CLI commands**: Simple `runlintic <command>` interface
+- **Project initialization**: `runlintic init` sets up configs in any project
 - **Incremental builds**: Only rebuild what changed with intelligent caching
 - **Clear feedback**: Detailed output showing exactly what passed/failed and why
 
 ## 📖 CLI Commands
 
 ```bash
-runlintic-app <command>
+runlintic <command>
 ```
 
 ### Quality & Development
 
 ```bash
-runlintic-app health-check         # Run comprehensive health check
-runlintic-app check-all            # Run all quality checks (lint + typecheck + deps)
-runlintic-app lint                 # Run ESLint
-runlintic-app lint:fix             # Run ESLint and auto-fix issues
-runlintic-app typecheck            # Run TypeScript type checking
-runlintic-app format               # Run Prettier formatting
-runlintic-app maintenance          # Run maintenance tasks (knip + depcheck + fixes)
+runlintic health-check         # Run comprehensive health check
+runlintic check-all            # Run all quality checks (lint + typecheck + deps)
+runlintic lint                 # Run ESLint
+runlintic lint:fix             # Run ESLint and auto-fix issues
+runlintic typecheck            # Run TypeScript type checking
+runlintic format               # Run Prettier formatting
+runlintic maintenance          # Run maintenance tasks (knip + depcheck + fixes)
 ```
 
 ### Build & Clean
 
 ```bash
-runlintic-app clean                # Clean build artifacts
-runlintic-app clean:all            # Complete clean (removes node_modules)
+runlintic clean                # Clean build artifacts
+runlintic clean:all            # Complete clean (removes node_modules)
 ```
 
 ### Release Management
 
 ```bash
-runlintic-app release:dry          # Preview release changes (recommended first)
-runlintic-app release:patch        # Create patch release (1.0.0 → 1.0.1)
-runlintic-app release:minor        # Create minor release (1.0.0 → 1.1.0)
-runlintic-app release:major        # Create major release (1.0.0 → 2.0.0)
-runlintic-app release              # Create release (default: patch)
+runlintic release:dry          # Preview release changes (recommended first)
+runlintic release:patch        # Create patch release (1.0.0 → 1.0.1)
+runlintic release:minor        # Create minor release (1.0.0 → 1.1.0)
+runlintic release:major        # Create major release (1.0.0 → 2.0.0)
+runlintic release              # Create release (default: patch)
 ```
 
 ### Setup
 
 ```bash
-runlintic-app init                 # Initialize runlintic-app in current project
-runlintic-app help                 # Show all available commands
+runlintic init                 # Initialize runlintic in current project
+runlintic help                 # Show all available commands
 ```
 
 ## ⚡ Performance Optimizations
@@ -129,7 +129,7 @@ npm run lint && npm run typecheck && npm run deps:check
 # Time: ~5.8s
 
 # After optimization: Parallel execution
-runlintic-app check-all
+runlintic check-all
 # Time: ~3.2s (40% improvement)
 ```
 
@@ -165,11 +165,11 @@ When you install `@rdolcegroup/runlintic-app`, you get:
 # Navigate to your project
 cd my-awesome-project
 
-# Initialize runlintic-app (copies configs)
-runlintic-app init
+# Initialize runlintic (copies configs)
+runlintic init
 
 # Run your first health check
-runlintic-app health-check
+runlintic health-check
 ```
 
 ### Manual Integration
@@ -208,7 +208,7 @@ console.log(configs);
 ## 📋 Requirements
 
 - **Node.js**: >= 22
-- **Package Manager**: npm (recommended), pnpm, or yarn
+- **Package Manager**: npm (recommended), yarn, or pnpm
 - **Git**: For version control and releases (optional)
 
 ### Environment Setup (for releases)
@@ -238,7 +238,7 @@ Runlintic App's free tier requires you to provide your own GitHub Personal Acces
 3. **Test the token setup**:
    ```bash
    # Test that your token works
-   runlintic-app release:dry
+   runlintic release:dry
    ```
 
 **📊 Free Tier Limitations:**
@@ -265,11 +265,11 @@ Runlintic App's free tier requires you to provide your own GitHub Personal Acces
 git add .
 
 # Run quality checks before commit
-runlintic-app check-all
+runlintic check-all
 
 # Auto-fix issues if needed
-runlintic-app lint:fix
-runlintic-app format
+runlintic lint:fix
+runlintic format
 
 # Commit changes (triggers pre-commit hooks)
 git commit -m "feat: add new feature"
@@ -279,27 +279,27 @@ git commit -m "feat: add new feature"
 
 ```bash
 # Ensure everything is clean
-runlintic-app health-check
+runlintic health-check
 
 # Preview what will be released
-runlintic-app release:dry
+runlintic release:dry
 
 # Create the release
-runlintic-app release:patch
+runlintic release:patch
 
 # Or for major changes
-runlintic-app release:major
+runlintic release:major
 ```
 
 ### Maintenance Tasks
 
 ```bash
 # Clean up dependencies
-runlintic-app maintenance
+runlintic maintenance
 
 # Full cleanup and reinstall
-runlintic-app clean:all
-npm install  # or pnpm install
+runlintic clean:all
+npm install  # or yarn install, pnpm install
 ```
 
 ## 🔍 Monitoring & Insights
@@ -329,10 +329,10 @@ npm run deps:check
 
 ```bash
 # One command does it all
-runlintic-app health-check
+runlintic health-check
 
 # One command for releases
-runlintic-app release:patch
+runlintic release:patch
 ```
 
 ## 🤝 Contributing
@@ -341,7 +341,7 @@ This package is part of The R. Dolce Organization's toolkit. For contributions:
 
 1. Fork the repository
 2. Create a feature branch
-3. Run `runlintic-app health-check` before committing
+3. Run `runlintic health-check` before committing
 4. Submit a pull request
 
 ## 📝 License
@@ -354,8 +354,8 @@ ISC
 
 ```bash
 npm install -g @rdolcegroup/runlintic-app
-runlintic-app init
-runlintic-app health-check
+runlintic init
+runlintic health-check
 ```
 ## Contributors
 
