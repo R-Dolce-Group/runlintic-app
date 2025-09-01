@@ -1,0 +1,12 @@
+{
+  "extends": "./base.json",
+  "compilerOptions": {
+    "baseUrl": "./"
+  },
+  "include": [
+    "**/*.json"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
