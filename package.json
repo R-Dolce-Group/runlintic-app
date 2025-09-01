@@ -1,6 +1,6 @@
 {
   "name": "@rdolcegroup/runlintic-app",
-  "version": "5.10.12",
+  "version": "6.0.0",
   "description": "A toolkit for automating code quality, cleanup, and releases.",
   "keywords": [
     "release",
@@ -17,14 +17,14 @@
   },
   "license": "ISC",
   "author": "R. Dolce Group",
-  "main": "./lib/index.js",
+  "sideEffects": false,
   "exports": {
     ".": {
       "require": "./lib/index.js",
       "default": "./lib/index.js"
     }
   },
-  "sideEffects": false,
+  "main": "./lib/index.js",
   "bin": {
     "runlintic": "bin/runlintic-app.js"
   },
@@ -56,8 +56,8 @@
     "lint:fix": "eslint . --fix && sort-package-json package.json",
     "maintenance": "npm run knip && npm run depcheck && npm run manypkg:fix",
     "manypkg:fix": "sort-package-json package.json",
-    "prepare": "husky",
     "prepack": "npm run lint && npm run typecheck",
+    "prepare": "husky",
     "release": "lib/scripts/runlintic-app-release-with-auth.sh",
     "release:beta": "lib/scripts/runlintic-app-release-with-auth.sh --preRelease=beta",
     "release:dry": "lib/scripts/runlintic-app-release-with-auth.sh --dry-run",

@@ -15,7 +15,6 @@ npm install -g @rdolcegroup/runlintic-app
 # Or install in your project
 npm install -D @rdolcegroup/runlintic-app
 # yarn add -D @rdolcegroup/runlintic-app
-# pnpm add -D @rdolcegroup/runlintic-app
 ```
 
 ## 🚀 Quick Start
@@ -208,7 +207,7 @@ console.log(configs);
 ## 📋 Requirements
 
 - **Node.js**: >= 22
-- **Package Manager**: npm (recommended), yarn, or pnpm
+- **Package Manager**: npm (primary), yarn and pnpm also supported
 - **Git**: For version control and releases (optional)
 
 ### Environment Setup (for releases)
@@ -223,14 +222,15 @@ Runlintic App's free tier requires you to provide your own GitHub Personal Acces
    - Set expiration (recommend 90 days minimum)
 
 2. **Set the token in your environment**:
+
    ```bash
    # Method 1: Add to shell profile (recommended)
    echo 'export GH_TOKEN="your_github_token_here"' >> ~/.zshrc
    source ~/.zshrc
-   
+
    # Method 2: Set for current session only (more secure)
    export GH_TOKEN="your_github_token_here"
-   
+
    # Verify token is set
    echo $GH_TOKEN
    ```
@@ -242,12 +242,14 @@ Runlintic App's free tier requires you to provide your own GitHub Personal Acces
    ```
 
 **📊 Free Tier Limitations:**
+
 - Personal GitHub API rate limits apply (5,000 requests/hour)
 - Self-managed token rotation required
 - Community support only
 - Basic features and documentation
 
 **🔒 Security Best Practices:**
+
 - Never commit tokens to version control
 - Use environment variables only
 - Set reasonable expiration dates
@@ -299,16 +301,18 @@ runlintic maintenance
 
 # Full cleanup and reinstall
 runlintic clean:all
-npm install  # or yarn install, pnpm install
+npm install  # or yarn install, pnpm install (if using alternative package managers)
 ```
 
 ## 📚 Documentation
 
 ### Quick Reference
+
 - **[USER-DOC.md](USER-DOC.md)** - Comprehensive user guide with examples and troubleshooting
 - **[HOW-TO.md](HOW-TO.md)** - Developer guide for package publishing and security
 
 ### What's Included
+
 - ✅ **Configuration guides** for ESLint, TypeScript, and different project types
 - ✅ **Programmatic API** documentation for integrating configs into your build
 - ✅ **Release workflow** setup and token management
@@ -370,10 +374,12 @@ npm install -g @rdolcegroup/runlintic-app
 runlintic init
 runlintic health-check
 ```
+
 ## Contributors
 
 mj163@github.com
 mrsdo@github.com
 
 ---
+
 Built with ❤️ by [The R. Dolce Organization](https://rdolcegroup.com)

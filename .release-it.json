@@ -11,8 +11,8 @@
     "publish": true
   },
   "hooks": {
-    "before:init": ["pnpm run check-all"],
-    "after:bump": ["pnpm run format"],
+    "before:init": ["npm run check-all"],
+    "after:bump": ["npm run format"],
     "before:release": ["git add -A"]
   },
   "plugins": {

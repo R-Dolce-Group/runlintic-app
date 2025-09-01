@@ -30,6 +30,7 @@ runlintic init
 ## 📋 Available Commands
 
 ### Quality Assurance
+
 ```bash
 runlintic health-check     # Comprehensive health check + maintenance
 runlintic check-all        # Run lint + typecheck + deps in parallel
@@ -40,6 +41,7 @@ runlintic format           # Prettier formatting
 ```
 
 ### Maintenance
+
 ```bash
 runlintic maintenance      # Run knip + depcheck + fixes
 runlintic clean            # Clean build artifacts
@@ -47,6 +49,7 @@ runlintic clean:all        # Complete clean (removes node_modules)
 ```
 
 ### Release Management
+
 ```bash
 runlintic release:dry      # Preview release changes (safe)
 runlintic release:patch    # Create patch release (1.0.0 → 1.0.1)
@@ -59,6 +62,7 @@ runlintic release:major    # Create major release (1.0.0 → 2.0.0)
 ### ESLint Configuration
 
 #### For Base TypeScript/Node.js Projects
+
 ```js
 // eslint.config.js
 import { getConfig } from '@rdolcegroup/runlintic-app';
@@ -68,6 +72,7 @@ export default baseConfig;
 ```
 
 #### For React Projects
+
 ```js
 // eslint.config.js
 import { getConfig } from '@rdolcegroup/runlintic-app';
@@ -76,7 +81,8 @@ const reactConfig = require(getConfig('eslint', 'react'));
 export default reactConfig;
 ```
 
-#### For Next.js Projects  
+#### For Next.js Projects
+
 ```js
 // eslint.config.js
 import { getConfig } from '@rdolcegroup/runlintic-app';
@@ -93,7 +99,7 @@ const { copyConfig } = require('@rdolcegroup/runlintic-app');
 
 // Copy to your project
 copyConfig('typescript', 'base', './tsconfig.json');
-copyConfig('typescript', 'nextjs', './tsconfig.json');     // For Next.js
+copyConfig('typescript', 'nextjs', './tsconfig.json'); // For Next.js
 copyConfig('typescript', 'reactLibrary', './tsconfig.json'); // For React libs
 ```
 
@@ -105,7 +111,7 @@ Add these scripts to your `package.json`:
 {
   "scripts": {
     "check-all": "runlintic check-all",
-    "health-check": "runlintic health-check", 
+    "health-check": "runlintic health-check",
     "lint": "runlintic lint",
     "lint:fix": "runlintic lint:fix",
     "typecheck": "runlintic typecheck",
@@ -120,12 +126,17 @@ Add these scripts to your `package.json`:
 ## 🔧 Programmatic Usage
 
 ### Import Configurations
+
 ```js
-const { configs, getConfig, copyConfig } = require('@rdolcegroup/runlintic-app');
+const {
+  configs,
+  getConfig,
+  copyConfig,
+} = require('@rdolcegroup/runlintic-app');
 
 // Get config paths
-console.log(configs.eslint.base);        // ESLint base config path
-console.log(configs.typescript.nextjs);  // TypeScript Next.js config path
+console.log(configs.eslint.base); // ESLint base config path
+console.log(configs.typescript.nextjs); // TypeScript Next.js config path
 
 // Get specific config
 const eslintConfigPath = getConfig('eslint', 'react');
@@ -139,11 +150,13 @@ copyConfig('typescript', 'nextjs', './my-tsconfig.json');
 ### Available Configurations
 
 #### ESLint Configs
+
 - `base` - Base TypeScript/Node.js projects
 - `react` - React projects with hooks support
 - `next` - Next.js projects with specific rules
 
-#### TypeScript Configs  
+#### TypeScript Configs
+
 - `base` - Base TypeScript configuration
 - `nextjs` - Next.js optimized settings
 - `reactLibrary` - React library configuration
@@ -151,24 +164,28 @@ copyConfig('typescript', 'nextjs', './my-tsconfig.json');
 ## 🎯 Project Types & Recommendations
 
 ### Node.js/TypeScript Project
+
 ```bash
 runlintic init
 # Uses: eslint/base + typescript/base
 ```
 
 ### React Application
-```bash  
+
+```bash
 runlintic init
 # Configure: eslint/react + typescript/base
 ```
 
 ### Next.js Application
+
 ```bash
-runlintic init  
+runlintic init
 # Configure: eslint/next + typescript/nextjs
 ```
 
 ### React Library
+
 ```bash
 runlintic init
 # Configure: eslint/react + typescript/reactLibrary
@@ -177,6 +194,7 @@ runlintic init
 ## 🚦 Release Workflow (Requires Tokens)
 
 ### Prerequisites for Releases
+
 ```bash
 # Set up GitHub token for releases
 export GH_TOKEN="your_github_token_here"
@@ -186,23 +204,26 @@ export RUNLINTIC_TIER="free"  # Default
 ```
 
 ### Token Requirements
+
 - **GitHub Token:** `repo` and `write:packages` permissions
 - **Rate Limits:** 5,000 GitHub API requests/hour (free tier)
 
 ### Release Process
+
 ```bash
 # 1. Preview changes (always do this first)
 runlintic release:dry
 
-# 2. Create actual release  
+# 2. Create actual release
 runlintic release:patch    # Bug fixes
 runlintic release:minor    # New features
 runlintic release:major    # Breaking changes
 ```
 
 **What releases do:**
+
 - ✅ Version bump in package.json
-- ✅ Generate conventional changelog  
+- ✅ Generate conventional changelog
 - ✅ Create git tag and commit
 - ✅ Create GitHub release
 - ✅ Publish to npm (if configured)
@@ -214,7 +235,7 @@ After `runlintic init`, your project will have:
 ```
 your-project/
 ├── eslint.config.js      # ESLint configuration
-├── tsconfig.json         # TypeScript configuration  
+├── tsconfig.json         # TypeScript configuration
 ├── .release-it.json      # Release automation
 ├── commitlint.config.js  # Commit message linting
 ├── .gitignore           # Updated with common ignores
@@ -226,6 +247,7 @@ your-project/
 ### Common Issues
 
 #### "Command not found: runlintic"
+
 ```bash
 # If installed globally
 npm list -g @rdolcegroup/runlintic-app
@@ -235,6 +257,7 @@ npx runlintic help
 ```
 
 #### ESLint configuration not found
+
 ```bash
 # Re-initialize configuration
 runlintic init
@@ -247,6 +270,7 @@ copyConfig('eslint', 'base', './eslint.config.js');
 ```
 
 #### Release commands fail
+
 ```bash
 # Check token setup
 echo $GH_TOKEN
@@ -271,12 +295,12 @@ curl -H "Authorization: Bearer $GH_TOKEN" https://api.github.com/user
 ✅ **Automated Releases** - Semantic versioning with changelogs  
 ✅ **Performance Optimized** - Parallel execution for 40% faster checks  
 ✅ **Framework Aware** - Specialized configs for React, Next.js, etc.  
-✅ **Developer Friendly** - Clear error messages and helpful suggestions  
+✅ **Developer Friendly** - Clear error messages and helpful suggestions
 
 ## 📊 Package Statistics
 
 - **Size:** ~17KB (minimal footprint)
-- **Dependencies:** Carefully curated, no bloat  
+- **Dependencies:** Carefully curated, no bloat
 - **Node.js:** Requires >= 22.16.0
 - **License:** ISC
 
