@@ -34,3 +34,4 @@ Thumbs.db
 # Temp files
 *.tmp
 *.temp!/.security/
+/bin/runlintic-example.js

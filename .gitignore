@@ -268,3 +268,5 @@ CLAUDE.md
 /pnpm-workspace.yaml
 /turbo.json
 !/.security/
+!/bin/runlintic-example.js
+bin/runlintic-example.js
