@@ -19,7 +19,7 @@
   "author": "R. Dolce Group",
   "main": "./lib/index.js",
   "bin": {
-    "runlintic": "bin/runlintic.js"
+    "runlintic": "bin/runlintic-app.js"
   },
   "files": [
     "bin",
@@ -60,10 +60,10 @@
     "release:minor": "lib/scripts/runlintic-release-with-auth.sh --increment=minor",
     "release:patch": "lib/scripts/runlintic-release-with-auth.sh --increment=patch",
     "test": "echo 'No tests configured - run pnpm run test:cli for CLI testing'",
-    "test:cli": "node bin/runlintic.js help",
+    "test:cli": "node bin/runlintic-app.js help",
     "test:cli:all": "pnpm run test:cli && pnpm run test:cli:health && pnpm run test:cli:release:dry",
-    "test:cli:health": "node bin/runlintic.js health-check",
-    "test:cli:release:dry": "node bin/runlintic.js release:dry",
+    "test:cli:health": "node bin/runlintic-app.js health-check",
+    "test:cli:release:dry": "node bin/runlintic-app.js release:dry",
     "typecheck": "tsc --noEmit --skipLibCheck || echo 'No TypeScript files found - skipping typecheck'",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
