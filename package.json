@@ -89,7 +89,7 @@
     "zod": "^4.0.17"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22.16.0"
   },
   "publishConfig": {
     "access": "public"

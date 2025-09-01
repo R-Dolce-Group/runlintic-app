@@ -59,7 +59,7 @@ function showHelp() {
 }
 
 function runCommand(scriptName, args = []) {
-  const command = process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm';
+  const command = process.platform === 'win32' ? 'npm.cmd' : 'npm';
   const fullArgs = ['run', scriptName, ...args];
   
   const child = spawn(command, fullArgs, {
@@ -73,7 +73,7 @@ function runCommand(scriptName, args = []) {
 
   child.on('error', (err) => {
     if (err.code === 'ENOENT') {
-      console.error('❌ pnpm not found. Please install pnpm first: npm install -g pnpm');
+      console.error('❌ npm not found. Please install Node.js which includes npm');
     } else {
       console.error('❌ Error running command:', err.message);
     }

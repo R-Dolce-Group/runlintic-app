@@ -1,7 +1,7 @@
 # ![runlintic-logo-light.svg](public/runlintic-logo-light.svg)
 
 > **A production-ready toolkit for automating code quality, cleanup, and releases.**  
-> **Now available as an installable NPM package!** Built with TypeScript, Turbo, and pnpm.  
+> **Now available as an installable NPM package!** Built with TypeScript and npm.  
 > Created by [The R. Dolce Organization](https://rdolcegroup.com).
 
 ## 📦 Installation
@@ -13,8 +13,8 @@ Add Runlintic App to any project with a single command:
 npm install -g @rdolcegroup/runlintic-app
 
 # Or install in your project
-pnpm add -D @rdolcegroup/runlintic-app
-# npm install -D @rdolcegroup/runlintic-app
+npm install -D @rdolcegroup/runlintic-app
+# pnpm add -D @rdolcegroup/runlintic-app
 # yarn add -D @rdolcegroup/runlintic-app
 ```
 
@@ -125,7 +125,7 @@ This toolkit is optimized for speed and reliability:
 
 ```bash
 # Before optimization: Sequential execution
-pnpm run lint && pnpm run typecheck && pnpm run deps:check
+npm run lint && npm run typecheck && npm run deps:check
 # Time: ~5.8s
 
 # After optimization: Parallel execution
@@ -208,7 +208,7 @@ console.log(configs);
 ## 📋 Requirements
 
 - **Node.js**: >= 22
-- **Package Manager**: pnpm (recommended), npm, or yarn
+- **Package Manager**: npm (recommended), pnpm, or yarn
 - **Git**: For version control and releases (optional)
 
 ### Environment Setup (for releases)
@@ -299,7 +299,7 @@ runlintic-app maintenance
 
 # Full cleanup and reinstall
 runlintic-app clean:all
-pnpm install  # or npm install
+npm install  # or pnpm install
 ```
 
 ## 🔍 Monitoring & Insights
