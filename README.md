@@ -302,6 +302,19 @@ runlintic clean:all
 npm install  # or yarn install, pnpm install
 ```
 
+## 📚 Documentation
+
+### Quick Reference
+- **[USER-DOC.md](USER-DOC.md)** - Comprehensive user guide with examples and troubleshooting
+- **[HOW-TO.md](HOW-TO.md)** - Developer guide for package publishing and security
+
+### What's Included
+- ✅ **Configuration guides** for ESLint, TypeScript, and different project types
+- ✅ **Programmatic API** documentation for integrating configs into your build
+- ✅ **Release workflow** setup and token management
+- ✅ **Troubleshooting** common issues and solutions
+- ✅ **Project-specific** guidance for Node.js, React, Next.js applications
+
 ## 🔍 Monitoring & Insights
 
 - **Build performance**: ~3.2s for full quality pipeline
