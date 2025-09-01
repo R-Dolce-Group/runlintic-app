@@ -1,4 +1,4 @@
-# ![runlintic-logo-light.svg](public/runlintic-logo-light.svg)
+# ⚡ ◯ ➤ Runlintic App
 
 > **A production-ready toolkit for automating code quality, cleanup, and releases.**  
 > **Now available as an installable NPM package!** Built with TypeScript and npm.  

@@ -1,5 +1,14 @@
 # Changelog
 
+## <small>6.0.1 (2025-09-01)</small>
+
+## <small>6.0.1 (2025-09-01)</small>
+
+
+
+
+
+
 ## 6.0.0 (2025-09-01)
 
 * docs: add documentation section with quick reference and included features to README ([4652e18](https://github.com/R-Dolce-Group/runlintic-app/commit/4652e18))
