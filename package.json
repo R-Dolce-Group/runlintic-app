@@ -23,14 +23,14 @@
   },
   "files": [
     "bin",
-    "lib",
+    "lib/configs",
+    "lib/index.js",
     "public",
     "README.md",
     "LICENSE",
     ".release-it.json",
     "commitlint.config.js",
-    ".auto-changelog-example",
-    "TODO.md"
+    ".auto-changelog-example"
   ],
   "scripts": {
     "check-all": "npm run lint && npm run typecheck",
