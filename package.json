@@ -1,6 +1,6 @@
 {
   "name": "@rdolcegroup/runlintic-app",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "description": "A toolkit for automating code quality, cleanup, and releases.",
   "keywords": [
     "release",
@@ -47,11 +47,11 @@
     "deps:check": "npm run depcheck",
     "deps:clean": "npm run clean:all && npm install",
     "deps:dedupe": "npm dedupe",
+    "deps:lockfile-check": "npm ci --dry-run",
     "deps:outdated": "npm outdated",
+    "deps:sync": "npm install --package-lock-only",
     "deps:update": "npm update",
     "deps:update-latest": "npm update",
-    "deps:lockfile-check": "npm ci --dry-run",
-    "deps:sync": "npm install --package-lock-only",
     "deps:validate": "npm run deps:check && npm run deps:audit && npm run deps:lockfile-check",
     "format": "prettier --write \"**/*.{ts,tsx,md}\" && sort-package-json package.json",
     "health-check": "npm run lint && npm run typecheck && npm run maintenance && npm run deps:validate",

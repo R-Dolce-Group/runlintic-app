@@ -1,5 +1,19 @@
 # Changelog
 
+## <small>6.2.1 (2025-09-02)</small>
+
+* feat: add dependency validation commands and improve health checks ([cf01d41](https://github.com/R-Dolce-Group/runlintic-app/commit/cf01d41))
+* feat: add pre-release health check validation to release script ([dc90528](https://github.com/R-Dolce-Group/runlintic-app/commit/dc90528))
+
+## <small>6.2.1 (2025-09-02)</small>
+
+* feat: add dependency validation commands and improve health checks ([cf01d41](https://github.com/R-Dolce-Group/runlintic-app/commit/cf01d41))
+* feat: add pre-release health check validation to release script ([dc90528](https://github.com/R-Dolce-Group/runlintic-app/commit/dc90528))
+
+
+
+
+
 ## 6.2.0 (2025-09-02)
 
 * feat: enhance help output and init command with context-aware suggestions and user guide ([bb7e877](https://github.com/R-Dolce-Group/runlintic-app/commit/bb7e877))
