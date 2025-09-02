@@ -138,7 +138,7 @@ function runCommand(scriptName, args = []) {
   });
 }
 
-function promptOptionalEnhancements(isMonorepo, hasTurboJson, templatesDir, cwd) {
+function promptOptionalEnhancements(isMonorepo, hasTurboJson, templatesDir) {
   const readline = require('readline');
   const rl = readline.createInterface({
     input: process.stdin,
@@ -284,7 +284,7 @@ function initProject() {
   });
   
   // Copy files
-  filesToCopy.forEach(({ from, to, type, description, condition }) => {
+  filesToCopy.forEach(({ from, to, type, condition }) => {
     // Check condition if provided
     if (condition && !condition()) {
       return;
@@ -298,7 +298,7 @@ function initProject() {
         if (to === './setup.sh') {
           try {
             fs.chmodSync(to, '755');
-          } catch (error) {
+          } catch {
             // Ignore chmod errors on Windows
           }
         }
@@ -307,7 +307,7 @@ function initProject() {
         if (type === 'husky') {
           try {
             fs.chmodSync(to, '755');
-          } catch (error) {
+          } catch {
             // Ignore chmod errors on Windows
           }
         }
@@ -380,7 +380,7 @@ function initProject() {
   console.log('  • Team Setup: Share setup.sh with new team members');
   
   // Interactive prompts for optional enhancements
-  promptOptionalEnhancements(isMonorepo, hasTurboJson, templatesDir, cwd);
+  promptOptionalEnhancements(isMonorepo, hasTurboJson, templatesDir);
 }
 
 const [,, command, ...args] = process.argv;
