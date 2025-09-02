@@ -134,7 +134,17 @@ echo "✅ GitHub API test successful - authenticated as: $USER_LOGIN"
 #9. Clean up temporary files
 rm -f /tmp/gh_test.json /tmp/npm_test.json
 
-#10. Configure Git to use token-based authentication (safer approach)
+#10. Run comprehensive pre-release validation
+echo "🔍 Running pre-release validation..."
+if ! npm run health-check; then
+  echo "❌ Error: Pre-release health check failed" >&2
+  echo "💡 Fix the issues above before releasing" >&2
+  echo "💡 This includes: lint, typecheck, maintenance, dependency validation" >&2
+  exit 1
+fi
+echo "✅ Pre-release validation passed"
+
+#11. Configure Git to use token-based authentication (safer approach)
 echo "🔧 Configuring git authentication..."
 git config --local url."https://x-access-token:${GH_TOKEN}@github.com/".insteadOf "https://github.com/"
 
