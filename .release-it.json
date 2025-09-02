@@ -12,7 +12,8 @@
   },
   "hooks": {
     "before:init": ["npm run health-check"],
-    "after:bump": ["npm run format", "npm run deps:sync", "git add package-lock.json"],
+    "after:bump": ["npm run format"],
+    "before:git:tag": ["npm run deps:sync", "git add package-lock.json"],
     "before:release": ["git add -A"]
   },
   "plugins": {
