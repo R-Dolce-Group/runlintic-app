@@ -8,7 +8,8 @@
       "ignore": [
         "commitlint.config.cjs",
         ".husky/**",
-        ".github/**"
+        ".github/**",
+        "lib/utils/packageJsonHelper.js"
       ],
       "entry": [
         "lib/configs/*.js"
