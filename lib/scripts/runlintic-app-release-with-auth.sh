@@ -27,38 +27,44 @@ cleanup() {
 # Set up cleanup trap for multiple signals
 trap cleanup EXIT INT TERM
 
-# Get GitHub and NPM tokens from .security/.env (secure) | This directory will never be pushed to repository
-# 1. Define the path to the .env file
-ENV_FILE=".security/.env"
-
-# 2. Check if the .env file exists
-if [[ ! -f "$ENV_FILE" ]]; then
-  echo "❌ Error: .env file not found at $ENV_FILE" >&2
-  echo "💡 Please create .security/.env file with export GH_TOKEN=your_token" >&2
-  exit 1
+# Get GitHub and NPM tokens from environment variables or .security/.env (secure)
+# Priority: Environment variables first, then .env file
+if [[ -n "${GH_TOKEN:-}" && -n "${NPM_ACCESS_TOKEN:-}" ]]; then
+  echo "✅ Using tokens from environment variables"
+elif [[ -n "${GH_TOKEN:-}" && -n "${NPM_TOKEN:-}" ]]; then
+  # Handle both NPM_TOKEN and NPM_ACCESS_TOKEN naming
+  export NPM_ACCESS_TOKEN="${NPM_TOKEN}"
+  echo "✅ Using tokens from environment variables (NPM_TOKEN mapped to NPM_ACCESS_TOKEN)"
+else
+  # Fallback to .env file for local development
+  ENV_FILE=".security/.env"
+  if [[ ! -f "$ENV_FILE" ]]; then
+    echo "❌ Error: No environment variables found and .env file not found at $ENV_FILE" >&2
+    echo "💡 Either set GH_TOKEN and NPM_TOKEN environment variables" >&2
+    echo "💡 Or create .security/.env file with export GH_TOKEN=your_token" >&2
+    exit 1
+  fi
+  
+  echo "ℹ️  Using tokens from .security/.env file"
+  source "$ENV_FILE"
 fi
 
-# 3. Define the location of the .env file
-source "$ENV_FILE"
-
-# 4. Check if the GH_TOKEN variable is set in the .env file
+# Validate that both tokens are now available
 if [[ -z "${GH_TOKEN:-}" ]]; then
-  echo "❌ Error: GH_TOKEN variable is not set in your .env file" >&2
-  echo "💡 Please set it with: export GH_TOKEN=your_token" >&2
+  echo "❌ Error: GH_TOKEN is not available" >&2
+  echo "💡 Set as environment variable or add to .security/.env file" >&2
   exit 1
 fi
 
-# 5. Check if the GH_TOKEN variable is valid (non-empty)
 if [[ -z "${GH_TOKEN}" ]]; then
-  echo "❌ Error: GH_TOKEN variable is empty in your .env file" >&2
-  echo "💡 Please set it with: export GH_TOKEN=your_token" >&2
+  echo "❌ Error: GH_TOKEN is empty" >&2
+  echo "💡 Check your token value" >&2
   exit 1
 fi
 
-#6. Check if the NPM_ACCESS_TOKEN variable is set in the .env file
 if [[ -z "${NPM_ACCESS_TOKEN:-}" ]]; then
-  echo "❌ Error: NPM_ACCESS_TOKEN variable is not set in your .env file" >&2
-  echo "💡 Please set it with: export NPM_ACCESS_TOKEN=your_token" >&2
+  echo "❌ Error: NPM_ACCESS_TOKEN is not available" >&2
+  echo "💡 Set NPM_TOKEN as environment variable or add NPM_ACCESS_TOKEN to .security/.env file" >&2
   exit 1
 fi
 

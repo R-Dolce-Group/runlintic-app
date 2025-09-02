@@ -308,8 +308,7 @@ npm install  # or yarn install, pnpm install (if using alternative package manag
 
 ### Quick Reference
 
-- **[USER-DOC.md](USER-DOC.md)** - Comprehensive user guide with examples and troubleshooting
-- **[HOW-TO.md](HOW-TO.md)** - Developer guide for package publishing and security
+- **[USER-DOC.md](_docs/README.md)** - Comprehensive user guide with examples and troubleshooting
 
 ### What's Included
 
