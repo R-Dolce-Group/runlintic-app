@@ -1,5 +1,17 @@
 # Changelog
 
+## <small>6.2.4 (2025-09-02)</small>
+
+* fix: resolve conventional-commits-parser dependency version conflict ([c98fa4c](https://github.com/R-Dolce-Group/runlintic-app/commit/c98fa4c))
+
+## <small>6.2.4 (2025-09-02)</small>
+
+* fix: resolve conventional-commits-parser dependency version conflict ([c98fa4c](https://github.com/R-Dolce-Group/runlintic-app/commit/c98fa4c))
+
+
+
+
+
 ## <small>6.2.3 (2025-09-02)</small>
 
 ## <small>6.2.3 (2025-09-02)</small>
