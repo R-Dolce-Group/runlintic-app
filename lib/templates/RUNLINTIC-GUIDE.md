@@ -5,6 +5,7 @@ Welcome to **@rdolcegroup/runlintic-app** - your toolkit for automating code qua
 ## 🚀 Quick Start
 
 ### 1. Verify Installation
+
 ```bash
 # Check that runlintic is available
 npx runlintic --version
@@ -12,6 +13,7 @@ npx runlintic help
 ```
 
 ### 2. Initialize Your Project
+
 ```bash
 # Initialize runlintic configs in your project root
 npx runlintic init
@@ -21,6 +23,7 @@ ls -la | grep -E "(eslint|tsconfig|release-it|commitlint)"
 ```
 
 ### 3. Run Health Check
+
 ```bash
 # Test your project health
 npx runlintic health-check
@@ -29,12 +32,14 @@ npx runlintic health-check
 ## 📋 Essential Commands
 
 ### Setup & Health
+
 ```bash
 npx runlintic init                # Initialize project configs
 npx runlintic health-check        # Comprehensive health check
 ```
 
 ### Code Quality (Parallel Execution)
+
 ```bash
 npx runlintic check-all           # Run lint + typecheck + deps (40% faster)
 npx runlintic lint                # Run ESLint with zero warnings
@@ -44,6 +49,7 @@ npx runlintic format              # Prettier formatting + package.json sorting
 ```
 
 ### Maintenance & Cleanup
+
 ```bash
 npx runlintic maintenance         # Run knip + depcheck + workspace fixes
 npx runlintic clean               # Clean build artifacts
@@ -51,6 +57,7 @@ npx runlintic clean:all           # Complete clean (removes node_modules)
 ```
 
 ### Release Management
+
 ```bash
 # Setup GitHub token first
 export GH_TOKEN="your_github_token"
@@ -84,6 +91,7 @@ Add these scripts to your `package.json` for team consistency:
 ```
 
 Then use via npm:
+
 ```bash
 npm run health-check
 npm run lint
@@ -93,7 +101,9 @@ npm run release:dry
 ## 🏢 Monorepo Usage
 
 ### Root Level Commands
+
 Run these from your monorepo root:
+
 ```bash
 npx runlintic init                # Set up root configs
 npx runlintic health-check        # Check entire monorepo
@@ -101,7 +111,9 @@ npx runlintic release:dry          # Test monorepo release
 ```
 
 ### Individual Package Commands
+
 Run these from specific packages (apps/web, packages/ui, etc.):
+
 ```bash
 npx runlintic lint                # Lint specific package
 npx runlintic typecheck           # Type check specific package
@@ -109,7 +121,9 @@ npx runlintic format              # Format specific package
 ```
 
 ### Turbo Integration
+
 If you have `turbo.json`, runlintic works seamlessly:
+
 ```bash
 # Turbo handles workspace coordination
 npx runlintic check-all           # Runs across all workspaces
@@ -118,7 +132,9 @@ npx runlintic check-all           # Runs across all workspaces
 ## 🚀 Release Workflow Setup
 
 ### 1. GitHub Token Setup
+
 Create a GitHub Personal Access Token:
+
 1. Go to GitHub → Settings → Developer settings → Personal access tokens
 2. Generate new token with repo permissions
 3. Export in your shell:
@@ -129,7 +145,9 @@ echo $GH_TOKEN  # Verify token is set
 ```
 
 ### 2. Test Release Workflow
+
 Always test before actual releases:
+
 ```bash
 # Test different release types (safe - no actual release)
 npx runlintic release:dry
@@ -139,6 +157,7 @@ npx runlintic release:major --dry-run
 ```
 
 ### 3. Create Releases
+
 ```bash
 # Patch release (bug fixes)
 npx runlintic release:patch
@@ -155,6 +174,7 @@ npx runlintic release:major
 Runlintic automatically detects and optimizes for:
 
 ### ✅ Next.js Turbo Monorepos
+
 ```
 your-project/
 ├── apps/
@@ -169,6 +189,7 @@ your-project/
 ```
 
 ### ✅ Standard Node.js Projects
+
 ```
 your-project/
 ├── src/
@@ -181,17 +202,20 @@ your-project/
 ## 💡 Pro Tips
 
 ### Performance Optimization
+
 - Use `npx runlintic check-all` for **40% faster** parallel execution
 - Run `health-check` before releases to catch issues early
 - Use `maintenance` regularly to keep dependencies clean
 
 ### Team Workflow
+
 - Add npm scripts to package.json for consistency
 - Use `runlintic init` in new team member onboarding
 - Set up GitHub token in team documentation
 - Run `release:dry` to preview changes before releasing
 
 ### Troubleshooting
+
 ```bash
 # If commands seem slow
 npx runlintic maintenance         # Clean up unused dependencies
@@ -207,6 +231,7 @@ npx runlintic release:dry        # Test release workflow
 ## 📖 Advanced Usage
 
 ### Programmatic API
+
 ```javascript
 const { getConfig, configs } = require('@rdolcegroup/runlintic-app');
 
@@ -216,6 +241,7 @@ console.log('TypeScript Next.js config:', getConfig('typescript', 'nextjs'));
 ```
 
 ### Command Execution Options
+
 ```bash
 # Option 1: npx (recommended for testing)
 npx runlintic health-check
@@ -228,6 +254,7 @@ npm run health-check
 ```
 
 ### Environment Variables
+
 ```bash
 # Suppress post-install messages
 export RUNLINTIC_SUPPRESS_POSTINSTALL=true
@@ -242,12 +269,14 @@ export GH_TOKEN="your_github_token"
 ## 🆓 Free Tier vs Paid Tier
 
 ### Free Tier (Current)
+
 - ✅ All code quality tools
 - ✅ Self-managed GitHub tokens
 - ✅ 5,000 GitHub API requests/hour
 - ✅ Community support
 
 ### Paid Tier (Available)
+
 - ✅ Everything in Free tier
 - ✅ Managed GitHub tokens
 - ✅ Higher rate limits
@@ -274,4 +303,4 @@ Need help? Here's how to get support:
 
 **Happy coding with Runlintic!** 🚀
 
-*Generated by @rdolcegroup/runlintic-app - Keep this file for team reference*
+_Generated by @rdolcegroup/runlintic-app - Keep this file for team reference_

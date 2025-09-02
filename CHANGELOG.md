@@ -1,5 +1,17 @@
 # Changelog
 
+## 6.2.0 (2025-09-02)
+
+* feat: enhance help output and init command with context-aware suggestions and user guide ([bb7e877](https://github.com/R-Dolce-Group/runlintic-app/commit/bb7e877))
+
+## 6.2.0 (2025-09-02)
+
+* feat: enhance help output and init command with context-aware suggestions and user guide ([bb7e877](https://github.com/R-Dolce-Group/runlintic-app/commit/bb7e877))
+
+
+
+
+
 ## <small>6.1.3 (2025-09-02)</small>
 
 ## <small>6.1.3 (2025-09-02)</small>
