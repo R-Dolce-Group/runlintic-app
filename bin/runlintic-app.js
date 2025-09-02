@@ -48,14 +48,66 @@ function validateTokenTier() {
 
 function showHelp() {
   console.log('🚀 Runlintic - Code quality and release automation toolkit\n');
+  
+  // Quick Start section
+  console.log('🏁 Quick Start (Next.js Turbo Monorepo Ready):');
+  console.log('  1. runlintic init                Initialize project configs');
+  console.log('  2. runlintic health-check        Run comprehensive health check');
+  console.log('  3. runlintic release:dry          Test release workflow (safe)\n');
+  
   console.log('Usage: runlintic <command>\n');
-  console.log('Available commands:');
-  Object.entries(commands).forEach(([cmd, desc]) => {
-    console.log(`  ${cmd.padEnd(20)} ${desc}`);
+  console.log('📋 Available Commands:');
+  
+  // Group commands by category
+  const categories = {
+    'Setup & Health': ['init', 'health-check'],
+    'Code Quality': ['check-all', 'lint', 'lint:fix', 'typecheck', 'format'],
+    'Maintenance': ['maintenance', 'clean', 'clean:all'],
+    'Release Management': ['release', 'release:dry', 'release:patch', 'release:minor', 'release:major']
+  };
+  
+  Object.entries(categories).forEach(([category, cmds]) => {
+    console.log(`\n  ${category}:`);
+    cmds.forEach(cmd => {
+      if (commands[cmd]) {
+        console.log(`    ${cmd.padEnd(18)} ${commands[cmd]}`);
+      }
+    });
   });
+  
+  console.log('\n💡 Package.json Integration:');
+  console.log('  Add scripts for team consistency:');
+  console.log('  {');
+  console.log('    "scripts": {');
+  console.log('      "health-check": "runlintic health-check",');
+  console.log('      "lint": "runlintic lint",');
+  console.log('      "release:dry": "runlintic release:dry"');
+  console.log('    }');
+  console.log('  }');
+  
+  console.log('\n🔧 Release Setup:');
+  console.log('  export GH_TOKEN="your_github_token"    # Required for releases');
+  console.log('  runlintic release:dry                   # Test release workflow');
+  
   console.log('\n🆓 Free Tier - Self-managed GitHub tokens required for releases');
-  console.log('⬆️  Upgrade options available at: https://rdolcegroup.com/runlintic');
-  console.log('\nFor more information, visit: https://github.com/R-Dolce-Group/runlintic-app');
+  console.log('⬆️  Upgrade options: https://rdolcegroup.com/runlintic');
+  console.log('📖 Documentation: https://github.com/R-Dolce-Group/runlintic-app');
+  
+  // Context-aware tips
+  const cwd = process.cwd();
+  const hasPackageJson = fs.existsSync(path.join(cwd, 'package.json'));
+  const hasTurboJson = fs.existsSync(path.join(cwd, 'turbo.json'));
+  
+  if (hasPackageJson) {
+    console.log('\n🔍 Current Directory Analysis:');
+    if (hasTurboJson) {
+      console.log('  ✅ Turbo monorepo detected - Perfect for runlintic!');
+      console.log('  💡 Try: runlintic init (in monorepo root)');
+    } else {
+      console.log('  ✅ Node.js project detected');
+      console.log('  💡 Try: runlintic health-check');
+    }
+  }
 }
 
 function runCommand(scriptName, args = []) {
@@ -83,31 +135,71 @@ function runCommand(scriptName, args = []) {
 
 function initProject() {
   const configDir = path.join(__dirname, '..', 'lib', 'configs');
+  const templatesDir = path.join(__dirname, '..', 'lib', 'templates');
   
   console.log('🔧 Initializing runlintic in current project...\n');
   
-  // Copy essential configs
+  // Copy essential configs and user guide
   const filesToCopy = [
-    { from: path.join(configDir, 'base.json'), to: './tsconfig.json' },
-    { from: path.join(configDir, 'base.js'), to: './eslint.config.js' },
-    { from: path.join(__dirname, '..', '.release-it.json'), to: './.release-it.json' },
-    { from: path.join(__dirname, '..', 'commitlint.config.js'), to: './commitlint.config.js' }
+    { from: path.join(configDir, 'base.json'), to: './tsconfig.json', type: 'config' },
+    { from: path.join(configDir, 'base.js'), to: './eslint.config.js', type: 'config' },
+    { from: path.join(__dirname, '..', '.release-it.json'), to: './.release-it.json', type: 'config' },
+    { from: path.join(__dirname, '..', 'commitlint.config.js'), to: './commitlint.config.js', type: 'config' },
+    { from: path.join(templatesDir, 'RUNLINTIC-GUIDE.md'), to: './RUNLINTIC-GUIDE.md', type: 'guide' }
   ];
   
-  filesToCopy.forEach(({ from, to }) => {
+  let configsCreated = 0;
+  let guideCreated = false;
+  
+  filesToCopy.forEach(({ from, to, type }) => {
     if (fs.existsSync(from)) {
       if (!fs.existsSync(to)) {
         fs.copyFileSync(from, to);
-        console.log(`✅ Created ${to}`);
+        if (type === 'config') {
+          console.log(`✅ Created ${to}`);
+          configsCreated++;
+        } else if (type === 'guide') {
+          console.log(`📖 Created ${to} - Complete user guide and reference`);
+          guideCreated = true;
+        }
       } else {
-        console.log(`⚠️  ${to} already exists, skipping`);
+        if (type === 'guide') {
+          console.log(`⚠️  ${to} already exists, skipping (keeping your customizations)`);
+        } else {
+          console.log(`⚠️  ${to} already exists, skipping`);
+        }
       }
     }
   });
   
-  console.log('\n🎉 Runlintic initialized! You can now run commands like:');
-  console.log('  runlintic health-check');
-  console.log('  runlintic release:dry');
+  console.log('\n🎉 Runlintic initialized!');
+  
+  if (configsCreated > 0) {
+    console.log(`✅ Created ${configsCreated} configuration files`);
+  }
+  
+  if (guideCreated) {
+    console.log('📖 User guide created - check RUNLINTIC-GUIDE.md for complete documentation');
+  }
+  
+  console.log('\n🚀 Next Steps:');
+  console.log('  1. Review RUNLINTIC-GUIDE.md for complete documentation');
+  console.log('  2. runlintic health-check        # Test your setup');
+  console.log('  3. runlintic release:dry          # Test release workflow');
+  
+  // Context-aware suggestions
+  const cwd = process.cwd();
+  const hasTurboJson = fs.existsSync(path.join(cwd, 'turbo.json'));
+  const hasPackageJson = fs.existsSync(path.join(cwd, 'package.json'));
+  
+  if (hasTurboJson) {
+    console.log('\n💡 Turbo monorepo detected:');
+    console.log('  • Run commands from monorepo root for best results');
+    console.log('  • Check RUNLINTIC-GUIDE.md for monorepo-specific workflows');
+  } else if (hasPackageJson) {
+    console.log('\n💡 Consider adding npm scripts to package.json:');
+    console.log('  • See RUNLINTIC-GUIDE.md for recommended script setup');
+  }
 }
 
 const [,, command, ...args] = process.argv;
