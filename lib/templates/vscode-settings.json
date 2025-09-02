@@ -1,0 +1,114 @@
+{
+  "// Description": "VSCode settings optimized for runlintic development workflow",
+  
+  "// ESLint Integration": "Auto-fix on save with runlintic ESLint config",
+  "eslint.enable": true,
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "eslint.run": "onSave",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact", 
+    "typescript",
+    "typescriptreact"
+  ],
+  
+  "// Prettier Integration": "Format with runlintic Prettier settings",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": false,
+  
+  "// TypeScript": "Enhanced TypeScript development",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.suggest.autoImports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.inlayHints.parameterNames.enabled": "literals",
+  "typescript.inlayHints.variableTypes.enabled": false,
+  
+  "// File Management": "Show relevant files for runlintic projects",
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.turbo": true,
+    "**/coverage": true,
+    "**/.next": true
+  },
+  
+  "// Search": "Optimize search for monorepos",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.turbo": true,
+    "**/coverage": true,
+    "**/.next": true,
+    "**/CHANGELOG.md": true
+  },
+  
+  "// Auto Save": "Helpful for development workflow",
+  "files.autoSave": "onFocusChange",
+  
+  "// Terminal": "Integrate with runlintic commands",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  
+  "// Git": "Optimize for release workflow",
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  
+  "// Editor": "Code quality enhancements",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.rulers": [80, 120],
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "editor.trimAutoWhitespace": true,
+  
+  "// JSON": "Format package.json consistently",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true  
+  },
+  
+  "// Markdown": "Format documentation files",
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.wordWrap": "on"
+  },
+  
+  "// JavaScript/TypeScript": "Specific formatting for code files",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  
+  "// Extensions": "Runlintic-compatible extension behavior",
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+  
+  "// Problems": "Show issues prominently",
+  "problems.decorations.enabled": true,
+  "problems.showCurrentInStatus": true
+}

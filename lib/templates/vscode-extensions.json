@@ -1,0 +1,44 @@
+{
+  "recommendations": [
+    "// Core Development Tools": "Essential extensions for runlintic workflow",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode.vscode-typescript-next",
+    
+    "// Git & Version Control": "Enhanced Git integration",
+    "eamodio.gitlens",
+    "mhutchie.git-graph", 
+    "github.vscode-pull-request-github",
+    
+    "// Next.js & React": "For Next.js Turbo monorepos",
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode.vscode-json",
+    "formulahendry.auto-rename-tag",
+    
+    "// Monorepo Tools": "Workspace and dependency management",
+    "ms-vscode.vscode-npm-dependency-links",
+    "christian-kohler.path-intellisense",
+    "bradlc.vscode-tailwindcss",
+    
+    "// Code Quality": "Additional quality tools",
+    "streetsidesoftware.code-spell-checker",
+    "aaron-bond.better-comments",
+    "usernamehw.errorlens",
+    
+    "// Productivity": "Development efficiency",
+    "ms-vscode.vscode-json",
+    "redhat.vscode-yaml",
+    "ms-vscode.vscode-markdown-preview-github-style",
+    
+    "// Turbo Integration": "Monorepo development",
+    "ms-vscode.vscode-typescript-next",
+    "bradlc.vscode-tailwindcss"
+  ],
+  
+  "unwantedRecommendations": [
+    "// Extensions that conflict with runlintic workflow": "",
+    "hookyqr.beautify",
+    "ms-vscode.vscode-typescript-tslint-plugin",
+    "eg2.tslint"
+  ]
+}

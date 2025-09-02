@@ -138,73 +138,249 @@ function runCommand(scriptName, args = []) {
   });
 }
 
+function promptOptionalEnhancements(isMonorepo, hasTurboJson, templatesDir, cwd) {
+  const readline = require('readline');
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  console.log('\n📋 Optional Enhancements Available:');
+  console.log('   (These will NOT overwrite existing files)');
+  
+  const enhancements = [];
+  
+  // Turbo configuration for monorepos
+  if (isMonorepo && !hasTurboJson) {
+    enhancements.push({
+      name: 'turbo.json',
+      description: 'Turbo build system configuration (optimizes monorepo builds)',
+      file: path.join(templatesDir, 'turbo.json'),
+      target: './turbo.json',
+      recommended: true
+    });
+  }
+  
+  // Future enhancements can be added here
+  // Examples:
+  // - Docker configuration
+  // - Additional CI workflows
+  // - Database migration scripts
+  // - etc.
+  
+  if (enhancements.length === 0) {
+    rl.close();
+    console.log('\n✨ Setup complete! No additional enhancements available for your project type.');
+    return;
+  }
+  
+  console.log('\n🤔 Would you like to add any of these optional files?');
+  enhancements.forEach((enhancement, index) => {
+    const recommended = enhancement.recommended ? ' (recommended)' : '';
+    console.log(`   ${index + 1}. ${enhancement.name}${recommended} - ${enhancement.description}`);
+  });
+  
+  console.log('\n💡 You can always add these later manually if needed.');
+  
+  rl.question('\n❓ Add optional enhancements? (y/N): ', (answer) => {
+    if (answer.toLowerCase() === 'y' || answer.toLowerCase() === 'yes') {
+      console.log('\n🔧 Adding optional enhancements...');
+      
+      enhancements.forEach(enhancement => {
+        if (!fs.existsSync(enhancement.target) && fs.existsSync(enhancement.file)) {
+          fs.copyFileSync(enhancement.file, enhancement.target);
+          console.log(`✅ Created ${enhancement.target}`);
+        }
+      });
+      
+      console.log('\n🎉 Optional enhancements added successfully!');
+      if (isMonorepo && !hasTurboJson) {
+        console.log('💡 Run `npm run build` to test Turbo build caching');
+      }
+    } else {
+      console.log('\n👍 Skipped optional enhancements - you can add them manually later');
+    }
+    
+    console.log('\n🚀 Runlintic setup complete! Run `npm run health-check` to get started.');
+    rl.close();
+  });
+}
+
 function initProject() {
   const configDir = path.join(__dirname, '..', 'lib', 'configs');
   const templatesDir = path.join(__dirname, '..', 'lib', 'templates');
+  const { injectPackageJsonScripts } = require(path.join(__dirname, '..', 'lib', 'utils', 'packageJsonHelper.js'));
   
   console.log('🔧 Initializing runlintic in current project...\n');
   
-  // Copy essential configs and user guide
+  const cwd = process.cwd();
+  const hasPackageJson = fs.existsSync(path.join(cwd, 'package.json'));
+  const hasTurboJson = fs.existsSync(path.join(cwd, 'turbo.json'));
+  
+  // Enhanced file list with all templates
   const filesToCopy = [
-    { from: path.join(configDir, 'base.json'), to: './tsconfig.json', type: 'config' },
-    { from: path.join(configDir, 'base.js'), to: './eslint.config.js', type: 'config' },
-    { from: path.join(__dirname, '..', '.release-it.json'), to: './.release-it.json', type: 'config' },
-    { from: path.join(__dirname, '..', 'commitlint.config.js'), to: './commitlint.config.js', type: 'config' },
-    { from: path.join(templatesDir, 'RUNLINTIC-GUIDE.md'), to: './RUNLINTIC-GUIDE.md', type: 'guide' }
+    // Core configurations
+    { from: path.join(configDir, 'base.json'), to: './tsconfig.json', type: 'config', description: 'TypeScript configuration' },
+    { from: path.join(configDir, 'base.js'), to: './eslint.config.js', type: 'config', description: 'ESLint configuration' },
+    { from: path.join(__dirname, '..', '.release-it.json'), to: './.release-it.json', type: 'config', description: 'Release configuration' },
+    { from: path.join(__dirname, '..', 'commitlint.config.js'), to: './commitlint.config.js', type: 'config', description: 'Commit lint configuration' },
+    
+    // Documentation and guides
+    { from: path.join(templatesDir, 'RUNLINTIC-GUIDE.md'), to: './RUNLINTIC-GUIDE.md', type: 'guide', description: 'Complete user guide' },
+    { from: path.join(templatesDir, 'RUNLINTIC-QUICKSTART.md'), to: './RUNLINTIC-QUICKSTART.md', type: 'guide', description: 'Quick reference guide' },
+    { from: path.join(templatesDir, 'RUNLINTIC-WORKFLOW.md'), to: './RUNLINTIC-WORKFLOW.md', type: 'guide', description: 'Team workflow guide' },
+    
+    // Environment and setup
+    { from: path.join(templatesDir, '.env.template'), to: './.env.template', type: 'template', description: 'Environment variables template' },
+    { from: path.join(templatesDir, '.nvmrc'), to: './.nvmrc', type: 'config', description: 'Node version specification' },
+    { from: path.join(templatesDir, 'setup.sh'), to: './setup.sh', type: 'script', description: 'Developer setup script' },
+    
+    // GitHub integration  
+    { from: path.join(templatesDir, 'runlintic-ci.yml'), to: './.github/workflows/runlintic-ci.yml', type: 'github', description: 'GitHub Actions workflow' },
+    { from: path.join(templatesDir, 'pull_request_template.md'), to: './.github/pull_request_template.md', type: 'github', description: 'Pull request template' },
+    { from: path.join(templatesDir, 'bug_report.md'), to: './.github/ISSUE_TEMPLATE/bug_report.md', type: 'github', description: 'Bug report template' },
+    
+    // VSCode integration
+    { from: path.join(templatesDir, 'vscode-settings.json'), to: './.vscode/settings.json', type: 'vscode', description: 'VSCode settings' },
+    { from: path.join(templatesDir, 'vscode-extensions.json'), to: './.vscode/extensions.json', type: 'vscode', description: 'VSCode extensions' },
+    
+    // Git hooks
+    { from: path.join(templatesDir, 'pre-commit'), to: './.husky/pre-commit', type: 'husky', description: 'Pre-commit hook', condition: () => hasPackageJson }
   ];
   
-  let configsCreated = 0;
-  let guideCreated = false;
+  // Detect project characteristics for optional enhancements
+  const isMonorepo = hasPackageJson && (() => {
+    try {
+      const packageJson = JSON.parse(fs.readFileSync(path.join(cwd, 'package.json'), 'utf8'));
+      return (
+        packageJson.workspaces || 
+        packageJson.private === true && (
+          fs.existsSync(path.join(cwd, 'apps')) || 
+          fs.existsSync(path.join(cwd, 'packages'))
+        )
+      );
+    } catch {
+      return false;
+    }
+  })();
   
-  filesToCopy.forEach(({ from, to, type }) => {
+  // NOTE: turbo.json is no longer created automatically
+  // Users will be prompted for optional enhancements after core files are created
+  
+  let stats = {
+    configs: 0,
+    guides: 0,
+    github: 0,
+    vscode: 0,
+    other: 0
+  };
+  
+  // Create directories first
+  const dirsToCreate = ['.github/workflows', '.github/ISSUE_TEMPLATE', '.vscode', '.husky'];
+  dirsToCreate.forEach(dir => {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+  });
+  
+  // Copy files
+  filesToCopy.forEach(({ from, to, type, description, condition }) => {
+    // Check condition if provided
+    if (condition && !condition()) {
+      return;
+    }
+    
     if (fs.existsSync(from)) {
       if (!fs.existsSync(to)) {
         fs.copyFileSync(from, to);
-        if (type === 'config') {
-          console.log(`✅ Created ${to}`);
-          configsCreated++;
-        } else if (type === 'guide') {
-          console.log(`📖 Created ${to} - Complete user guide and reference`);
-          guideCreated = true;
+        
+        // Make setup.sh executable
+        if (to === './setup.sh') {
+          try {
+            fs.chmodSync(to, '755');
+          } catch (error) {
+            // Ignore chmod errors on Windows
+          }
         }
+        
+        // Make Husky hook executable  
+        if (type === 'husky') {
+          try {
+            fs.chmodSync(to, '755');
+          } catch (error) {
+            // Ignore chmod errors on Windows
+          }
+        }
+        
+        console.log(`✅ Created ${to}`);
+        stats[type === 'config' ? 'configs' : type === 'guide' ? 'guides' : type === 'github' ? 'github' : type === 'vscode' ? 'vscode' : 'other']++;
       } else {
-        if (type === 'guide') {
-          console.log(`⚠️  ${to} already exists, skipping (keeping your customizations)`);
-        } else {
-          console.log(`⚠️  ${to} already exists, skipping`);
-        }
+        console.log(`⚠️  ${to} already exists, skipping`);
       }
     }
   });
   
-  console.log('\n🎉 Runlintic initialized!');
-  
-  if (configsCreated > 0) {
-    console.log(`✅ Created ${configsCreated} configuration files`);
+  // Inject package.json scripts if package.json exists
+  let packageJsonResult = null;
+  if (hasPackageJson) {
+    packageJsonResult = injectPackageJsonScripts();
+    if (packageJsonResult.success && packageJsonResult.addedCount > 0) {
+      console.log(`✅ Added ${packageJsonResult.addedCount} npm scripts to package.json`);
+      stats.other++;
+    } else if (packageJsonResult.success && packageJsonResult.addedCount === 0) {
+      console.log(`ℹ️  All recommended npm scripts already exist in package.json`);
+    }
   }
   
-  if (guideCreated) {
-    console.log('📖 User guide created - check RUNLINTIC-GUIDE.md for complete documentation');
-  }
+  // Summary
+  console.log('\n🎉 Runlintic initialization complete!');
+  console.log(`✅ Created ${stats.configs} configuration files`);
+  console.log(`📖 Created ${stats.guides} documentation guides`);  
+  console.log(`🔧 Created ${stats.github} GitHub workflow files`);
+  console.log(`🎨 Created ${stats.vscode} VSCode settings`);
+  console.log(`⚙️  Created ${stats.other} additional files`);
+  
+  console.log('\n📚 Key Files Created:');
+  console.log('  📖 RUNLINTIC-GUIDE.md           # Complete documentation');
+  console.log('  ⚡ RUNLINTIC-QUICKSTART.md       # Quick reference');
+  console.log('  👥 RUNLINTIC-WORKFLOW.md         # Team workflows');
+  console.log('  🔑 .env.template                 # Environment setup');
+  console.log('  🚀 .github/workflows/runlintic-ci.yml # CI/CD automation');
   
   console.log('\n🚀 Next Steps:');
-  console.log('  1. Review RUNLINTIC-GUIDE.md for complete documentation');
-  console.log('  2. runlintic health-check        # Test your setup');
-  console.log('  3. runlintic release:dry          # Test release workflow');
+  console.log('  1. Review RUNLINTIC-QUICKSTART.md for immediate commands');
+  console.log('  2. Copy .env.template to .env and add your GitHub token');
+  console.log('  3. Run: chmod +x setup.sh && ./setup.sh (for new developers)');
+  console.log('  4. npm run health-check          # Test your setup');
+  console.log('  5. npm run release:dry           # Test release workflow');
   
   // Context-aware suggestions
-  const cwd = process.cwd();
-  const hasTurboJson = fs.existsSync(path.join(cwd, 'turbo.json'));
-  const hasPackageJson = fs.existsSync(path.join(cwd, 'package.json'));
-  
-  if (hasTurboJson) {
-    console.log('\n💡 Turbo monorepo detected:');
+  if (hasTurboJson || isMonorepo) {
+    console.log('\n💡 Monorepo detected:');
     console.log('  • Run commands from monorepo root for best results');
-    console.log('  • Check RUNLINTIC-GUIDE.md for monorepo-specific workflows');
+    console.log('  • Check RUNLINTIC-WORKFLOW.md for monorepo workflows');
+    if (!hasTurboJson) {
+      console.log('  • Consider adding Turbo for build optimization (prompted below)');
+    }
   } else if (hasPackageJson) {
-    console.log('\n💡 Consider adding npm scripts to package.json:');
-    console.log('  • See RUNLINTIC-GUIDE.md for recommended script setup');
+    console.log('\n💡 Standard Node.js project detected:');
+    console.log('  • VSCode settings optimized for runlintic workflow');
+    console.log('  • Perfect for single app development');
   }
+  
+  if (packageJsonResult && packageJsonResult.addedCount > 0) {
+    console.log('\n📦 Package.json enhanced with runlintic scripts:');
+    console.log('  • Now use: npm run health-check, npm run lint, etc.');
+    console.log('  • Team members get consistent command interface');
+  }
+  
+  console.log('\n🔗 Resources:');
+  console.log('  • Documentation: All guides created in your project root');
+  console.log('  • GitHub Issues: Use .github/ISSUE_TEMPLATE/bug_report.md');
+  console.log('  • Team Setup: Share setup.sh with new team members');
+  
+  // Interactive prompts for optional enhancements
+  promptOptionalEnhancements(isMonorepo, hasTurboJson, templatesDir, cwd);
 }
 
 const [,, command, ...args] = process.argv;
