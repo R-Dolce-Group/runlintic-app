@@ -4,6 +4,25 @@
 > **Now available as an installable NPM package!** Built with TypeScript and npm.  
 > Created by [The R. Dolce Organization](https://rdolcegroup.com).
 
+## ✨ Features
+
+- 🔧 **Lint & Format** – ESLint with zero warnings + Prettier formatting
+- 🧹 **Clean Dependencies** – Remove unused deps with Knip and depcheck
+- 📦 **Package Management** – Keep `package.json` clean and consistent
+- 🚀 **Release Automation** – Semantic versioning with changelog generation
+- ⚡ **Parallel Execution** – Quality checks run concurrently (40% faster)
+- 🛡️ **Robust Error Handling** – Fail-fast scripts with comprehensive cleanup
+- 🎯 **TypeScript Ready** – ES2022 targets with strict type checking
+- 📊 **Smart Caching** – Turbo-powered incremental builds
+- 🎨 **CLI Interface** – Simple `runlintic <command>` interface
+- 🔌 **Zero Config** – Works out of the box with sensible defaults
+
+## 📋 Requirements
+
+- **Node.js**: >= 22
+- **Package Manager**: npm (primary), yarn and pnpm also supported
+- **Git**: For version control and releases (optional)
+
 ## 📦 Installation
 
 Add Runlintic App to any project with a single command:
@@ -38,83 +57,6 @@ runlintic check-all
 # Create a release
 runlintic release:dry    # Preview changes first
 runlintic release:patch  # Create patch release
-```
-
-## ✨ Features
-
-- 🔧 **Lint & Format** – ESLint with zero warnings + Prettier formatting
-- 🧹 **Clean Dependencies** – Remove unused deps with Knip and depcheck
-- 📦 **Package Management** – Keep `package.json` clean and consistent
-- 🚀 **Release Automation** – Semantic versioning with changelog generation
-- ⚡ **Parallel Execution** – Quality checks run concurrently (40% faster)
-- 🛡️ **Robust Error Handling** – Fail-fast scripts with comprehensive cleanup
-- 🎯 **TypeScript Ready** – ES2022 targets with strict type checking
-- 📊 **Smart Caching** – Turbo-powered incremental builds
-- 🎨 **CLI Interface** – Simple `runlintic <command>` interface
-- 🔌 **Zero Config** – Works out of the box with sensible defaults
-
-## 🎯 What Runlintic App Does
-
-### ✅ **Automated Release Pipeline**
-
-- **One-command releases**: Handle version bumping, changelog generation, GitHub releases, and Git tagging
-- **Conventional commits**: Automatic semantic versioning based on commit messages
-- **Fail-safe execution**: Robust error handling with automatic cleanup
-
-### ✅ **Quality Assurance Automation**
-
-- **Parallel execution**: Run lint, typecheck, and dependency checks simultaneously (40% faster)
-- **Zero-tolerance quality gates**: ESLint with zero warnings, strict TypeScript checking
-- **Dependency hygiene**: Automated detection and removal of unused dependencies
-- **Consistent formatting**: Prettier integration with package.json sorting
-
-### ✅ **Developer Experience**
-
-- **CLI commands**: Simple `runlintic <command>` interface
-- **Project initialization**: `runlintic init` sets up configs in any project
-- **Incremental builds**: Only rebuild what changed with intelligent caching
-- **Clear feedback**: Detailed output showing exactly what passed/failed and why
-
-## 📖 CLI Commands
-
-```bash
-runlintic <command>
-```
-
-### Quality & Development
-
-```bash
-runlintic health-check         # Run comprehensive health check
-runlintic check-all            # Run all quality checks (lint + typecheck + deps)
-runlintic lint                 # Run ESLint
-runlintic lint:fix             # Run ESLint and auto-fix issues
-runlintic typecheck            # Run TypeScript type checking
-runlintic format               # Run Prettier formatting
-runlintic maintenance          # Run maintenance tasks (knip + depcheck + fixes)
-```
-
-### Build & Clean
-
-```bash
-runlintic clean                # Clean build artifacts
-runlintic clean:all            # Complete clean (removes node_modules)
-```
-
-### Release Management
-
-```bash
-runlintic release:dry          # Preview release changes (recommended first)
-runlintic release:patch        # Create patch release (1.0.0 → 1.0.1)
-runlintic release:minor        # Create minor release (1.0.0 → 1.1.0)
-runlintic release:major        # Create major release (1.0.0 → 2.0.0)
-runlintic release              # Create release (default: patch)
-```
-
-### Setup
-
-```bash
-runlintic init                 # Initialize runlintic in current project
-runlintic help                 # Show all available commands
 ```
 
 ## 🎉 Postinstall Guide
@@ -186,59 +128,111 @@ npx runlintic release:major        # 1.0.0 → 2.0.0
 - Run `health-check` before releases
 - Use `init` command in monorepo root
 
-### Resources:
-
-- **Complete Guide**: Run `npx runlintic init` to get RUNLINTIC-GUIDE.md
-- **Documentation**: https://github.com/R-Dolce-Group/runlintic-app
-- **Issues**: https://github.com/R-Dolce-Group/runlintic-app/issues
-- **Examples**: See `_workflows/user-testing/` for usage patterns
-
-## ⚡ Performance Optimizations
-
-This toolkit is optimized for speed and reliability:
-
-- **40% faster builds** through parallel task execution
-- **Turbo caching** for incremental builds and task memoization
-- **CPU utilization: 221%** showing true concurrent processing
-- **Smart dependency management** with automated conflict resolution
-
-### Performance Comparison
+## 📖 CLI Commands
 
 ```bash
-# Before optimization: Sequential execution
-npm run lint && npm run typecheck && npm run deps:check
-# Time: ~5.8s
+runlintic <command>
+```
 
-# After optimization: Parallel execution
+### Quality & Development
+
+```bash
+runlintic health-check         # Run comprehensive health check
+runlintic check-all            # Run all quality checks (lint + typecheck + deps)
+runlintic lint                 # Run ESLint
+runlintic lint:fix             # Run ESLint and auto-fix issues
+runlintic typecheck            # Run TypeScript type checking
+runlintic format               # Run Prettier formatting
+runlintic maintenance          # Run maintenance tasks (knip + depcheck + fixes)
+```
+
+### Build & Clean
+
+```bash
+runlintic clean                # Clean build artifacts
+runlintic clean:all            # Complete clean (removes node_modules)
+```
+
+### Release Management
+
+```bash
+runlintic release:dry          # Preview release changes (recommended first)
+runlintic release:patch        # Create patch release (1.0.0 → 1.0.1)
+runlintic release:minor        # Create minor release (1.0.0 → 1.1.0)
+runlintic release:major        # Create major release (1.0.0 → 2.0.0)
+runlintic release              # Create release (default: patch)
+```
+
+### Setup
+
+```bash
+runlintic init                 # Initialize runlintic in current project
+runlintic help                 # Show all available commands
+```
+
+## 🔍 Usage Examples
+
+### Daily Development Workflow
+
+```bash
+# Make changes to your code
+git add .
+
+# Run quality checks before commit
 runlintic check-all
-# Time: ~3.2s (40% improvement)
+
+# Auto-fix issues if needed
+runlintic lint:fix
+runlintic format
+
+# Commit changes (triggers pre-commit hooks)
+git commit -m "feat: add new feature"
 ```
 
-## 📁 Package Structure
+### Release Workflow
 
-When you install `@rdolcegroup/runlintic-app`, you get:
+```bash
+# Ensure everything is clean
+runlintic health-check
 
-```text
-@rdolcegroup/runlintic-app/
-├─ bin/
-│  └─ runlintic-app.js              # CLI entry point
-├─ lib/
-│  ├─ configs/                  # Bundled configurations
-│  │  ├─ base.js                # Base ESLint config
-│  │  ├─ next.js                # Next.js ESLint rules
-│  │  ├─ react-internal.js      # React internal rules
-│  │  ├─ base.json              # Base TypeScript config
-│  │  ├─ nextjs.json            # Next.js TypeScript config
-│  │  └─ react-library.json     # React library TypeScript config
-│  ├─ scripts/                  # Release automation scripts
-│  └─ index.js                  # Package entry point
-├─ .release-it.json             # Release configuration
-├─ commitlint.config.js         # Conventional commits
-├─ turbo.json                   # Parallel task execution + caching
-└─ package.json
+# Preview what will be released
+runlintic release:dry
+
+# Create the release
+runlintic release:patch
+
+# Or for major changes
+runlintic release:major
 ```
 
-## 🔧 Project Integration
+### Maintenance Tasks
+
+```bash
+# Clean up dependencies
+runlintic maintenance
+
+# Full cleanup and reinstall
+runlintic clean:all
+npm install  # or yarn install, pnpm install (if using alternative package managers)
+```
+
+## 🔧 Version Management
+
+```bash
+# Check your current version
+npm list @rdolcegroup/runlintic-app
+
+# Check latest available version
+npm view @rdolcegroup/runlintic-app version
+
+# Check if your version is outdated
+npm outdated @rdolcegroup/runlintic-app
+
+# Update to latest version
+npm update @rdolcegroup/runlintic-app
+```
+
+## 🏗️ Project Integration
 
 ### Initialize in Existing Project
 
@@ -269,28 +263,6 @@ const tsConfig = getConfig('typescript', 'nextjs');
 // All available configs
 console.log(configs);
 ```
-
-## 🏗️ Architecture & Configuration
-
-### ✅ **Bundled Configurations**
-
-- **ESLint configs**: Base, Next.js, and React configurations with Node.js support
-- **TypeScript configs**: ES2022 targets for base, Next.js, and React library projects
-- **Release automation**: Conventional commits with changelog generation
-- **Quality gates**: Parallel execution with zero-warning enforcement
-
-### ✅ **Smart Defaults**
-
-- **Zero configuration**: Works out of the box for most projects
-- **Extensible**: Override any configuration as needed
-- **Environment aware**: Proper Node.js globals and CommonJS support
-- **Performance optimized**: Turbo caching and parallel execution
-
-## 📋 Requirements
-
-- **Node.js**: >= 22
-- **Package Manager**: npm (primary), yarn and pnpm also supported
-- **Git**: For version control and releases (optional)
 
 ### Environment Setup (for releases)
 
@@ -340,57 +312,97 @@ Runlintic App's free tier requires you to provide your own GitHub Personal Acces
 
 **Note**: The `env.mjs` file validates that your `GH_TOKEN` is properly configured. Only `GH_TOKEN` is required - all other environment variables are optional with sensible defaults.
 
-## 🔍 Usage Examples
+## ⚡ Performance Optimizations
 
-### Daily Development Workflow
+This toolkit is optimized for speed and reliability:
+
+- **40% faster builds** through parallel task execution
+- **Turbo caching** for incremental builds and task memoization
+- **CPU utilization: 221%** showing true concurrent processing
+- **Smart dependency management** with automated conflict resolution
+
+### Performance Comparison
 
 ```bash
-# Make changes to your code
-git add .
+# Before optimization: Sequential execution
+npm run lint && npm run typecheck && npm run deps:check
+# Time: ~5.8s
 
-# Run quality checks before commit
+# After optimization: Parallel execution
 runlintic check-all
-
-# Auto-fix issues if needed
-runlintic lint:fix
-runlintic format
-
-# Commit changes (triggers pre-commit hooks)
-git commit -m "feat: add new feature"
+# Time: ~3.2s (40% improvement)
 ```
 
-### Release Workflow
+### What Runlintic App Does
 
-```bash
-# Ensure everything is clean
-runlintic health-check
+#### ✅ **Automated Release Pipeline**
 
-# Preview what will be released
-runlintic release:dry
+- **One-command releases**: Handle version bumping, changelog generation, GitHub releases, and Git tagging
+- **Conventional commits**: Automatic semantic versioning based on commit messages
+- **Fail-safe execution**: Robust error handling with automatic cleanup
 
-# Create the release
-runlintic release:patch
+#### ✅ **Quality Assurance Automation**
 
-# Or for major changes
-runlintic release:major
+- **Parallel execution**: Run lint, typecheck, and dependency checks simultaneously (40% faster)
+- **Zero-tolerance quality gates**: ESLint with zero warnings, strict TypeScript checking
+- **Dependency hygiene**: Automated detection and removal of unused dependencies
+- **Consistent formatting**: Prettier integration with package.json sorting
+
+#### ✅ **Developer Experience**
+
+- **CLI commands**: Simple `runlintic <command>` interface
+- **Project initialization**: `runlintic init` sets up configs in any project
+- **Incremental builds**: Only rebuild what changed with intelligent caching
+- **Clear feedback**: Detailed output showing exactly what passed/failed and why
+
+## 📁 Package Structure
+
+When you install `@rdolcegroup/runlintic-app`, you get:
+
+```text
+@rdolcegroup/runlintic-app/
+├─ bin/
+│  └─ runlintic-app.js              # CLI entry point
+├─ lib/
+│  ├─ configs/                  # Bundled configurations
+│  │  ├─ base.js                # Base ESLint config
+│  │  ├─ next.js                # Next.js ESLint rules
+│  │  ├─ react-internal.js      # React internal rules
+│  │  ├─ base.json              # Base TypeScript config
+│  │  ├─ nextjs.json            # Next.js TypeScript config
+│  │  └─ react-library.json     # React library TypeScript config
+│  ├─ scripts/                  # Release automation scripts
+│  └─ index.js                  # Package entry point
+├─ .release-it.json             # Release configuration
+├─ commitlint.config.js         # Conventional commits
+├─ turbo.json                   # Parallel task execution + caching
+└─ package.json
 ```
 
-### Maintenance Tasks
+### Architecture & Configuration
 
-```bash
-# Clean up dependencies
-runlintic maintenance
+#### ✅ **Bundled Configurations**
 
-# Full cleanup and reinstall
-runlintic clean:all
-npm install  # or yarn install, pnpm install (if using alternative package managers)
-```
+- **ESLint configs**: Base, Next.js, and React configurations with Node.js support
+- **TypeScript configs**: ES2022 targets for base, Next.js, and React library projects
+- **Release automation**: Conventional commits with changelog generation
+- **Quality gates**: Parallel execution with zero-warning enforcement
 
-## 📚 Documentation
+#### ✅ **Smart Defaults**
+
+- **Zero configuration**: Works out of the box for most projects
+- **Extensible**: Override any configuration as needed
+- **Environment aware**: Proper Node.js globals and CommonJS support
+- **Performance optimized**: Turbo caching and parallel execution
+
+## 📚 Documentation & Resources
 
 ### Quick Reference
 
-- **[USER-DOC.md](_docs/README.md)** - Comprehensive user guide with examples and troubleshooting
+- **Complete Guide**: Run `npx runlintic init` to get RUNLINTIC-GUIDE.md
+- **Documentation**: https://github.com/R-Dolce-Group/runlintic-app
+- **Issues**: https://github.com/R-Dolce-Group/runlintic-app/issues
+- **Examples**: See `_workflows/user-testing/` for usage patterns
 
 ### What's Included
 
@@ -400,16 +412,16 @@ npm install  # or yarn install, pnpm install (if using alternative package manag
 - ✅ **Troubleshooting** common issues and solutions
 - ✅ **Project-specific** guidance for Node.js, React, Next.js applications
 
-## 🔍 Monitoring & Insights
+### Monitoring & Insights
 
 - **Build performance**: ~3.2s for full quality pipeline
 - **Parallel efficiency**: 221% CPU utilization during quality checks
 - **Cache effectiveness**: Turbo cache dramatically speeds up subsequent runs
 - **Zero-config operation**: Smart defaults with extensibility when needed
 
-## 🆚 Before & After
+### Before & After
 
-### Before Runlintic App
+#### Before Runlintic App
 
 ```bash
 # Manual, error-prone workflow
@@ -423,7 +435,7 @@ npm run deps:check
 # Manual GitHub releases
 ```
 
-### After Runlintic App
+#### After Runlintic App
 
 ```bash
 # One command does it all
