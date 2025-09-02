@@ -1,0 +1,105 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "// Description": "Turbo configuration optimized for runlintic workflow",
+  
+  "globalDependencies": [
+    ".env",
+    ".env.local", 
+    ".env.*.local",
+    "tsconfig.json",
+    "eslint.config.js",
+    ".release-it.json",
+    "commitlint.config.js"
+  ],
+  
+  "pipeline": {
+    "// Development Tasks": "Core development workflow",
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "out/**", "build/**"],
+      "env": ["NODE_ENV"]
+    },
+    
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "env": ["NODE_ENV", "PORT"]
+    },
+    
+    "// Runlintic Quality Tasks": "Integrated with runlintic commands", 
+    "lint": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    
+    "lint:fix": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "outputs": []
+    },
+    
+    "typecheck": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    
+    "format": {
+      "cache": false,
+      "outputs": []
+    },
+    
+    "// Runlintic Composite Tasks": "Parallel execution optimized",
+    "check-all": {
+      "dependsOn": ["lint", "typecheck"],
+      "outputs": []
+    },
+    
+    "health-check": {
+      "dependsOn": ["build", "lint", "typecheck"],
+      "outputs": []
+    },
+    
+    "maintenance": {
+      "cache": false,
+      "outputs": []
+    },
+    
+    "// Testing": "Test pipeline integration",
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"],
+      "env": ["NODE_ENV"]
+    },
+    
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    },
+    
+    "// Release Tasks": "Release workflow with runlintic",
+    "release:dry": {
+      "dependsOn": ["health-check"],
+      "cache": false,
+      "outputs": []
+    },
+    
+    "// Cleanup Tasks": "Maintenance and cleanup",
+    "clean": {
+      "cache": false,
+      "outputs": []
+    },
+    
+    "clean:all": {
+      "cache": false,
+      "outputs": []
+    }
+  },
+  
+  "// Cache Configuration": "Optimize for runlintic workflow",
+  "remoteCache": {
+    "signature": true
+  },
+  
+  "// Experimental Features": "Performance enhancements", 
+  "experimentalSpaces": true
+}

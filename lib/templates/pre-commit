@@ -1,0 +1,32 @@
+#!/usr/bin/env sh
+# ===========================================
+# Runlintic Pre-commit Hook
+# ===========================================
+# This hook runs runlintic quality checks before each commit
+# Prevents commits that don't meet quality standards
+
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running Runlintic pre-commit checks..."
+
+# Run runlintic quality checks (40% faster parallel execution)
+npm run check-all
+
+# Exit codes:
+# 0 = success, allow commit
+# 1 = failure, block commit
+
+if [ $? -eq 0 ]; then
+    echo "✅ All quality checks passed - commit allowed"
+else
+    echo "❌ Quality checks failed - commit blocked"
+    echo ""
+    echo "💡 To fix issues:"
+    echo "   npm run lint:fix        # Auto-fix linting issues"
+    echo "   npm run format          # Format code"
+    echo "   npm run typecheck       # Check TypeScript errors"
+    echo "   npm run maintenance     # Clean up dependencies"
+    echo ""
+    echo "   Then try committing again"
+    exit 1
+fi

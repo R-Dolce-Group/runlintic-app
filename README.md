@@ -4,6 +4,23 @@
 > **Now available as an installable NPM package!** Built with TypeScript and npm.  
 > Created by [The R. Dolce Organization](https://rdolcegroup.com).
 
+## 📑 Table of Contents
+
+- [✨ Features](#-features)
+- [📋 Requirements](#-requirements)
+- [📦 Installation](#-installation)
+- [🚀 Quick Start](#-quick-start)
+- [🎉 Postinstall Guide](#-postinstall-guide)
+- [📖 CLI Commands](#-cli-commands)
+- [🔍 Usage Examples](#-usage-examples)
+- [🔧 Version Management](#-version-management)
+- [🏗️ Project Integration](#-project-integration)
+- [⚡ Performance Optimizations](#-performance-optimizations)
+- [📁 Package Structure](#-package-structure)
+- [📚 Documentation & Resources](#-documentation--resources)
+- [🤝 Contributing](#-contributing)
+- [📝 License](#-license)
+
 ## ✨ Features
 
 - 🔧 **Lint & Format** – ESLint with zero warnings + Prettier formatting
@@ -22,6 +39,7 @@
 - **Node.js**: >= 22
 - **Package Manager**: npm (primary), yarn and pnpm also supported
 - **Git**: For version control and releases (optional)
+- **GitHub Personal Access Token**: Required for release features ([Setup Guide](#environment-setup-for-releases))
 
 ## 📦 Installation
 
@@ -54,10 +72,15 @@ runlintic health-check
 # Run all quality checks (parallel execution)
 runlintic check-all
 
+# For releases, set up GitHub token first
+export GH_TOKEN="your_github_token_here"
+
 # Create a release
 runlintic release:dry    # Preview changes first
 runlintic release:patch  # Create patch release
 ```
+
+**⚠️ Important**: Release commands require a GitHub Personal Access Token. See [Environment Setup](#environment-setup-for-releases) for details.
 
 ## 🎉 Postinstall Guide
 
@@ -108,8 +131,10 @@ npx runlintic maintenance         # Run cleanup tasks
 
 ### Release Workflow (Next.js Turbo Monorepo Ready):
 
+**⚠️ Prerequisite**: Release commands require a GitHub Personal Access Token. [Get setup instructions](#environment-setup-for-releases).
+
 ```bash
-# Set up GitHub token
+# Set up GitHub token (required for releases)
 export GH_TOKEN="your_token"
 
 # Test release
