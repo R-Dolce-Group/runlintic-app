@@ -15,6 +15,12 @@ npm install -g @rdolcegroup/runlintic-app
 # Or install in your project
 npm install -D @rdolcegroup/runlintic-app
 # yarn add -D @rdolcegroup/runlintic-app
+
+# To see the helpful postinstall guide during installation:
+npm install -D @rdolcegroup/runlintic-app --foreground-scripts
+
+# View help anytime after installation:
+npx runlintic help
 ```
 
 ## 🚀 Quick Start
@@ -110,6 +116,82 @@ runlintic release              # Create release (default: patch)
 runlintic init                 # Initialize runlintic in current project
 runlintic help                 # Show all available commands
 ```
+
+## 🎉 Postinstall Guide
+
+When you install `@rdolcegroup/runlintic-app`, you get a helpful setup guide. To see this guide during installation, use the `--foreground-scripts` flag, or view it anytime with `npx runlintic help`.
+
+### Quick Start Guide:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     GETTING STARTED                            │
+├─────────────────────────────────────────────────────────────────┤
+│ 1. Initialize your project (creates RUNLINTIC-GUIDE.md):       │
+│    npx runlintic init                                          │
+│                                                                 │
+│ 2. Run health check:                                           │
+│    npx runlintic health-check                                  │
+│                                                                 │
+│ 3. Test release workflow (safe):                               │
+│    npx runlintic release:dry                                   │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Essential Commands:
+
+```bash
+npx runlintic help                # Show all available commands
+npx runlintic init                # Initialize runlintic configs
+npx runlintic health-check        # Comprehensive project health check
+npx runlintic check-all           # Run lint + typecheck + deps (parallel)
+npx runlintic lint                # Run ESLint with zero warnings
+npx runlintic format              # Format code with Prettier
+npx runlintic maintenance         # Run cleanup tasks
+```
+
+### Package.json Integration (Recommended):
+
+```json
+{
+  "scripts": {
+    "health-check": "runlintic health-check",
+    "lint": "runlintic lint",
+    "lint:fix": "runlintic lint:fix",
+    "format": "runlintic format",
+    "release:dry": "runlintic release:dry"
+  }
+}
+```
+
+### Release Workflow (Next.js Turbo Monorepo Ready):
+
+```bash
+# Set up GitHub token
+export GH_TOKEN="your_token"
+
+# Test release
+npx runlintic release:dry
+
+# Create releases
+npx runlintic release:patch        # 1.0.0 → 1.0.1
+npx runlintic release:minor        # 1.0.0 → 1.1.0
+npx runlintic release:major        # 1.0.0 → 2.0.0
+```
+
+### Pro Tips:
+
+- Use `npx runlintic` for one-time commands
+- Add npm scripts for team consistency
+- Run `health-check` before releases
+- Use `init` command in monorepo root
+
+### Resources:
+
+- **Complete Guide**: Run `npx runlintic init` to get RUNLINTIC-GUIDE.md
+- **Documentation**: https://github.com/R-Dolce-Group/runlintic-app
+- **Issues**: https://github.com/R-Dolce-Group/runlintic-app/issues
+- **Examples**: See `_workflows/user-testing/` for usage patterns
 
 ## ⚡ Performance Optimizations
 
