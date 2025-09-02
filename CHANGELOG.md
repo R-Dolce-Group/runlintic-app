@@ -1,5 +1,17 @@
 # Changelog
 
+## <small>6.2.2 (2025-09-02)</small>
+
+* chore: update release-it hooks to run health check and sync dependencies ([1000965](https://github.com/R-Dolce-Group/runlintic-app/commit/1000965))
+
+## <small>6.2.2 (2025-09-02)</small>
+
+* chore: update release-it hooks to run health check and sync dependencies ([1000965](https://github.com/R-Dolce-Group/runlintic-app/commit/1000965))
+
+
+
+
+
 ## <small>6.2.1 (2025-09-02)</small>
 
 * feat: add dependency validation commands and improve health checks ([cf01d41](https://github.com/R-Dolce-Group/runlintic-app/commit/cf01d41))
