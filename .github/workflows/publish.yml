@@ -1,6 +1,6 @@
-name: Publish to npm
+name: Release & Publish
 
-# Trigger on version tags or manual dispatch
+# Trigger on version tags (from local release script) or manual dispatch
 on:
   workflow_dispatch:
     inputs:
@@ -64,10 +64,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Publish to npm
+      - name: Publish to npm (manual trigger only)
+        if: github.event_name == 'workflow_dispatch'
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          
+      - name: Tag push notification
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+        run: |
+          echo "📋 Tag push detected: ${{ github.ref_name }}"
+          echo "ℹ️  This workflow was triggered by a tag push from local release script"
+          echo "✅ Package should already be published to npm"
+          echo "✅ GitHub release should already be created"
+          echo "📦 Check: https://www.npmjs.com/package/@rdolcegroup/runlintic-app"
           
       - name: Success notification
         if: success()
