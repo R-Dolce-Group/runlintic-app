@@ -1,5 +1,14 @@
 # Changelog
 
+## <small>6.1.2 (2025-09-02)</small>
+
+## <small>6.1.2 (2025-09-02)</small>
+
+
+
+
+
+
 ## <small>6.1.1 (2025-09-02)</small>
 
 * chore: remove npm provenance support from publish workflow ([01fedeb](https://github.com/R-Dolce-Group/runlintic-app/commit/01fedeb))
