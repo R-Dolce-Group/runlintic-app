@@ -1,5 +1,17 @@
 # Changelog
 
+## <small>6.1.1 (2025-09-02)</small>
+
+* chore: remove npm provenance support from publish workflow ([01fedeb](https://github.com/R-Dolce-Group/runlintic-app/commit/01fedeb))
+
+## <small>6.1.1 (2025-09-02)</small>
+
+* chore: remove npm provenance support from publish workflow ([01fedeb](https://github.com/R-Dolce-Group/runlintic-app/commit/01fedeb))
+
+
+
+
+
 ## 6.1.0 (2025-09-02)
 
 * chore: update package manager commands from pnpm to npm and improve token handling ([942b1d5](https://github.com/R-Dolce-Group/runlintic-app/commit/942b1d5))
