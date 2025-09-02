@@ -12,7 +12,7 @@ To run the health check, run the following command:
 npm run health-check
 ```
 
-In the event there is an error or issue with the health check, it will be reported and the script will exit with a non-zero exit code. 
+In the event there is an error or issue with the health check, it will be reported and the script will exit with a non-zero exit code.
 
 Additionally, there are several Debugging Scripts Available to help you debug issues with the health check. These are:
 
@@ -20,7 +20,6 @@ Additionally, there are several Debugging Scripts Available to help you debug is
 - `npm run typecheck`
 - `npm run format`
 - `npm run maintenance`
-
 
 ## Granular Debugging
 
@@ -31,7 +30,7 @@ If you want to run the health check granularly, you can run the following comman
 npm run knip          # Just knip analysis
 npm run depcheck      # Just dependency checking
 npm run manypkg:fix   # Just package.json sorting
-```      
+```
 
 ## Lint-Specific Debugging
 
@@ -55,6 +54,7 @@ npm run deps:update
 npm run deps:update-latest
 npm run deps:validate
 ```
+
 ## Recommended Debugging Approaches
 
 If health-check fails, run this sequence:
@@ -78,8 +78,3 @@ npm run manypkg:fix   # Fix package.json sorting
 npm run format        # Format code with Prettier
 npm run maintenance   # Run all maintenance tasks
 ```
-
-
-
-
-

@@ -1,5 +1,19 @@
 # Changelog
 
+## 6.1.0 (2025-09-02)
+
+* chore: update package manager commands from pnpm to npm and improve token handling ([942b1d5](https://github.com/R-Dolce-Group/runlintic-app/commit/942b1d5))
+* docs: add health check documentation and reorganize docs into _docs folder ([d9768f0](https://github.com/R-Dolce-Group/runlintic-app/commit/d9768f0))
+
+## 6.1.0 (2025-09-02)
+
+* chore: update package manager commands from pnpm to npm and improve token handling ([942b1d5](https://github.com/R-Dolce-Group/runlintic-app/commit/942b1d5))
+* docs: add health check documentation and reorganize docs into _docs folder ([d9768f0](https://github.com/R-Dolce-Group/runlintic-app/commit/d9768f0))
+
+
+
+
+
 ## <small>6.0.2 (2025-09-01)</small>
 
 ## <small>6.0.2 (2025-09-01)</small>
