@@ -12,6 +12,10 @@ const commands = {
   'typecheck': 'Run TypeScript type checking',
   'format': 'Run Prettier formatting',
   'maintenance': 'Run maintenance tasks (knip + depcheck + workspace fixes)',
+  'deps:validate': 'Validate dependencies (unused + audit + lock sync)',
+  'deps:lockfile-check': 'Check package-lock.json sync with package.json',
+  'deps:sync': 'Sync package-lock.json without installing',
+  'deps:outdated': 'Check for outdated dependencies',
   'release': 'Create a release',
   'release:dry': 'Dry run release (preview changes)',
   'release:patch': 'Create patch release',
@@ -62,6 +66,7 @@ function showHelp() {
   const categories = {
     'Setup & Health': ['init', 'health-check'],
     'Code Quality': ['check-all', 'lint', 'lint:fix', 'typecheck', 'format'],
+    'Dependencies': ['deps:validate', 'deps:lockfile-check', 'deps:sync', 'deps:outdated'],
     'Maintenance': ['maintenance', 'clean', 'clean:all'],
     'Release Management': ['release', 'release:dry', 'release:patch', 'release:minor', 'release:major']
   };
