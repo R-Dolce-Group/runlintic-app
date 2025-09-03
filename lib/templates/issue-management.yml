@@ -1,0 +1,74 @@
+name: 'Issue Management'
+
+on:
+  issues:
+    types: [opened, labeled, closed]
+  issue_comment:
+    types: [created]
+
+jobs:
+  manage-issues:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Auto-label bug reports
+      if: github.event.action == 'opened' && contains(github.event.issue.title, '[BUG]')
+      uses: actions-ecosystem/action-add-labels@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        labels: bug, needs-triage
+        
+    - name: Auto-label feature requests
+      if: github.event.action == 'opened' && contains(github.event.issue.title, '[FEATURE]')
+      uses: actions-ecosystem/action-add-labels@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        labels: enhancement, needs-discussion
+        
+    - name: Request health-check on bug reports
+      if: github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'bug')
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: `👋 Thanks for reporting this bug! 
+            
+            To help us debug this issue faster, please:
+            
+            1. Run \`npm run health-check\` and paste the output
+            2. Include your \`npx runlintic --version\` output
+            3. Share any relevant error messages
+            
+            This helps us reproduce and fix the issue quickly! 🚀`
+          })
+          
+    - name: Add to bug tracking project
+      if: github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'bug')
+      uses: actions/add-to-project@v0.4.0
+      with:
+        project-url: https://github.com/orgs/R-Dolce-Group/projects/4
+        github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
+
+# ===========================================
+# SETUP INSTRUCTIONS
+# ===========================================
+
+# 1. Create a GitHub Project for bug tracking:
+#    - Go to GitHub → Projects → New project
+#    - Choose "Bug Tracking" template
+#    - Get the project URL
+#
+# 2. Create Personal Access Token:
+#    - GitHub → Settings → Developer settings → Personal access tokens
+#    - Create token with 'project' scope
+#    - Add as repository secret: ADD_TO_PROJECT_PAT
+#
+# 3. Customize project URL above with your actual project
+#
+# 4. This workflow will:
+#    - Auto-label issues based on title prefixes
+#    - Add helpful comments to bug reports
+#    - Automatically add bugs to your project board
+#    - Request additional info when needed

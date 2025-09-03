@@ -237,8 +237,11 @@ function initProject() {
     
     // GitHub integration  
     { from: path.join(templatesDir, 'runlintic-ci.yml'), to: './.github/workflows/runlintic-ci.yml', type: 'github', description: 'GitHub Actions workflow' },
+    { from: path.join(templatesDir, 'issue-management.yml'), to: './.github/workflows/issue-management.yml', type: 'github', description: 'Issue management automation' },
     { from: path.join(templatesDir, 'pull_request_template.md'), to: './.github/pull_request_template.md', type: 'github', description: 'Pull request template' },
     { from: path.join(templatesDir, 'bug_report.md'), to: './.github/ISSUE_TEMPLATE/bug_report.md', type: 'github', description: 'Bug report template' },
+    { from: path.join(templatesDir, 'feature_request.md'), to: './.github/ISSUE_TEMPLATE/feature_request.md', type: 'github', description: 'Feature request template' },
+    { from: path.join(templatesDir, 'config.yml'), to: './.github/ISSUE_TEMPLATE/config.yml', type: 'github', description: 'Issue template configuration' },
     
     // VSCode integration
     { from: path.join(templatesDir, 'vscode-settings.json'), to: './.vscode/settings.json', type: 'vscode', description: 'VSCode settings' },
