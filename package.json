@@ -26,8 +26,7 @@
     }
   },
   "main": "./lib/index.js",
-
-
+  "runkitExample": "const runlintic = require('@rdolcegroup/runlintic-app');\n\n// Example 1: Auto-fix messy code\nconst messyCode = `function HelloWorld( ){console.log('hi')}`;\nconst cleaned = runlintic.lintAndFormat(messyCode);\nconsole.log('Cleaned Code:\\n', cleaned);\n\n// Example 2: Generate a new release tag (simulation)\nconst release = runlintic.createRelease({ version: '1.0.0', message: 'Initial stable release' });\nconsole.log('Release Info:', release);",
   "bin": {
     "runlintic": "bin/runlintic-app.js"
   },
