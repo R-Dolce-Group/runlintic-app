@@ -17,8 +17,8 @@
   },
   "license": "ISC",
   "author": "R. Dolce Group",
-  "type": "module",
   "sideEffects": false,
+  "type": "module",
   "exports": {
     ".": {
       "require": "./lib/index.js",
