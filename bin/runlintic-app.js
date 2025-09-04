@@ -394,41 +394,43 @@ async function initProject() {
   await promptOptionalEnhancements(isMonorepo, hasTurboJson, templatesDir);
 }
 
-const [,, command, ...args] = process.argv;
+(async () => {
+  const [,, command, ...args] = process.argv;
 
-if (!command || command === 'help' || command === '--help' || command === '-h') {
-  showHelp();
-  process.exit(0);
-}
+  if (!command || command === 'help' || command === '--help' || command === '-h') {
+    showHelp();
+    process.exit(0);
+  }
 
-if (command === 'init') {
-  initProject();
-  process.exit(0);
-}
+  if (command === 'init') {
+    await initProject();
+    process.exit(0);
+  }
 
-if (command === 'commit') {
-  // Run the commit generator directly
-  const commitScriptPath = path.join(_dirname, '..', 'lib', 'generate-commit.js');
-  const child = spawn('node', [commitScriptPath], {
-    stdio: 'inherit',
-    shell: process.platform === 'win32'
-  });
-  
-  child.on('close', (code) => {
-    process.exit(code);
-  });
-  
-  child.on('error', (err) => {
-    console.error('❌ Error running commit generator:', err.message);
+  if (command === 'commit') {
+    // Run the commit generator directly
+    const commitScriptPath = path.join(_dirname, '..', 'lib', 'generate-commit.js');
+    const child = spawn('node', [commitScriptPath], {
+      stdio: 'inherit',
+      shell: process.platform === 'win32'
+    });
+    
+    child.on('close', (code) => {
+      process.exit(code);
+    });
+    
+    child.on('error', (err) => {
+      console.error('❌ Error running commit generator:', err.message);
+      process.exit(1);
+    });
+  } else if (commands[command]) {
+    // Validate token requirements for tiers
+    validateTokenTier();
+    
+    runCommand(command, args);
+  } else {
+    console.error(`❌ Unknown command: ${command}`);
+    console.log('Run "runlintic help" to see available commands.');
     process.exit(1);
-  });
-} else if (commands[command]) {
-  // Validate token requirements for tiers
-  validateTokenTier();
-  
-  runCommand(command, args);
-} else {
-  console.error(`❌ Unknown command: ${command}`);
-  console.log('Run "runlintic help" to see available commands.');
-  process.exit(1);
-}
+  }
+})().catch(console.error);
