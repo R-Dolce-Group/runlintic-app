@@ -2,6 +2,38 @@
 
 
 
+## <small>6.3.5 (2025-09-04)</small>
+
+* docs: improve documentation formatting and readability across multiple files ([283437c](https://github.com/R-Dolce-Group/runlintic-app/commit/283437c))
+* docs: update monorepo structure and convert packageJsonHelper to ESM ([8fdbae4](https://github.com/R-Dolce-Group/runlintic-app/commit/8fdbae4))
+* docs: improve issue template wording and simplify README.md ([563dcdf](https://github.com/R-Dolce-Group/runlintic-app/commit/563dcdf))
+
+## <small>6.3.5 (2025-09-04)</small>
+
+* docs: improve documentation formatting and readability across multiple files ([283437c](https://github.com/R-Dolce-Group/runlintic-app/commit/283437c))
+* docs: improve issue template wording and simplify README.md ([563dcdf](https://github.com/R-Dolce-Group/runlintic-app/commit/563dcdf))
+* docs: update monorepo structure and convert packageJsonHelper to ESM ([8fdbae4](https://github.com/R-Dolce-Group/runlintic-app/commit/8fdbae4))
+
+
+
+
+
+## <small>6.3.4 (2025-09-04)</small>
+
+* docs: improve documentation formatting and readability across multiple files ([283437c](https://github.com/R-Dolce-Group/runlintic-app/commit/283437c))
+* docs: update monorepo structure and convert packageJsonHelper to ESM ([8fdbae4](https://github.com/R-Dolce-Group/runlintic-app/commit/8fdbae4))
+* docs: improve issue template wording and simplify README.md ([563dcdf](https://github.com/R-Dolce-Group/runlintic-app/commit/563dcdf))
+
+## <small>6.3.4 (2025-09-04)</small>
+
+* docs: improve documentation formatting and readability across multiple files ([283437c](https://github.com/R-Dolce-Group/runlintic-app/commit/283437c))
+* docs: improve issue template wording and simplify README.md ([563dcdf](https://github.com/R-Dolce-Group/runlintic-app/commit/563dcdf))
+* docs: update monorepo structure and convert packageJsonHelper to ESM ([8fdbae4](https://github.com/R-Dolce-Group/runlintic-app/commit/8fdbae4))
+
+
+
+
+
 ## <small>6.3.3 (2025-09-04)</small>
 
 * docs: update monorepo structure and convert packageJsonHelper to ESM ([8fdbae4](https://github.com/R-Dolce-Group/runlintic-app/commit/8fdbae4))
