@@ -76,7 +76,7 @@ function suggestCommitType(analysis) {
   // Package.json changes (dependencies, config)
   if (analysis.hasPackageJson && !analysis.hasSource) return ['build', 'chore'];
   
-  // Lint/format config changes
+  // Lint/format config changes (could be style or build)
   if (analysis.hasLintConfig) return ['build', 'style'];
   
   // Lock file changes (dependency updates)
@@ -91,8 +91,8 @@ function suggestCommitType(analysis) {
   // Config files without source
   if (analysis.hasConfig && !analysis.hasSource) return ['build', 'ci'];
   
-  // Source code changes
-  if (analysis.hasSource) return ['feat', 'fix', 'refactor'];
+  // Source code changes (could be feat, fix, refactor, perf, or style)
+  if (analysis.hasSource) return ['feat', 'fix', 'refactor', 'perf', 'style'];
   
   return ['chore'];
 }
