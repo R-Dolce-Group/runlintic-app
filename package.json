@@ -26,6 +26,8 @@
     }
   },
   "main": "./lib/index.js",
+
+
   "bin": {
     "runlintic": "bin/runlintic-app.js"
   },
