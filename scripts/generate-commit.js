@@ -26,8 +26,13 @@ const COMMIT_TYPES = {
 function getGitStatus() {
   try {
     const status = execSync('git status --porcelain', { encoding: 'utf8' });
-    const diff = execSync('git diff --cached --name-only', { encoding: 'utf8' });
-    return { status: status.trim(), staged: diff.trim() };
+    const staged = execSync('git diff --cached --name-only', { encoding: 'utf8' });
+    const diff = execSync('git diff --cached', { encoding: 'utf8' });
+    return { 
+      status: status.trim(), 
+      staged: staged.trim(),
+      diff: diff.trim()
+    };
   } catch (error) {
     console.error('Error getting git status:', error.message);
     process.exit(1);
@@ -47,21 +52,126 @@ function analyzeChanges(staged) {
     hasDocs: files.some(f => f.includes('.md') || f.includes('docs/')),
     hasConfig: files.some(f => f.includes('.json') || f.includes('.yml') || f.includes('.yaml')),
     hasSource: files.some(f => f.includes('.js') || f.includes('.ts') || f.includes('.jsx') || f.includes('.tsx')),
-    hasTemplates: files.some(f => f.includes('ISSUE_TEMPLATE') || f.includes('.github')),
-    hasScripts: files.some(f => f.includes('scripts/') || f.includes('bin/'))
+    hasTemplates: files.some(f => f.includes('ISSUE_TEMPLATE')),
+    hasWorkflows: files.some(f => f.includes('.github/workflows')),
+    hasScripts: files.some(f => f.includes('scripts/') || f.includes('bin/')),
+    hasPackageJson: files.some(f => f.includes('package.json')),
+    hasLintConfig: files.some(f => f.includes('eslint') || f.includes('prettier') || f.includes('.editorconfig')),
+    hasDependencies: files.some(f => f.includes('package-lock.json') || f.includes('yarn.lock') || f.includes('pnpm-lock.yaml'))
   };
 
   return analysis;
 }
 
 function suggestCommitType(analysis) {
+  // Workflow fixes are usually critical CI issues
+  if (analysis.hasWorkflows) return ['fix', 'ci'];
+  
+  // New features or templates
   if (analysis.hasTemplates) return ['feat', 'docs'];
-  if (analysis.hasTests && !analysis.hasSource) return ['test'];
-  if (analysis.hasDocs && !analysis.hasSource) return ['docs'];
-  if (analysis.hasConfig && !analysis.hasSource) return ['build', 'ci'];
+  
+  // Script changes (new tools, build improvements)
   if (analysis.hasScripts) return ['feat', 'build'];
+  
+  // Package.json changes (dependencies, config)
+  if (analysis.hasPackageJson && !analysis.hasSource) return ['build', 'chore'];
+  
+  // Lint/format config changes
+  if (analysis.hasLintConfig) return ['build', 'style'];
+  
+  // Lock file changes (dependency updates)
+  if (analysis.hasDependencies && !analysis.hasSource) return ['build', 'chore'];
+  
+  // Test-only changes
+  if (analysis.hasTests && !analysis.hasSource) return ['test'];
+  
+  // Documentation-only changes
+  if (analysis.hasDocs && !analysis.hasSource) return ['docs'];
+  
+  // Config files without source
+  if (analysis.hasConfig && !analysis.hasSource) return ['build', 'ci'];
+  
+  // Source code changes
   if (analysis.hasSource) return ['feat', 'fix', 'refactor'];
+  
   return ['chore'];
+}
+
+function analyzeDiffChanges(diff, analysis) {
+  if (!diff) return [];
+  
+  const changes = [];
+  const lines = diff.split('\n');
+  
+  // Track file-specific changes
+  let currentFile = '';
+  for (const line of lines) {
+    if (line.startsWith('diff --git')) {
+      currentFile = line.split(' ')[2].replace('a/', '');
+    }
+    
+    // Common patterns in diffs
+    if (line.startsWith('+') && !line.startsWith('+++')) {
+      const addedLine = line.substring(1).trim();
+      
+      // Detect specific patterns
+      if (addedLine.includes('"type": "module"')) {
+        changes.push('Added ES module type to package.json');
+      } else if (addedLine.includes('import ') && addedLine.includes(' from ')) {
+        changes.push('Converted to ES module imports');
+      } else if (addedLine.includes('await ') && currentFile.includes('workflow')) {
+        changes.push('Added proper async/await to GitHub Actions');
+      } else if (addedLine.includes('types:') && addedLine.includes('- ')) {
+        changes.push('Fixed YAML array syntax for proper parsing');
+      } else if (addedLine.includes('hasWorkflows') || addedLine.includes('hasTemplates')) {
+        changes.push('Enhanced file detection for better commit suggestions');
+      } else if (addedLine.includes('scopeHint') || addedLine.includes('suggested:')) {
+        changes.push('Added intelligent scope suggestions based on changed files');
+      } else if (currentFile.includes('ISSUE_TEMPLATE') && addedLine.length > 10) {
+        changes.push(`Added ${currentFile.includes('task') ? 'task' : currentFile.includes('resolution') ? 'resolution' : 'issue'} template`);
+      } else if (currentFile.includes('workflow') && addedLine.includes('script:')) {
+        changes.push('Added GitHub issue auto-close workflow');
+      } else if (addedLine.includes('function ') || addedLine.includes('const ') || addedLine.includes('let ')) {
+        if (currentFile.includes('script')) {
+          changes.push('Enhanced commit generation logic');
+        }
+      }
+    }
+    
+    if (line.startsWith('-') && !line.startsWith('---')) {
+      const removedLine = line.substring(1).trim();
+      
+      if (removedLine.includes('require(') && !removedLine.includes('//')) {
+        changes.push('Removed CommonJS require statements');
+      } else if (removedLine.includes('Claude Code') && removedLine.includes('Generated')) {
+        changes.push('Removed automatic attribution from commit messages');
+      }
+    }
+  }
+  
+  // Fallback analysis based on file types
+  if (changes.length === 0) {
+    if (analysis.hasWorkflows) {
+      changes.push('Updated GitHub workflow configuration');
+    }
+    if (analysis.hasTemplates) {
+      changes.push('Added or updated issue templates');  
+    }
+    if (analysis.hasScripts) {
+      changes.push('Enhanced development scripts');
+    }
+    if (analysis.hasPackageJson) {
+      changes.push('Updated package configuration');
+    }
+  }
+  
+  return changes.slice(0, 5); // Limit to 5 most relevant changes
+}
+
+function formatChangesList(changes) {
+  if (changes.length === 0) return '';
+  
+  return changes.map((change, i) => `${i + 1}. ${change}`).join('\n');
 }
 
 function question(prompt) {
@@ -73,8 +183,9 @@ function question(prompt) {
 async function generateCommitMessage() {
   console.log('🔍 Analyzing staged changes...\n');
   
-  const { staged } = getGitStatus();
+  const { staged, diff } = getGitStatus();
   const analysis = analyzeChanges(staged);
+  const detectedChanges = analyzeDiffChanges(diff, analysis);
   
   console.log('📁 Files to be committed:');
   analysis.files.forEach(file => console.log(`  • ${file}`));
@@ -85,19 +196,54 @@ async function generateCommitMessage() {
   suggested.forEach(type => console.log(`  • ${type}: ${COMMIT_TYPES[type]}`));
   console.log();
 
+  // Show detected changes if any
+  if (detectedChanges.length > 0) {
+    console.log('🔍 Detected changes:');
+    detectedChanges.forEach((change, i) => console.log(`  ${i + 1}. ${change}`));
+    console.log();
+  }
+
   // Get commit type
-  const type = await question(`Enter commit type (${suggested.join('|')}): `);
-  if (!COMMIT_TYPES[type]) {
+  const type = await question(`Enter commit type (${suggested.join('|')}, press Enter for ${suggested[0]}): `);
+  const finalType = type.trim() || suggested[0];
+  if (!COMMIT_TYPES[finalType]) {
     console.log('❌ Invalid commit type');
     process.exit(1);
   }
 
-  // Get scope (optional)
-  const scope = await question('Enter scope (optional, e.g., cli, templates, docs): ');
+  // Get scope (optional) - suggest based on file analysis
+  let scopeHint = '';
+  if (analysis.hasWorkflows) scopeHint = 'workflows';
+  else if (analysis.hasTemplates) scopeHint = 'templates';  
+  else if (analysis.hasScripts) scopeHint = 'scripts';
+  else if (analysis.hasPackageJson) scopeHint = 'deps';
+  else if (analysis.hasDocs) scopeHint = 'docs';
   
-  // Get description
-  const description = await question('Enter brief description: ');
-  if (!description.trim()) {
+  const scope = await question(`Enter scope (optional${scopeHint ? `, suggested: ${scopeHint}, press Enter to use` : ', e.g., cli, templates, docs'}): `);
+  const finalScope = scope.trim() || scopeHint;
+  
+  // Get description with smart suggestion
+  let descriptionHint = '';
+  if (detectedChanges.length > 0) {
+    // Create a smart summary from detected changes
+    if (detectedChanges.some(c => c.includes('Enhanced') || c.includes('Added intelligent'))) {
+      descriptionHint = 'enhance commit generator with intelligent analysis';
+    } else if (detectedChanges.some(c => c.includes('Fixed') || c.includes('YAML'))) {
+      descriptionHint = 'resolve YAML syntax error causing validation failure';  
+    } else if (detectedChanges.some(c => c.includes('ES module') || c.includes('import'))) {
+      descriptionHint = 'convert to ES modules and fix Node.js warnings';
+    } else if (detectedChanges.some(c => c.includes('template'))) {
+      descriptionHint = 'add comprehensive GitHub issue templates';
+    } else if (detectedChanges.some(c => c.includes('workflow'))) {
+      descriptionHint = 'add GitHub issue auto-close automation';
+    } else {
+      descriptionHint = detectedChanges[0].toLowerCase();
+    }
+  }
+  
+  const description = await question(`Enter brief description${descriptionHint ? ` (suggested: ${descriptionHint}, press Enter to use)` : ''}: `);
+  const finalDescription = description.trim() || descriptionHint;
+  if (!finalDescription) {
     console.log('❌ Description is required');
     process.exit(1);
   }
@@ -105,17 +251,24 @@ async function generateCommitMessage() {
   // Get breaking change info
   const isBreaking = await question('Is this a breaking change? (y/N): ');
   
-  // Get detailed description
-  const body = await question('Enter detailed description (optional): ');
+  // Get detailed description with auto-suggestion from detected changes
+  let suggestedBody = '';
+  if (detectedChanges.length > 0) {
+    suggestedBody = formatChangesList(detectedChanges);
+  }
+  
+  const body = await question(`Enter detailed description${suggestedBody ? ` (optional, press Enter to use detected changes):\n\n${suggestedBody}\n\n` : ' (optional): '}`);
   
   // Generate commit message
-  let commitMsg = type;
-  if (scope) commitMsg += `(${scope})`;
+  let commitMsg = finalType;
+  if (finalScope) commitMsg += `(${finalScope})`;
   if (isBreaking.toLowerCase() === 'y') commitMsg += '!';
-  commitMsg += `: ${description}`;
+  commitMsg += `: ${finalDescription}`;
   
-  if (body) {
-    commitMsg += `\n\n${body}`;
+  // Use suggested body if user pressed Enter without typing anything
+  const finalBody = body.trim() || suggestedBody;
+  if (finalBody) {
+    commitMsg += `\n\n${finalBody}`;
   }
   
   if (isBreaking.toLowerCase() === 'y') {
