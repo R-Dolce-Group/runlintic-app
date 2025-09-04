@@ -2,6 +2,20 @@
 
 
 
+## <small>6.3.3 (2025-09-04)</small>
+
+* docs: update monorepo structure and convert packageJsonHelper to ESM ([8fdbae4](https://github.com/R-Dolce-Group/runlintic-app/commit/8fdbae4))
+* docs: improve issue template wording and simplify README.md ([563dcdf](https://github.com/R-Dolce-Group/runlintic-app/commit/563dcdf))
+
+## <small>6.3.3 (2025-09-04)</small>
+
+* docs: improve issue template wording and simplify README.md ([563dcdf](https://github.com/R-Dolce-Group/runlintic-app/commit/563dcdf))
+* docs: update monorepo structure and convert packageJsonHelper to ESM ([8fdbae4](https://github.com/R-Dolce-Group/runlintic-app/commit/8fdbae4))
+
+
+
+
+
 ## <small>6.3.2 (2025-09-04)</small>
 
 * docs: update RunKit example with more comprehensive usage examples and commands ([b1cdba0](https://github.com/R-Dolce-Group/runlintic-app/commit/b1cdba0))

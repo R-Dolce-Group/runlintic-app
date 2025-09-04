@@ -27,17 +27,20 @@ npm install -g @rdolcegroup/runlintic-app
 ```
 
 **Verify installation:**
+
 ```bash
 runlintic --version
 runlintic help
 ```
 
 **Pros:**
+
 - ✅ Use `runlintic` command anywhere
 - ✅ No `npx` prefix needed
 - ✅ Faster execution
 
 **Cons:**
+
 - ❌ Requires admin/sudo permissions on some systems
 - ❌ Version locked globally
 
@@ -51,12 +54,14 @@ npm install -D @rdolcegroup/runlintic-app
 ```
 
 **Usage:**
+
 ```bash
 npx runlintic help
 npx runlintic init
 ```
 
 **Package.json integration:**
+
 ```json
 {
   "scripts": {
@@ -68,6 +73,7 @@ npx runlintic init
 ```
 
 **Then use:**
+
 ```bash
 npm run health-check
 npm run lint
@@ -86,6 +92,7 @@ npx @rdolcegroup/runlintic-app init
 ## Alternative Package Managers
 
 ### Yarn
+
 ```bash
 # Global
 yarn global add @rdolcegroup/runlintic-app
@@ -98,11 +105,12 @@ yarn dlx @rdolcegroup/runlintic-app help
 ```
 
 ### pnpm
+
 ```bash
 # Global
 pnpm add -g @rdolcegroup/runlintic-app
 
-# Project  
+# Project
 pnpm add -D @rdolcegroup/runlintic-app
 
 # One-time
@@ -116,6 +124,7 @@ pnpx @rdolcegroup/runlintic-app help
 **Error:** `EACCES: permission denied`
 
 **Solution 1: Use npm prefix**
+
 ```bash
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
@@ -128,6 +137,7 @@ echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.zshrc
 ```
 
 **Solution 2: Use nvm (recommended)**
+
 ```bash
 # Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
@@ -141,6 +151,7 @@ npm install -g @rdolcegroup/runlintic-app
 ```
 
 **Solution 3: Use sudo (not recommended)**
+
 ```bash
 sudo npm install -g @rdolcegroup/runlintic-app
 ```
@@ -150,6 +161,7 @@ sudo npm install -g @rdolcegroup/runlintic-app
 **Error:** `This package requires Node.js >= 22.16.0`
 
 **Check current version:**
+
 ```bash
 node --version
 ```
@@ -157,6 +169,7 @@ node --version
 **Update Node.js:**
 
 **Option 1: Using nvm**
+
 ```bash
 nvm install 22
 nvm use 22
@@ -164,11 +177,13 @@ nvm alias default 22
 ```
 
 **Option 2: Direct download**
+
 - Visit [nodejs.org](https://nodejs.org/)
 - Download Node.js 22+ LTS version
 - Run installer
 
 **Option 3: Using package manager**
+
 ```bash
 # macOS with Homebrew
 brew install node@22
@@ -186,18 +201,21 @@ choco install nodejs --version 22.16.0
 **Error:** `ETIMEDOUT` or `ENOTFOUND`
 
 **Solution 1: Configure npm registry**
+
 ```bash
 npm config set registry https://registry.npmjs.org/
 npm config set timeout 60000
 ```
 
 **Solution 2: Use corporate proxy**
+
 ```bash
 npm config set proxy http://proxy-server:port
 npm config set https-proxy http://proxy-server:port
 ```
 
 **Solution 3: Clear npm cache**
+
 ```bash
 npm cache clean --force
 npm install -g @rdolcegroup/runlintic-app
@@ -208,6 +226,7 @@ npm install -g @rdolcegroup/runlintic-app
 **Error:** `Cannot find module '@rdolcegroup/runlintic-app'`
 
 **Solution 1: Clear cache and reinstall**
+
 ```bash
 npm cache clean --force
 rm -rf node_modules package-lock.json
@@ -215,12 +234,14 @@ npm install
 ```
 
 **Solution 2: Check installation location**
+
 ```bash
 npm list -g @rdolcegroup/runlintic-app
 npm config get prefix
 ```
 
 **Solution 3: Reinstall with verbose logging**
+
 ```bash
 npm install -g @rdolcegroup/runlintic-app --verbose
 ```
@@ -228,23 +249,27 @@ npm install -g @rdolcegroup/runlintic-app --verbose
 ## Post-Installation Setup
 
 ### 1. Verify Installation
+
 ```bash
 runlintic --version
 runlintic help
 ```
 
 ### 2. Initialize Your First Project
+
 ```bash
 cd your-project
 runlintic init
 ```
 
 ### 3. Run Health Check
+
 ```bash
 runlintic health-check
 ```
 
 ### 4. Setup GitHub Token (for releases)
+
 ```bash
 # Get token from: https://github.com/settings/tokens
 export GH_TOKEN="your_github_token_here"
@@ -258,6 +283,7 @@ echo 'export GH_TOKEN="your_github_token_here"' >> ~/.bashrc
 ### For New Team Members
 
 **Create `setup.sh` script:**
+
 ```bash
 #!/bin/bash
 # Team setup script
@@ -289,6 +315,7 @@ echo "✅ Setup complete!"
 ```
 
 **Make executable and run:**
+
 ```bash
 chmod +x setup.sh
 ./setup.sh
@@ -297,15 +324,16 @@ chmod +x setup.sh
 ### For CI/CD Environments
 
 **GitHub Actions example:**
+
 ```yaml
 - name: Setup Node.js
   uses: actions/setup-node@v3
   with:
     node-version: '22'
-    
+
 - name: Install Runlintic
   run: npm install -g @rdolcegroup/runlintic-app
-  
+
 - name: Run health check
   run: runlintic health-check
 ```
@@ -313,11 +341,13 @@ chmod +x setup.sh
 ## Updating Runlintic
 
 ### Check for Updates
+
 ```bash
 npm outdated -g @rdolcegroup/runlintic-app
 ```
 
 ### Update to Latest
+
 ```bash
 # Global installation
 npm update -g @rdolcegroup/runlintic-app
@@ -327,6 +357,7 @@ npm update @rdolcegroup/runlintic-app
 ```
 
 ### Version Management
+
 ```bash
 # Install specific version
 npm install -g @rdolcegroup/runlintic-app@6.3.0
@@ -338,16 +369,19 @@ npm view @rdolcegroup/runlintic-app versions --json
 ## Uninstalling
 
 ### Remove Global Installation
+
 ```bash
 npm uninstall -g @rdolcegroup/runlintic-app
 ```
 
 ### Remove Project Installation
+
 ```bash
 npm uninstall @rdolcegroup/runlintic-app
 ```
 
 ### Clean Up Config Files
+
 ```bash
 # Remove generated configs (optional)
 rm eslint.config.js tsconfig.json .release-it.json commitlint.config.cjs
@@ -359,7 +393,7 @@ rm RUNLINTIC-*.md
 Once installed:
 
 1. 📋 **[Quick Start Guide](quick-start.md)** - Get running in 5 minutes
-2. 🔧 **[Configuration Guide](configuration.md)** - Customize for your project  
+2. 🔧 **[Configuration Guide](configuration.md)** - Customize for your project
 3. 📝 **[Commands Reference](commands.md)** - Learn all available commands
 4. 🆘 **[Troubleshooting](troubleshooting.md)** - Solve common issues
 

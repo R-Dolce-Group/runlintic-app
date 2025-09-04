@@ -16,23 +16,26 @@ This guide shows how to integrate Runlintic App into a Next.js Turbo monorepo fo
 ## Quick Setup
 
 ### 1. Install in Monorepo Root
+
 ```bash
 cd your-monorepo
 npm install -D @rdolcegroup/runlintic-app
 ```
 
 ### 2. Initialize Configuration
+
 ```bash
 npx runlintic init
 ```
 
 ### 3. Add Package.json Scripts
+
 ```json
 {
   "scripts": {
     "health-check": "runlintic health-check",
     "lint": "runlintic lint",
-    "lint:fix": "runlintic lint:fix", 
+    "lint:fix": "runlintic lint:fix",
     "commit": "runlintic commit",
     "release:dry": "runlintic release:dry"
   }
@@ -40,6 +43,7 @@ npx runlintic init
 ```
 
 ### 4. Run Health Check
+
 ```bash
 npm run health-check
 ```
@@ -47,6 +51,7 @@ npm run health-check
 ## Monorepo Structure Integration
 
 ### Typical Monorepo Layout
+
 ```text
 your-monorepo/
 ├── apps/
@@ -55,7 +60,7 @@ your-monorepo/
 │   └── docs/             # Documentation site
 ├── packages/
 │   ├── ui/               # Shared components
-│   ├── config/           # Shared configs  
+│   ├── config/           # Shared configs
 │   └── utils/            # Shared utilities
 ├── package.json          # Root package.json (install here)
 ├── turbo.json           # Turbo configuration
@@ -67,6 +72,7 @@ your-monorepo/
 ### Where to Run Commands
 
 **Root Level (Recommended):**
+
 ```bash
 # Run from monorepo root for full project
 npm run health-check     # Checks entire monorepo
@@ -76,6 +82,7 @@ npm run release:dry     # Releases entire monorepo
 ```
 
 **Individual Workspaces:**
+
 ```bash
 # For workspace-specific tasks
 cd apps/web
@@ -88,6 +95,7 @@ npx runlintic typecheck # Check only web app types
 ### Phase 1: Environment Preparation
 
 **Create Test Environment (Optional):**
+
 ```bash
 # Create isolated test directory
 mkdir ~/runlintic-testing
@@ -101,6 +109,7 @@ cd test-monorepo
 ### Phase 2: Installation
 
 **Install Runlintic:**
+
 ```bash
 # Install as dev dependency (recommended for teams)
 npm install -D @rdolcegroup/runlintic-app
@@ -111,6 +120,7 @@ npx runlintic --version
 ```
 
 **Verify CLI Access:**
+
 ```bash
 npx runlintic help
 npx runlintic --version
@@ -119,6 +129,7 @@ npx runlintic --version
 ### Phase 3: Configuration
 
 **Initialize Project:**
+
 ```bash
 # Run from monorepo root
 npx runlintic init
@@ -128,6 +139,7 @@ ls -la | grep -E "(eslint|tsconfig|release-it|commitlint)"
 ```
 
 **Files Created:**
+
 - ✅ `eslint.config.js` - Zero-warning ESLint setup
 - ✅ `tsconfig.json` - Strict TypeScript config
 - ✅ `.release-it.json` - Release automation
@@ -137,6 +149,7 @@ ls -la | grep -E "(eslint|tsconfig|release-it|commitlint)"
 ### Phase 4: Team Integration
 
 **Add to Package.json:**
+
 ```json
 {
   "scripts": {
@@ -153,6 +166,7 @@ ls -la | grep -E "(eslint|tsconfig|release-it|commitlint)"
 ```
 
 **Team Usage:**
+
 ```bash
 # Team members can now use
 npm run health-check
@@ -163,6 +177,7 @@ npm run commit
 ## Daily Workflow
 
 ### Development Cycle
+
 ```bash
 # 1. Make changes across monorepo
 git add .
@@ -178,6 +193,7 @@ npm run lint:fix
 ```
 
 ### Release Workflow
+
 ```bash
 # 1. Setup GitHub token (one-time)
 export GH_TOKEN="your_github_token_here"
@@ -192,12 +208,14 @@ npm run release:patch  # or minor/major
 ## Testing Your Setup
 
 ### Installation Verification
+
 - [ ] Local installation works
 - [ ] CLI binary accessible via npx
 - [ ] Package version matches expected
 - [ ] npm scripts integration works
 
 ### Core Commands Testing
+
 ```bash
 # Test each command
 npx runlintic help
@@ -209,6 +227,7 @@ npx runlintic format
 ```
 
 ### Monorepo-Specific Testing
+
 ```bash
 # Test in different contexts
 cd apps/web && npx runlintic health-check
@@ -220,6 +239,7 @@ npm run health-check  # Should work from root
 ```
 
 ### Release Testing
+
 ```bash
 # Test token validation
 npx runlintic release:dry  # Should show token requirement
@@ -232,6 +252,7 @@ npx runlintic release:dry  # Should show preview
 ## Performance Optimization
 
 ### Turbo Integration
+
 ```json
 // turbo.json
 {
@@ -253,6 +274,7 @@ npx runlintic release:dry  # Should show preview
 ```
 
 ### Parallel Execution Benefits
+
 ```bash
 # Before: Sequential execution
 npm run lint && npm run typecheck && npm run deps:check
@@ -268,6 +290,7 @@ npm run health-check
 ### Common Issues
 
 **Workspace Dependencies:**
+
 ```bash
 # If dependencies seem missing
 npm install  # Install from root
@@ -276,6 +299,7 @@ npm ci      # Clean install
 ```
 
 **TypeScript Path Issues:**
+
 ```json
 // tsconfig.json - Update paths if needed
 {
@@ -291,6 +315,7 @@ npm ci      # Clean install
 ```
 
 **ESLint Workspace Resolution:**
+
 ```javascript
 // eslint.config.js - Add workspace awareness
 import baseConfig from '@rdolcegroup/runlintic-app/lib/configs/base.js';
@@ -299,15 +324,16 @@ export default [
   ...baseConfig,
   {
     // Workspace-specific rules
-    files: ["apps/**/*.js", "packages/**/*.js"],
+    files: ['apps/**/*.js', 'packages/**/*.js'],
     rules: {
       // Custom rules for workspace
-    }
-  }
+    },
+  },
 ];
 ```
 
 ### Performance Issues
+
 ```bash
 # If commands are slow in large monorepos
 export NODE_OPTIONS="--max-old-space-size=4096"
@@ -319,6 +345,7 @@ node --max-old-space-size=4096 ./node_modules/.bin/runlintic health-check
 ## Advanced Configuration
 
 ### Custom Workspace Scripts
+
 ```json
 // apps/web/package.json
 {
@@ -331,6 +358,7 @@ node --max-old-space-size=4096 ./node_modules/.bin/runlintic health-check
 ```
 
 ### CI/CD Integration
+
 ```yaml
 # .github/workflows/ci.yml
 name: CI
@@ -352,12 +380,14 @@ jobs:
 ## Success Criteria
 
 ### Must Pass:
+
 - ✅ Package installs without errors
-- ✅ All CLI commands execute successfully  
+- ✅ All CLI commands execute successfully
 - ✅ Configuration files created correctly
 - ✅ Works from monorepo root and individual workspaces
 
 ### Should Pass:
+
 - ✅ Performance improvements are noticeable (40% faster)
 - ✅ Team can use npm scripts consistently
 - ✅ Release workflow works end-to-end
@@ -366,6 +396,7 @@ jobs:
 ## Why Local Installation for Monorepos
 
 **Benefits:**
+
 - ✅ **Version consistency** - All team members use same version
 - ✅ **Workspace integration** - Works with npm workspaces/Turbo
 - ✅ **CI/CD friendly** - Installs automatically in pipelines
@@ -373,6 +404,7 @@ jobs:
 - ✅ **Team scripts** - Consistent commands across team
 
 **Comparison:**
+
 ```bash
 # Team-friendly (recommended)
 npm run health-check
