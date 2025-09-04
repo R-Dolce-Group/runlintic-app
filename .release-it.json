@@ -19,7 +19,19 @@
   "plugins": {
     "@release-it/conventional-changelog": {
       "preset": "angular",
-      "infile": "CHANGELOG.md"
+      "infile": "CHANGELOG.md",
+      "header": "# Changelog\n\n",
+      "strictSemVer": true,
+      "context": {
+        "linkCompare": true,
+        "linkReferences": true
+      },
+      "gitRawCommitsOpts": {
+        "format": "%B%n-hash-%n%H%n-gitTags-%n%d%n-committerDate-%n%ci%n-authorName-%n%an%n-authorEmail-%n%ae"
+      },
+      "writerOpts": {
+        "commitsSort": ["scope", "type"]
+      }
     }
   }
 }
