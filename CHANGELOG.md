@@ -2,6 +2,22 @@
 
 
 
+## <small>6.3.2 (2025-09-04)</small>
+
+* docs: update RunKit example with more comprehensive usage examples and commands ([b1cdba0](https://github.com/R-Dolce-Group/runlintic-app/commit/b1cdba0))
+* docs: add runkit example code block to package.json ([91358df](https://github.com/R-Dolce-Group/runlintic-app/commit/91358df))
+* feat(deps): updated package configuration ([c21aaac](https://github.com/R-Dolce-Group/runlintic-app/commit/c21aaac))
+
+## <small>6.3.2 (2025-09-04)</small>
+
+* docs: add runkit example code block to package.json ([91358df](https://github.com/R-Dolce-Group/runlintic-app/commit/91358df))
+* docs: update RunKit example with more comprehensive usage examples and commands ([b1cdba0](https://github.com/R-Dolce-Group/runlintic-app/commit/b1cdba0))
+* feat(deps): updated package configuration ([c21aaac](https://github.com/R-Dolce-Group/runlintic-app/commit/c21aaac))
+
+
+
+
+
 ## <small>6.3.1 (2025-09-04)</small>
 
 * fix(cli): correct path to commit generator script ([8868801](https://github.com/R-Dolce-Group/runlintic-app/commit/8868801))
