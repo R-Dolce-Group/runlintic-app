@@ -20,8 +20,10 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: development  # Use the environment you created
     permissions:
       contents: write  # Needed to create releases
+      id-token: write  # Needed for NPM Trusted Publisher
       
     steps:
       - name: Checkout code
@@ -66,9 +68,8 @@ jobs:
           
       - name: Publish to npm (manual trigger only)
         if: github.event_name == 'workflow_dispatch'
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public --provenance
+        # No env needed - NPM Trusted Publisher handles authentication automatically
           
       - name: Tag push notification
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
