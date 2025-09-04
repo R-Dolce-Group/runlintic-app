@@ -1,4 +1,4 @@
-# ⚡ ◯ ➤ <img src="https://raw.githubusercontent.com/R-Dolce-Group/runlintic-app/refs/heads/main/public/runlintic-logo-light.svg?token=GHSAT0AAAAAADJXW7ZCDWQV3WTHNFBIKPF62FXPDYQ"/>Runlintic App
+# ⚡ ◯ ➤ Runlintic App
 
 > **A production-ready toolkit for automating code quality, cleanup, and releases.**  
 > **Now available as an installable NPM package!** Built with TypeScript and npm.  
