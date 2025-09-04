@@ -40,8 +40,8 @@
   ],
   "scripts": {
     "check-all": "npm run lint && npm run typecheck",
-    "commit": "node scripts/generate-commit.js",
     "clean:all": "rm -rf node_modules package-lock.json pnpm-lock.yaml",
+    "commit": "node scripts/generate-commit.js",
     "depcheck": "depcheck",
     "deps:audit": "npm audit",
     "deps:audit-fix": "npm audit fix",
