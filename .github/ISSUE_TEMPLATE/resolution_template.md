@@ -55,3 +55,7 @@ The [solution/configuration] ensures this won't happen again by:
 - [Prevention measure 3]
 
 **Status:** ✅ RESOLVED - [Next steps or current state]
+
+---
+
+<!-- When you paste this resolution, the issue will be automatically closed and labeled as 'resolved' -->

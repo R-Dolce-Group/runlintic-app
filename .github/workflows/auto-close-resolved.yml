@@ -1,0 +1,29 @@
+name: Auto-close Resolved Issues
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  auto-close-resolved:
+    if: contains(github.event.comment.body, 'Status: ✅ RESOLVED')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Close resolved issue
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: 'closed',
+              state_reason: 'completed'
+            });
+            
+            github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['resolved']
+            });
