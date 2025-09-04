@@ -16,6 +16,7 @@ const commands = {
   'deps:lockfile-check': 'Check package-lock.json sync with package.json',
   'deps:sync': 'Sync package-lock.json without installing',
   'deps:outdated': 'Check for outdated dependencies',
+  'commit': 'Generate intelligent conventional commit messages',
   'release': 'Create a release',
   'release:dry': 'Dry run release (preview changes)',
   'release:patch': 'Create patch release',
@@ -66,6 +67,7 @@ function showHelp() {
   const categories = {
     'Setup & Health': ['init', 'health-check'],
     'Code Quality': ['check-all', 'lint', 'lint:fix', 'typecheck', 'format'],
+    'Git & Commits': ['commit'],
     'Dependencies': ['deps:validate', 'deps:lockfile-check', 'deps:sync', 'deps:outdated'],
     'Maintenance': ['maintenance', 'clean', 'clean:all'],
     'Release Management': ['release', 'release:dry', 'release:patch', 'release:minor', 'release:major']
@@ -86,6 +88,7 @@ function showHelp() {
   console.log('    "scripts": {');
   console.log('      "health-check": "runlintic health-check",');
   console.log('      "lint": "runlintic lint",');
+  console.log('      "commit": "runlintic commit",');
   console.log('      "release:dry": "runlintic release:dry"');
   console.log('    }');
   console.log('  }');
@@ -398,7 +401,23 @@ if (command === 'init') {
   process.exit(0);
 }
 
-if (commands[command]) {
+if (command === 'commit') {
+  // Run the commit generator directly
+  const commitScriptPath = path.join(__dirname, '..', 'lib', 'generate-commit.js');
+  const child = spawn('node', [commitScriptPath], {
+    stdio: 'inherit',
+    shell: process.platform === 'win32'
+  });
+  
+  child.on('close', (code) => {
+    process.exit(code);
+  });
+  
+  child.on('error', (err) => {
+    console.error('❌ Error running commit generator:', err.message);
+    process.exit(1);
+  });
+} else if (commands[command]) {
   // Validate token requirements for tiers
   validateTokenTier();
   
