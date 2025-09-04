@@ -56,13 +56,14 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Use release-it for version bumping and changelog
+          # Use release-it for version bumping and changelog ONLY (not NPM publishing)
           npx release-it ${{ github.event.inputs.release_type }} \
             --ci \
             --git.commitMessage="chore(release): v\${version}" \
             --git.requireCleanWorkingDir=false \
             --git.requireUpstream=false \
-            --github.release=true
+            --github.release=true \
+            --npm.publish=false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
