@@ -50,9 +50,10 @@ echo $GH_TOKEN && npm run release:dry
 ## 📋 Quality Checklist
 
 - [ ] `npm run check-all` passes
-- [ ] `npm run health-check` passes  
+- [ ] `npm run health-check` passes
 - [ ] `npm run release:dry` previews correctly
 - [ ] GitHub token is set for releases
 
 ---
+
 **Need more detail? Check `RUNLINTIC-GUIDE.md` and `RUNLINTIC-WORKFLOW.md`**
