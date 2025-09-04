@@ -1,12 +1,12 @@
-const js = require("@eslint/js");
-const tseslint = require("typescript-eslint");
-const onlyWarn = require("eslint-plugin-only-warn");
-const globals = require("globals");
+import js from "@eslint/js";
+import tseslint from "typescript-eslint";
+import onlyWarn from "eslint-plugin-only-warn";
+import globals from "globals";
 
 /**
  * ESLint configuration for runlintic-app NPM package
  */
-module.exports = [
+export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
