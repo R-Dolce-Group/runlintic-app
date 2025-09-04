@@ -409,7 +409,7 @@ async function initProject() {
 
   if (command === 'commit') {
     // Run the commit generator directly
-    const commitScriptPath = path.join(_dirname, '..', 'lib', 'generate-commit.js');
+    const commitScriptPath = path.join(_dirname, '..', 'scripts', 'generate-commit.js');
     const child = spawn('node', [commitScriptPath], {
       stdio: 'inherit',
       shell: process.platform === 'win32'
