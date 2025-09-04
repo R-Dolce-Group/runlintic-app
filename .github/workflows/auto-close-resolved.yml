@@ -6,7 +6,7 @@ on:
 
 jobs:
   auto-close-resolved:
-    if: contains(github.event.comment.body, 'Status: RESOLVED')
+    if: contains(github.event.comment.body, "Status: RESOLVED")
     runs-on: ubuntu-latest
     steps:
       - name: Close resolved issue
