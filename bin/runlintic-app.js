@@ -5,8 +5,8 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const _filename = fileURLToPath(import.meta.url);
+const _dirname = path.dirname(_filename);
 
 const commands = {
   'health-check': 'Run comprehensive health check',
@@ -145,8 +145,9 @@ function runCommand(scriptName, args = []) {
   });
 }
 
-function promptOptionalEnhancements(isMonorepo, hasTurboJson, templatesDir) {
-  const readline = require('readline');
+async function promptOptionalEnhancements(isMonorepo, hasTurboJson, templatesDir) {
+  const { createInterface } = await import('readline');
+  const readline = { createInterface };
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -213,10 +214,10 @@ function promptOptionalEnhancements(isMonorepo, hasTurboJson, templatesDir) {
   });
 }
 
-function initProject() {
-  const configDir = path.join(__dirname, '..', 'lib', 'configs');
-  const templatesDir = path.join(__dirname, '..', 'lib', 'templates');
-  const { injectPackageJsonScripts } = require(path.join(__dirname, '..', 'lib', 'utils', 'packageJsonHelper.js'));
+async function initProject() {
+  const configDir = path.join(_dirname, '..', 'lib', 'configs');
+  const templatesDir = path.join(_dirname, '..', 'lib', 'templates');
+  const { injectPackageJsonScripts } = await import(path.join('file://', _dirname, '..', 'lib', 'utils', 'packageJsonHelper.js'));
   
   console.log('🔧 Initializing runlintic in current project...\n');
   
@@ -229,8 +230,8 @@ function initProject() {
     // Core configurations
     { from: path.join(configDir, 'base.json'), to: './tsconfig.json', type: 'config', description: 'TypeScript configuration' },
     { from: path.join(configDir, 'base.js'), to: './eslint.config.js', type: 'config', description: 'ESLint configuration' },
-    { from: path.join(__dirname, '..', '.release-it.json'), to: './.release-it.json', type: 'config', description: 'Release configuration' },
-    { from: path.join(__dirname, '..', 'commitlint.config.js'), to: './commitlint.config.js', type: 'config', description: 'Commit lint configuration' },
+    { from: path.join(_dirname, '..', '.release-it.json'), to: './.release-it.json', type: 'config', description: 'Release configuration' },
+    { from: path.join(_dirname, '..', 'commitlint.config.js'), to: './commitlint.config.js', type: 'config', description: 'Commit lint configuration' },
     
     // Documentation and guides
     { from: path.join(templatesDir, 'RUNLINTIC-GUIDE.md'), to: './RUNLINTIC-GUIDE.md', type: 'guide', description: 'Complete user guide' },
@@ -390,7 +391,7 @@ function initProject() {
   console.log('  • Team Setup: Share setup.sh with new team members');
   
   // Interactive prompts for optional enhancements
-  promptOptionalEnhancements(isMonorepo, hasTurboJson, templatesDir);
+  await promptOptionalEnhancements(isMonorepo, hasTurboJson, templatesDir);
 }
 
 const [,, command, ...args] = process.argv;
@@ -407,7 +408,7 @@ if (command === 'init') {
 
 if (command === 'commit') {
   // Run the commit generator directly
-  const commitScriptPath = path.join(__dirname, '..', 'lib', 'generate-commit.js');
+  const commitScriptPath = path.join(_dirname, '..', 'lib', 'generate-commit.js');
   const child = spawn('node', [commitScriptPath], {
     stdio: 'inherit',
     shell: process.platform === 'win32'
