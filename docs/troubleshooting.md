@@ -5,6 +5,7 @@ Common issues and their solutions when using Runlintic App.
 ## Installation Issues
 
 ### "Cannot find module" Error
+
 ```bash
 # Error: Cannot find module '@rdolcegroup/runlintic-app'
 
@@ -19,6 +20,7 @@ npm install -D @rdolcegroup/runlintic-app
 ```
 
 ### Permission Denied (macOS/Linux)
+
 ```bash
 # Error: EACCES permission denied
 
@@ -32,6 +34,7 @@ npm install -g @rdolcegroup/runlintic-app
 ```
 
 ### Node Version Error
+
 ```bash
 # Error: This package requires Node.js >= 22.16.0
 
@@ -44,6 +47,7 @@ nvm use 22
 ## CLI Issues
 
 ### Command Not Found
+
 ```bash
 # Error: runlintic: command not found
 
@@ -58,6 +62,7 @@ echo $PATH
 ```
 
 ### Help Command Shows Error
+
 ```bash
 # If 'runlintic help' fails
 
@@ -71,6 +76,7 @@ npx runlintic help
 ## Linting Issues
 
 ### "Zero Warnings" Policy Failures
+
 ```bash
 # Error: ESLint found warnings (maximum: 0)
 
@@ -85,6 +91,7 @@ npx eslint problematic-file.js --fix
 ```
 
 ### TypeScript Errors
+
 ```bash
 # Error: TypeScript type checking failed
 
@@ -101,6 +108,7 @@ npm run typecheck || echo "TypeScript errors found"
 ```
 
 ### Missing ESLint Config
+
 ```bash
 # Error: No ESLint configuration found
 
@@ -114,6 +122,7 @@ cp ./node_modules/@rdolcegroup/runlintic-app/lib/configs/base.js ./eslint.config
 ## Release Issues
 
 ### GitHub Token Problems
+
 ```bash
 # Error: GitHub API authentication failed
 
@@ -128,6 +137,7 @@ curl -H "Authorization: token $GH_TOKEN" https://api.github.com/user
 ```
 
 ### Release Dry Run Fails
+
 ```bash
 # Error: Pre-release validation failed
 
@@ -143,6 +153,7 @@ npm audit fix
 ```
 
 ### Git Working Directory Not Clean
+
 ```bash
 # Error: Working directory is not clean
 
@@ -160,6 +171,7 @@ runlintic commit
 ## Dependency Issues
 
 ### Unused Dependencies Warning
+
 ```bash
 # Warning: Found unused dependencies
 
@@ -173,6 +185,7 @@ npm uninstall $(npx knip --reporter=compact | grep "unused dependencies" | cut -
 ```
 
 ### Peer Dependency Warnings
+
 ```bash
 # Warning: Missing peer dependencies
 
@@ -184,6 +197,7 @@ npm install --legacy-peer-deps
 ```
 
 ### Package-lock.json Sync Issues
+
 ```bash
 # Error: package-lock.json out of sync
 
@@ -198,6 +212,7 @@ npm ci
 ## Performance Issues
 
 ### Slow Health Checks
+
 ```bash
 # If 'runlintic health-check' is slow
 
@@ -214,6 +229,7 @@ npm cache clean --force
 ```
 
 ### Out of Memory Errors
+
 ```bash
 # Error: JavaScript heap out of memory
 
@@ -227,6 +243,7 @@ node --max-old-space-size=4096 ./node_modules/.bin/runlintic health-check
 ## Configuration Issues
 
 ### ESLint Config Conflicts
+
 ```bash
 # Error: Configuration conflicts
 
@@ -238,6 +255,7 @@ runlintic init --force
 ```
 
 ### TypeScript Config Issues
+
 ```bash
 # Error: TypeScript configuration problems
 
@@ -256,6 +274,7 @@ cp ./node_modules/@rdolcegroup/runlintic-app/lib/configs/base.json ./tsconfig.js
 ## Commit Generator Issues
 
 ### No Staged Changes
+
 ```bash
 # Error: No staged changes found
 
@@ -268,6 +287,7 @@ runlintic commit
 ```
 
 ### Commitlint Validation Fails
+
 ```bash
 # Error: Commit message validation failed
 
@@ -281,6 +301,7 @@ cat commitlint.config.cjs
 ```
 
 ### Interactive Prompts Not Working
+
 ```bash
 # If prompts freeze or don't work
 
@@ -295,6 +316,7 @@ echo -e "\n\n\nn\n" | runlintic commit
 ## Getting Help
 
 ### Enable Debug Mode
+
 ```bash
 # Set debug environment
 export DEBUG=runlintic*
@@ -305,11 +327,12 @@ npm config set loglevel verbose
 ```
 
 ### Check System Info
+
 ```bash
 # Node version
 node --version
 
-# npm version  
+# npm version
 npm --version
 
 # Operating system
@@ -322,6 +345,7 @@ npm list @rdolcegroup/runlintic-app
 ```
 
 ### Report Issues
+
 ```bash
 # Collect diagnostic info
 runlintic health-check > debug.log 2>&1
@@ -329,7 +353,7 @@ runlintic health-check > debug.log 2>&1
 # Report at: https://github.com/R-Dolce-Group/runlintic-app/issues
 # Include:
 # - Node.js version
-# - Operating system  
+# - Operating system
 # - Complete error messages
 # - Steps to reproduce
 ```

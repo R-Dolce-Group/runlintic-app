@@ -21,7 +21,7 @@ runlintic health-check
 ## ✨ What It Does
 
 - 🔧 **Lint & Format** – ESLint + Prettier with zero warnings
-- 🧹 **Clean Dependencies** – Remove unused deps automatically  
+- 🧹 **Clean Dependencies** – Remove unused deps automatically
 - 🚀 **Smart Releases** – Semantic versioning with changelogs
 - 📝 **Intelligent Commits** – Generate conventional commit messages
 - ⚡ **40% Faster** – Parallel execution for all quality checks
@@ -30,17 +30,20 @@ runlintic health-check
 ## 🚀 Quick Start
 
 ### 1. Install
+
 ```bash
 npm install -g @rdolcegroup/runlintic-app
 ```
 
 ### 2. Initialize Your Project
+
 ```bash
 cd your-project
 runlintic init
 ```
 
 ### 3. Run Health Check
+
 ```bash
 runlintic health-check
 ```
@@ -50,22 +53,26 @@ runlintic health-check
 ## 📖 Documentation
 
 ### Getting Started
+
 - 🚀 **[Quick Start Guide](docs/quick-start.md)** - Get running in 5 minutes
 - 📦 **[Installation Guide](docs/installation.md)** - All installation scenarios
 - ⚙️ **[Configuration](docs/configuration.md)** - Customize for your project
 
-### Core Features  
+### Core Features
+
 - 📋 **[CLI Commands](docs/commands.md)** - Complete command reference
 - 📝 **[Commit Generator](docs/COMMIT-GENERATOR.md)** - Intelligent commit messages
 - 🚀 **[Release Workflow](docs/release-workflow.md)** - Automated releases
 - 🔧 **[API Reference](docs/api-reference.md)** - Programmatic usage
 
 ### Examples & Guides
+
 - 📱 **[Next.js Setup](docs/examples/nextjs-setup.md)** - Perfect for Next.js projects
 - 📦 **[Monorepo Setup](docs/examples/monorepo-setup.md)** - Turborepo integration
 - 🔄 **[CI/CD Integration](docs/examples/ci-cd-integration.md)** - GitHub Actions
 
 ### Help & Support
+
 - 🆘 **[Troubleshooting](docs/troubleshooting.md)** - Common issues & solutions
 - ⚡ **[Performance Guide](docs/advanced/performance.md)** - Optimization tips
 - 🔧 **[Custom Configs](docs/advanced/custom-configs.md)** - Advanced customization
@@ -80,7 +87,7 @@ git add .
 runlintic commit
 
 # Run quality checks
-runlintic check-all  
+runlintic check-all
 
 # Create a release
 runlintic release:dry    # Preview first
@@ -90,7 +97,7 @@ runlintic release:patch  # Then release
 ## 🎯 Perfect For
 
 - ✅ **Next.js applications** - Optimized configs included
-- ✅ **Monorepos** - Turbo integration for performance  
+- ✅ **Monorepos** - Turbo integration for performance
 - ✅ **TypeScript projects** - Strict type checking
 - ✅ **React libraries** - Component-focused linting
 - ✅ **Node.js apps** - Server-side optimizations
@@ -108,7 +115,7 @@ When you run `runlintic init`, you get:
 ```
 your-project/
 ├── eslint.config.js      # Zero-warning ESLint setup
-├── tsconfig.json         # Strict TypeScript config  
+├── tsconfig.json         # Strict TypeScript config
 ├── .release-it.json      # Automated release config
 ├── commitlint.config.cjs # Conventional commits
 └── RUNLINTIC-*.md        # Complete guides
@@ -116,17 +123,17 @@ your-project/
 
 ## 🤝 Contributing
 
-This package is part of [The R. Dolce Organization](https://rdolcegroup.com). 
+This package is part of [The R. Dolce Organization](https://rdolcegroup.com).
 
 1. Fork the repository
 2. Create a feature branch
-3. Run `runlintic health-check` 
+3. Run `runlintic health-check`
 4. Submit a pull request
 
 ## 📞 Support
 
 - 🐛 **Bug Reports**: [GitHub Issues](https://github.com/R-Dolce-Group/runlintic-app/issues)
-- 💬 **Questions**: [Discussions](https://github.com/R-Dolce-Group/runlintic-app/discussions)  
+- 💬 **Questions**: [Discussions](https://github.com/R-Dolce-Group/runlintic-app/discussions)
 - 📖 **Documentation**: [Full Docs](docs/)
 - 🚀 **Feature Requests**: [GitHub Issues](https://github.com/R-Dolce-Group/runlintic-app/issues)
 

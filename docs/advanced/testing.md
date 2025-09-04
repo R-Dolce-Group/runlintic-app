@@ -9,6 +9,7 @@ This guide provides a systematic approach to validate that Runlintic App works c
 ## Testing Environment Setup
 
 ### Create Isolated Test Environment
+
 ```bash
 # Create isolated test directory
 mkdir ~/runlintic-testing
@@ -24,12 +25,13 @@ find . -name ".DS_Store" -delete
 ```
 
 ### Test Environment Structure
+
 ```text
 test-monorepo/
 ├── apps/
 │   ├── web/                            # Next.js app
-│   └── docs/                           # Documentation site  
-├── packages/                           
+│   └── docs/                           # Documentation site
+├── packages/
 │   ├── ui/                             # Shared UI components
 │   └── eslint-config/                  # Shared configs
 │   └── typescript-config/              # Shared configs
@@ -40,6 +42,7 @@ test-monorepo/
 ## Phase 1: Installation Testing
 
 ### 1.1 Local Installation (Primary Method)
+
 ```bash
 # Test local dev dependency installation
 npm install -D @rdolcegroup/runlintic-app
@@ -53,11 +56,13 @@ npx runlintic --version
 ```
 
 **Expected Results:**
+
 - ✅ Package installs without errors
 - ✅ CLI accessible via `npx runlintic`
 - ✅ Version matches published version
 
 ### 1.2 Package.json Scripts Integration
+
 ```bash
 # Add to package.json scripts
 {
@@ -74,10 +79,12 @@ npm run lint
 ```
 
 **Expected Results:**
+
 - ✅ npm scripts execute without errors
 - ✅ Commands work identically to direct npx calls
 
 ### 1.3 Global Installation (Optional)
+
 ```bash
 # Test global installation
 npm install -g @rdolcegroup/runlintic-app
@@ -88,12 +95,14 @@ runlintic help
 ```
 
 **Expected Results:**
+
 - ✅ Global installation succeeds
 - ✅ `runlintic` command available in PATH
 
 ## Phase 2: Core Functionality Testing
 
 ### 2.1 Project Initialization
+
 ```bash
 # Test initialization in monorepo root
 npx runlintic init
@@ -107,6 +116,7 @@ cat tsconfig.json | jq .  # Should be valid JSON
 ```
 
 **Expected Files:**
+
 - ✅ `eslint.config.js` - Valid JavaScript config
 - ✅ `tsconfig.json` - Valid TypeScript config
 - ✅ `.release-it.json` - Valid release config
@@ -114,6 +124,7 @@ cat tsconfig.json | jq .  # Should be valid JSON
 - ✅ `RUNLINTIC-*.md` - Documentation files
 
 ### 2.2 CLI Commands Validation
+
 ```bash
 # Test help and basic commands
 npx runlintic help        # Should show command list
@@ -127,11 +138,13 @@ npx runlintic maintenance  # Should run cleanup
 ```
 
 **Expected Results:**
+
 - ✅ All commands execute without fatal errors
 - ✅ Help shows all available commands
 - ✅ Commands produce expected output
 
 ### 2.3 Error Handling
+
 ```bash
 # Test with no staged changes
 npx runlintic commit  # Should show "no staged changes" error
@@ -144,6 +157,7 @@ npx runlintic invalid-command  # Should show error + help
 ```
 
 **Expected Results:**
+
 - ✅ Clear, helpful error messages
 - ✅ Proper exit codes (non-zero for errors)
 - ✅ Suggestions for fixing issues
@@ -151,6 +165,7 @@ npx runlintic invalid-command  # Should show error + help
 ## Phase 3: Release Workflow Testing
 
 ### 3.1 GitHub Token Validation
+
 ```bash
 # Test without token
 unset GH_TOKEN
@@ -166,11 +181,13 @@ npx runlintic release:dry  # Should show release preview
 ```
 
 **Expected Results:**
+
 - ✅ Clear messaging about token requirements
 - ✅ Proper authentication error handling
 - ✅ Release preview with valid token
 
 ### 3.2 Release Commands
+
 ```bash
 # Test dry run variants
 npx runlintic release:dry
@@ -180,6 +197,7 @@ npx runlintic release:major --dry-run
 ```
 
 **Expected Results:**
+
 - ✅ Dry runs show preview without making changes
 - ✅ Version bumps are calculated correctly
 - ✅ Changelog preview is generated
@@ -187,7 +205,9 @@ npx runlintic release:major --dry-run
 ## Phase 4: Integration Testing
 
 ### 4.1 Programmatic API Testing
+
 Create `test-api.js`:
+
 ```javascript
 const { getConfig, configs } = require('@rdolcegroup/runlintic-app');
 
@@ -196,7 +216,7 @@ console.log('Testing programmatic API...');
 // Test available configs
 console.log('Available configs:', configs);
 
-// Test specific config retrieval  
+// Test specific config retrieval
 try {
   const eslintConfig = getConfig('eslint', 'base');
   console.log('✅ ESLint base config:', eslintConfig);
@@ -213,16 +233,19 @@ try {
 ```
 
 Run test:
+
 ```bash
 node test-api.js
 ```
 
 **Expected Results:**
+
 - ✅ API functions are accessible
 - ✅ Config paths are returned correctly
 - ✅ No runtime errors
 
 ### 4.2 Workspace Context Testing
+
 ```bash
 # Test from different workspace locations
 cd apps/web
@@ -237,6 +260,7 @@ npx runlintic health-check  # Should work from root
 ```
 
 **Expected Results:**
+
 - ✅ Commands work from any directory
 - ✅ Context-appropriate behavior (lint current vs all)
 - ✅ No path resolution errors
@@ -244,6 +268,7 @@ npx runlintic health-check  # Should work from root
 ## Phase 5: Performance Testing
 
 ### 5.1 Execution Time Validation
+
 ```bash
 # Time parallel execution
 echo "Testing parallel execution performance..."
@@ -255,11 +280,13 @@ time (npx runlintic lint && npx runlintic typecheck && npx runlintic deps:valida
 ```
 
 **Expected Results:**
+
 - ✅ `check-all` is faster than sequential execution
 - ✅ Performance improvement is noticeable
 - ✅ No significant overhead from parallelization
 
 ### 5.2 Memory Usage
+
 ```bash
 # Monitor memory usage during execution
 echo "Monitoring memory usage..."
@@ -267,12 +294,14 @@ echo "Monitoring memory usage..."
 ```
 
 **Expected Results:**
+
 - ✅ Memory usage is reasonable for project size
 - ✅ No memory leaks or excessive consumption
 
 ## Phase 6: Edge Case Testing
 
 ### 6.1 Empty Project Testing
+
 ```bash
 # Test with minimal project
 mkdir empty-project && cd empty-project
@@ -281,6 +310,7 @@ npx runlintic init  # Should work with just package.json
 ```
 
 ### 6.2 Existing Config Conflicts
+
 ```bash
 # Create conflicting config
 echo "module.exports = {};" > eslint.config.js
@@ -288,6 +318,7 @@ npx runlintic init  # Should show "already exists" messages
 ```
 
 ### 6.3 Large Project Testing
+
 ```bash
 # Test with large number of files
 find . -name "*.js" | wc -l  # Count JS files
@@ -297,16 +328,18 @@ time npx runlintic lint      # Should handle large projects
 ## Comprehensive Testing Checklist
 
 ### Installation ✅
+
 - [ ] Local installation (`npm install -D`)
-- [ ] Global installation (`npm install -g`) 
+- [ ] Global installation (`npm install -g`)
 - [ ] CLI accessible via `npx`
 - [ ] Version displays correctly
 - [ ] Package.json scripts work
 
 ### Core Commands ✅
+
 - [ ] `npx runlintic help` - Shows all commands
 - [ ] `npx runlintic init` - Creates config files
-- [ ] `npx runlintic health-check` - Runs successfully  
+- [ ] `npx runlintic health-check` - Runs successfully
 - [ ] `npx runlintic check-all` - Parallel execution
 - [ ] `npx runlintic lint` - Linting works
 - [ ] `npx runlintic lint:fix` - Auto-fixing works
@@ -315,6 +348,7 @@ time npx runlintic lint      # Should handle large projects
 - [ ] `npx runlintic maintenance` - Cleanup tasks
 
 ### Release Workflow ✅
+
 - [ ] Token validation messaging
 - [ ] `npx runlintic release:dry` - Preview works
 - [ ] Error handling for missing token
@@ -322,6 +356,7 @@ time npx runlintic lint      # Should handle large projects
 - [ ] Authentication with GitHub works
 
 ### Integration ✅
+
 - [ ] Works from monorepo root
 - [ ] Works from individual packages
 - [ ] Programmatic API accessible
@@ -329,12 +364,14 @@ time npx runlintic lint      # Should handle large projects
 - [ ] Workspace context respected
 
 ### Error Handling ✅
+
 - [ ] Clear error messages
 - [ ] Graceful failure handling
 - [ ] Proper exit codes
 - [ ] Helpful suggestions provided
 
 ### Performance ✅
+
 - [ ] Parallel execution is faster
 - [ ] Memory usage is reasonable
 - [ ] Large projects handled well
@@ -343,6 +380,7 @@ time npx runlintic lint      # Should handle large projects
 ## Automated Test Script
 
 Create `test-suite.sh`:
+
 ```bash
 #!/bin/bash
 set -e
@@ -352,7 +390,7 @@ echo "=================================="
 
 # Colors for output
 RED='\033[0;31m'
-GREEN='\033[0;32m' 
+GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
@@ -363,10 +401,10 @@ TESTS_PASSED=0
 run_test() {
   local test_name=$1
   local test_command=$2
-  
+
   echo -e "${YELLOW}Testing: ${test_name}${NC}"
   TESTS_RUN=$((TESTS_RUN + 1))
-  
+
   if eval $test_command > /dev/null 2>&1; then
     echo -e "${GREEN}✅ PASS: ${test_name}${NC}"
     TESTS_PASSED=$((TESTS_PASSED + 1))
@@ -398,6 +436,7 @@ fi
 ```
 
 Run the test suite:
+
 ```bash
 chmod +x test-suite.sh
 ./test-suite.sh
@@ -406,6 +445,7 @@ chmod +x test-suite.sh
 ## Continuous Integration Testing
 
 ### GitHub Actions Example
+
 ```yaml
 name: End-to-End Testing
 on: [push, pull_request]
@@ -418,18 +458,18 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '22'
-      
+
       # Test installation
       - name: Test package installation
         run: npm install -D @rdolcegroup/runlintic-app
-      
+
       # Test CLI commands
       - name: Test CLI functionality
         run: |
           npx runlintic help
           npx runlintic init
           npx runlintic health-check
-      
+
       # Test with different contexts
       - name: Test monorepo context
         run: |
@@ -441,18 +481,21 @@ jobs:
 ## Success Metrics
 
 ### Must Pass (Critical):
+
 - ✅ Package installs without errors
 - ✅ All CLI commands execute successfully
 - ✅ Configuration files are created correctly
 - ✅ Help documentation is accurate
 
 ### Should Pass (Important):
+
 - ✅ Performance improvements are measurable
 - ✅ Error messages are helpful and clear
 - ✅ Token setup process works smoothly
 - ✅ Monorepo integration is seamless
 
 ### Nice to Have (Enhancement):
+
 - ✅ Programmatic API works as expected
 - ✅ Edge cases are handled gracefully
 - ✅ Performance metrics match documentation
@@ -476,6 +519,7 @@ DEBUG=runlintic* npx runlintic health-check > debug.log 2>&1
 ```
 
 Report issues with:
+
 - Complete error messages
 - Steps to reproduce
 - System information
