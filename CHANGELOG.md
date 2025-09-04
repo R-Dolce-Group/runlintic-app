@@ -2,6 +2,20 @@
 
 
 
+## <small>6.3.10 (2025-09-04)</small>
+
+* chore: bump version to 6.3.9 and update changelog ([4c01d9a](https://github.com/R-Dolce-Group/runlintic-app/commit/4c01d9a))
+* revert: back to token-based NPM authentication ([c027dc6](https://github.com/R-Dolce-Group/runlintic-app/commit/c027dc6))
+
+## <small>6.3.10 (2025-09-04)</small>
+
+* chore: bump version to 6.3.9 and update changelog ([4c01d9a](https://github.com/R-Dolce-Group/runlintic-app/commit/4c01d9a))
+* revert: back to token-based NPM authentication ([c027dc6](https://github.com/R-Dolce-Group/runlintic-app/commit/c027dc6))
+
+
+
+
+
 ## <small>6.3.9 (2025-09-04)</small>
 
 * revert: back to token-based NPM authentication ([c027dc6](https://github.com/R-Dolce-Group/runlintic-app/commit/c027dc6))
