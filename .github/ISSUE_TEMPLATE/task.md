@@ -71,7 +71,7 @@ Any potential risks or things to be careful about?
 
 ## 🧪 Testing Strategy
 
-How will you verify this task is completed correctly?
+Could you please let me know how you can verify that this task is completed correctly?
 
 - [ ] Manual testing: [describe approach]
 - [ ] Automated testing: [describe what will be tested]
