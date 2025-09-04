@@ -17,19 +17,24 @@ cd ~/runlintic-testing
 # Create realistic Next.js Turbo monorepo
 npx create-turbo@latest test-monorepo --package-manager npm
 cd test-monorepo
+ls -al list directory
+
+# NOTE (remove .DS_Store files)
+find . -name ".DS_Store" -delete
 ```
 
 ### Test Environment Structure
 ```text
 test-monorepo/
 ├── apps/
-│   ├── web/          # Next.js app
-│   └── docs/         # Documentation site  
-├── packages/
-│   ├── ui/           # Shared UI components
-│   └── config/       # Shared configs
-├── package.json      # Root package.json
-└── turbo.json       # Turbo configuration
+│   ├── web/                            # Next.js app
+│   └── docs/                           # Documentation site  
+├── packages/                           
+│   ├── ui/                             # Shared UI components
+│   └── eslint-config/                  # Shared configs
+│   └── typescript-config/              # Shared configs
+├── package.json                        # Root package.json
+└── turbo.json                          # Turbo configuration
 ```
 
 ## Phase 1: Installation Testing
