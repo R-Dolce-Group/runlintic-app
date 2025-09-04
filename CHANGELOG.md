@@ -2,6 +2,44 @@
 
 
 
+## <small>6.3.1 (2025-09-04)</small>
+
+* fix(cli): correct path to commit generator script ([8868801](https://github.com/R-Dolce-Group/runlintic-app/commit/8868801))
+* fix: use single quotes instead of double quotes in workflow condition ([8d8be11](https://github.com/R-Dolce-Group/runlintic-app/commit/8d8be11))
+* fix: use double quotes instead of single quotes in GitHub workflow condition ([643d27b](https://github.com/R-Dolce-Group/runlintic-app/commit/643d27b))
+* fix: update issue auto-close trigger to match simplified status text ([78cac63](https://github.com/R-Dolce-Group/runlintic-app/commit/78cac63))
+* fix(workflows): resolve YAML syntax error causing knip validation failure ([78db174](https://github.com/R-Dolce-Group/runlintic-app/commit/78db174))
+* feat: add commit command to generate conventional commit messages ([6974448](https://github.com/R-Dolce-Group/runlintic-app/commit/6974448))
+* feat: enhance commit type detection with more granular file analysis and scope suggestions ([c81d2ef](https://github.com/R-Dolce-Group/runlintic-app/commit/c81d2ef))
+* feat: add issue templates, auto-close workflow, and commit message generator ([f1a1d32](https://github.com/R-Dolce-Group/runlintic-app/commit/f1a1d32))
+* feat(scripts): convert to ES modules and fix Node.js warnings ([08a71b2](https://github.com/R-Dolce-Group/runlintic-app/commit/08a71b2))
+* feat(scripts): enhance commit generator with intelligent analysis ([0c98116](https://github.com/R-Dolce-Group/runlintic-app/commit/0c98116))
+* refactor: wrap CLI command handling in async IIFE and await init command ([e5f971b](https://github.com/R-Dolce-Group/runlintic-app/commit/e5f971b))
+* refactor: convert synchronous imports to async and rename dirname/filename variables ([5e20386](https://github.com/R-Dolce-Group/runlintic-app/commit/5e20386))
+* refactor: convert CommonJS imports to ES modules in runlintic-app.js ([d84d32e](https://github.com/R-Dolce-Group/runlintic-app/commit/d84d32e))
+* chore: remove logo image from README and update gitignore patterns ([71dcaa1](https://github.com/R-Dolce-Group/runlintic-app/commit/71dcaa1))
+
+## <small>6.3.1 (2025-09-04)</small>
+
+* fix: update issue auto-close trigger to match simplified status text ([78cac63](https://github.com/R-Dolce-Group/runlintic-app/commit/78cac63))
+* fix: use double quotes instead of single quotes in GitHub workflow condition ([643d27b](https://github.com/R-Dolce-Group/runlintic-app/commit/643d27b))
+* fix: use single quotes instead of double quotes in workflow condition ([8d8be11](https://github.com/R-Dolce-Group/runlintic-app/commit/8d8be11))
+* fix(cli): correct path to commit generator script ([8868801](https://github.com/R-Dolce-Group/runlintic-app/commit/8868801))
+* fix(workflows): resolve YAML syntax error causing knip validation failure ([78db174](https://github.com/R-Dolce-Group/runlintic-app/commit/78db174))
+* feat: add commit command to generate conventional commit messages ([6974448](https://github.com/R-Dolce-Group/runlintic-app/commit/6974448))
+* feat: add issue templates, auto-close workflow, and commit message generator ([f1a1d32](https://github.com/R-Dolce-Group/runlintic-app/commit/f1a1d32))
+* feat: enhance commit type detection with more granular file analysis and scope suggestions ([c81d2ef](https://github.com/R-Dolce-Group/runlintic-app/commit/c81d2ef))
+* feat(scripts): convert to ES modules and fix Node.js warnings ([08a71b2](https://github.com/R-Dolce-Group/runlintic-app/commit/08a71b2))
+* feat(scripts): enhance commit generator with intelligent analysis ([0c98116](https://github.com/R-Dolce-Group/runlintic-app/commit/0c98116))
+* refactor: convert CommonJS imports to ES modules in runlintic-app.js ([d84d32e](https://github.com/R-Dolce-Group/runlintic-app/commit/d84d32e))
+* refactor: convert synchronous imports to async and rename dirname/filename variables ([5e20386](https://github.com/R-Dolce-Group/runlintic-app/commit/5e20386))
+* refactor: wrap CLI command handling in async IIFE and await init command ([e5f971b](https://github.com/R-Dolce-Group/runlintic-app/commit/e5f971b))
+* chore: remove logo image from README and update gitignore patterns ([71dcaa1](https://github.com/R-Dolce-Group/runlintic-app/commit/71dcaa1))
+
+
+
+
+
 ## 6.3.0 (2025-09-04)
 
 * docs: add changelog with version history and feature updates from v6.0.0 to unreleased ([8fc3600](https://github.com/R-Dolce-Group/runlintic-app/commit/8fc3600))

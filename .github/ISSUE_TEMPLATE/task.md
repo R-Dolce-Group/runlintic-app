@@ -7,12 +7,15 @@ assignees: ''
 ---
 
 ## 📋 Task Description
+
 A clear and concise description of the task to be completed.
 
 ## 🎯 Objective
+
 What is the goal or outcome of this task?
 
 ## 📋 Task Category
+
 - [ ] 🔧 Maintenance (dependencies, cleanup, refactoring)
 - [ ] 📚 Documentation (guides, README, code comments)
 - [ ] 🏗️ Development (infrastructure, tooling, setup)
@@ -23,6 +26,7 @@ What is the goal or outcome of this task?
 - [ ] Other: [specify]
 
 ## ✅ Acceptance Criteria
+
 What needs to be done for this task to be considered complete?
 
 - [ ] [Criterion 1]
@@ -31,6 +35,7 @@ What needs to be done for this task to be considered complete?
 - [ ] [Additional criteria as needed]
 
 ## 🔄 Steps to Complete
+
 Break down the task into actionable steps:
 
 1. [ ] [Step 1]
@@ -39,6 +44,7 @@ Break down the task into actionable steps:
 4. [ ] [Add more steps as needed]
 
 ## 📁 Files/Areas Affected
+
 List the files, directories, or areas of the codebase this task will affect:
 
 - `[file/directory 1]`
@@ -47,6 +53,7 @@ List the files, directories, or areas of the codebase this task will affect:
 - `[documentation files]`
 
 ## 🔗 Dependencies
+
 Are there any dependencies or prerequisites?
 
 - [ ] Depends on issue #[number]
@@ -55,6 +62,7 @@ Are there any dependencies or prerequisites?
 - [ ] Blocked by [external factor]
 
 ## ⚠️ Risks & Considerations
+
 Any potential risks or things to be careful about?
 
 - [Risk 1 and mitigation]
@@ -62,6 +70,7 @@ Any potential risks or things to be careful about?
 - [Breaking changes to consider]
 
 ## 🧪 Testing Strategy
+
 How will you verify this task is completed correctly?
 
 - [ ] Manual testing: [describe approach]
@@ -70,6 +79,7 @@ How will you verify this task is completed correctly?
 - [ ] Documentation review: [what to check]
 
 ## 📚 Resources
+
 Links to relevant documentation, examples, or references:
 
 - [Link to relevant docs]
@@ -77,15 +87,18 @@ Links to relevant documentation, examples, or references:
 - [External references]
 
 ## ⏰ Timeline
+
 **Estimated effort:** [e.g., 1-2 hours, half day, 1-2 days]
 
 **Target completion:** [date or milestone]
 
-**Priority:** 
+**Priority:**
+
 - [ ] 🔴 Urgent - Blocking other work
 - [ ] 🟡 High - Important for upcoming release
 - [ ] 🟢 Medium - Planned improvement
 - [ ] 🔵 Low - Nice to have when time permits
 
 ## 💡 Additional Context
+
 Any other information, context, or considerations for this task.
