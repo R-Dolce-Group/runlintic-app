@@ -31,6 +31,7 @@ Your bug report template already integrates with GitHub, but I've just enhanced 
 3. Comprehensive Bug Tracking System
 
 ### When Users Report Bugs:
+
 1. Template guides them through comprehensive reporting
 2. Auto-labeled with bug and needs-triage
 3. Bot comments asking for npm run health-check output
@@ -85,46 +86,55 @@ future reference much more efficient!
 ## **Quick Setup Guide:**
 
 ### **Step 1: Navigate to Projects**
+
 1. Go to: https://github.com/R-Dolce-Group/runlintic-app
 2. Click the **"Projects"** tab (next to Actions)
 3. Click **"New project"** button
 
 ### **Step 2: Choose Project Template**
+
 **Recommended:** Select **"Bug triage"** template
+
 - Perfect for issue management
 - Pre-configured with useful columns
 
 **Alternative:** **"Table"** view for custom setup
 
 ### **Step 3: Configure Project Details**
+
 ```
 Project Name: "Runlintic Bug Tracking"
-Description: "Track and manage runlintic-app bugs, features, and improvements"  
+Description: "Track and manage runlintic-app bugs, features, and improvements"
 Visibility: Public (matches your repository)
 ```
 
 ### **Step 4: Recommended Project Structure**
 
 #### **Columns/Views:**
+
 1. **Backlog** - New issues needing triage
-2. **In Progress** - Actively being worked on  
+2. **In Progress** - Actively being worked on
 3. **Needs Info** - Waiting for user response
 4. **Ready for Release** - Fixed, awaiting deployment
 5. **Done** - Released and verified
 
 #### **Custom Fields to Add:**
+
 - **Priority**: High, Medium, Low
 - **Component**: init, lint, release, health-check, maintenance
 - **Runlintic Version**: Track which version reported bug
 - **Environment**: macOS, Windows, Linux, Docker
 
 ### **Step 5: Get Your Project URL**
+
 After creation, copy the project URL (format):
+
 ```
 https://github.com/orgs/R-Dolce-Group/projects/[PROJECT-NUMBER]
 ```
 
 ### **Step 6: Configure Automation**
+
 1. **Create Personal Access Token:**
    - Go to: GitHub → Settings → Developer settings → Personal access tokens
    - Generate token with `project` and `repo` scopes
@@ -134,8 +144,9 @@ https://github.com/orgs/R-Dolce-Group/projects/[PROJECT-NUMBER]
    `.github/workflows/issue-management.yml`
 
 ## 🚀 **Expected Workflow:**
+
 1. **Bug reported** → Auto-added to "Backlog"
-2. **Bot requests** health-check info  
+2. **Bot requests** health-check info
 3. **Maintainer triages** → Moves to appropriate column
 4. **Issue resolved** → Auto-moves through workflow
 5. **Released** → Marked as "Done"

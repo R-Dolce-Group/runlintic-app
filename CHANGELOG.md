@@ -1,5 +1,31 @@
 # Changelog
 
+
+
+## 6.3.0 (2025-09-04)
+
+* docs: add changelog with version history and feature updates from v6.0.0 to unreleased ([8fc3600](https://github.com/R-Dolce-Group/runlintic-app/commit/8fc3600))
+* docs: add empty issue tracking workflow document ([e943cdf](https://github.com/R-Dolce-Group/runlintic-app/commit/e943cdf))
+* docs: add comprehensive table of contents and environment setup instructions ([518e26a](https://github.com/R-Dolce-Group/runlintic-app/commit/518e26a))
+* chore: configure conventional-changelog with custom sorting and formatting options ([94eef55](https://github.com/R-Dolce-Group/runlintic-app/commit/94eef55))
+* chore: exclude packageJsonHelper.js from knip unused code analysis ([e27bd12](https://github.com/R-Dolce-Group/runlintic-app/commit/e27bd12))
+* feat: complete GitHub issue automation and developer tooling setup ([68110ce](https://github.com/R-Dolce-Group/runlintic-app/commit/68110ce))
+* feat: add GitHub issue templates and automation workflow for bug tracking ([5462c48](https://github.com/R-Dolce-Group/runlintic-app/commit/5462c48))
+* refactor: remove unused parameters and imports, simplify error handling ([e8be055](https://github.com/R-Dolce-Group/runlintic-app/commit/e8be055))
+
+## 6.3.0 (2025-09-04)
+
+* docs: add changelog with version history and feature updates from v6.0.0 to unreleased ([8fc3600](https://github.com/R-Dolce-Group/runlintic-app/commit/8fc3600))
+* docs: add comprehensive table of contents and environment setup instructions ([518e26a](https://github.com/R-Dolce-Group/runlintic-app/commit/518e26a))
+* docs: add empty issue tracking workflow document ([e943cdf](https://github.com/R-Dolce-Group/runlintic-app/commit/e943cdf))
+* chore: configure conventional-changelog with custom sorting and formatting options ([94eef55](https://github.com/R-Dolce-Group/runlintic-app/commit/94eef55))
+* chore: exclude packageJsonHelper.js from knip unused code analysis ([e27bd12](https://github.com/R-Dolce-Group/runlintic-app/commit/e27bd12))
+* feat: add GitHub issue templates and automation workflow for bug tracking ([5462c48](https://github.com/R-Dolce-Group/runlintic-app/commit/5462c48))
+* feat: complete GitHub issue automation and developer tooling setup ([68110ce](https://github.com/R-Dolce-Group/runlintic-app/commit/68110ce))
+* refactor: remove unused parameters and imports, simplify error handling ([e8be055](https://github.com/R-Dolce-Group/runlintic-app/commit/e8be055))
+
+
+
 ## [Unreleased]
 
 ### Features
@@ -121,6 +147,3 @@
 * feat: enhance release script with token validation and switch to conventional-changelog ([647661b](https://github.com/R-Dolce-Group/runlintic-app/commit/647661b))
 * feat: implement runlintic CLI with command execution and token validation ([77b1f9f](https://github.com/R-Dolce-Group/runlintic-app/commit/77b1f9f))
 * Initial commit ([74db529](https://github.com/R-Dolce-Group/runlintic-app/commit/74db529))
-
-
-

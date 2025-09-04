@@ -5,6 +5,7 @@ Complete workflow guide for teams using **@rdolcegroup/runlintic-app** in Next.j
 ## 🎯 Daily Development Workflow
 
 ### 1. Morning Setup
+
 ```bash
 # Pull latest changes
 git pull origin main
@@ -17,6 +18,7 @@ npm install
 ```
 
 ### 2. Before Starting Work
+
 ```bash
 # Create feature branch
 git checkout -b feature/your-feature-name
@@ -27,6 +29,7 @@ npm run typecheck
 ```
 
 ### 3. During Development
+
 ```bash
 # Auto-fix issues while coding
 npm run lint:fix
@@ -39,6 +42,7 @@ npm run maintenance
 ```
 
 ### 4. Before Committing
+
 ```bash
 # Run all quality checks (40% faster parallel execution)
 npm run check-all
@@ -49,6 +53,7 @@ git commit -m "feat: your feature description"
 ```
 
 ### 5. Before Pull Request
+
 ```bash
 # Final health check
 npm run health-check
@@ -63,6 +68,7 @@ git push origin feature/your-feature-name
 ## 🚀 Release Workflow (Maintainers)
 
 ### Preparation Phase
+
 ```bash
 # 1. Ensure you're on main branch
 git checkout main
@@ -79,6 +85,7 @@ npm run maintenance
 ```
 
 ### GitHub Token Setup (One-time)
+
 ```bash
 # Create GitHub Personal Access Token
 # Go to: GitHub → Settings → Developer settings → Personal access tokens
@@ -92,6 +99,7 @@ echo $GH_TOKEN
 ```
 
 ### Release Testing
+
 ```bash
 # Always test release first (safe - no actual release)
 npm run release:dry
@@ -103,11 +111,12 @@ npx runlintic release:major --dry-run
 ```
 
 ### Creating Releases
+
 ```bash
 # Patch release (bug fixes: 1.0.0 → 1.0.1)
 npm run release:patch
 
-# Minor release (new features: 1.0.0 → 1.1.0) 
+# Minor release (new features: 1.0.0 → 1.1.0)
 npm run release:minor
 
 # Major release (breaking changes: 1.0.0 → 2.0.0)
@@ -117,6 +126,7 @@ npm run release:major
 ## 👥 Team Onboarding Checklist
 
 ### New Team Member Setup
+
 - [ ] Clone repository
 - [ ] Install Node.js (version >=22)
 - [ ] Run `npm install`
@@ -126,6 +136,7 @@ npm run release:major
 - [ ] Review workflow guides (RUNLINTIC-GUIDE.md, RUNLINTIC-WORKFLOW.md)
 
 ### Recommended Package.json Scripts
+
 ```json
 {
   "scripts": {
@@ -147,6 +158,7 @@ npm run release:major
 ## 🏢 Monorepo Specific Workflows
 
 ### Working in Monorepo Root
+
 ```bash
 # Initialize runlintic (run once per monorepo)
 npx runlintic init
@@ -159,6 +171,7 @@ npm run release:dry
 ```
 
 ### Working in Individual Packages
+
 ```bash
 # Navigate to specific package
 cd apps/web  # or packages/ui, etc.
@@ -174,7 +187,9 @@ npm run release:dry
 ```
 
 ### Turbo Integration
+
 If you have `turbo.json`, runlintic works seamlessly:
+
 ```bash
 # Turbo handles workspace coordination automatically
 npm run check-all  # Runs across all workspaces efficiently
@@ -183,6 +198,7 @@ npm run check-all  # Runs across all workspaces efficiently
 ## 🔧 Troubleshooting Common Issues
 
 ### Slow Performance
+
 ```bash
 # Clean up unused dependencies
 npm run maintenance
@@ -193,6 +209,7 @@ npm install
 ```
 
 ### Linting Failures
+
 ```bash
 # Auto-fix common ESLint issues
 npm run lint:fix
@@ -202,6 +219,7 @@ npx runlintic lint --help
 ```
 
 ### TypeScript Errors
+
 ```bash
 # Run TypeScript compiler directly
 npm run typecheck
@@ -211,6 +229,7 @@ npx tsc --noEmit
 ```
 
 ### Release Issues
+
 ```bash
 # Verify GitHub token
 echo $GH_TOKEN
@@ -224,6 +243,7 @@ git log --oneline -5
 ```
 
 ### Dependency Issues
+
 ```bash
 # Check for unused dependencies
 npx runlintic maintenance
@@ -238,6 +258,7 @@ npx runlintic deps:outdated
 ## 📊 Performance Metrics
 
 ### Expected Execution Times
+
 - `npm run lint`: ~10-30 seconds
 - `npm run typecheck`: ~5-15 seconds
 - `npm run check-all`: ~15-45 seconds (40% faster than sequential)
@@ -245,6 +266,7 @@ npx runlintic deps:outdated
 - `npm run maintenance`: ~20-40 seconds
 
 ### Optimization Tips
+
 - Use `check-all` instead of running lint/typecheck separately
 - Run `maintenance` weekly to keep dependencies clean
 - Use `health-check` before important commits/releases
@@ -252,12 +274,14 @@ npx runlintic deps:outdated
 ## 🎯 Quality Gates
 
 ### Pre-Commit Requirements
+
 - [ ] `npm run check-all` passes
 - [ ] No TypeScript errors
 - [ ] No ESLint warnings
 - [ ] Code is formatted (Prettier)
 
 ### Pre-Release Requirements
+
 - [ ] `npm run health-check` passes
 - [ ] `npm run release:dry` previews correctly
 - [ ] All tests pass (if applicable)
@@ -265,6 +289,7 @@ npx runlintic deps:outdated
 - [ ] GitHub token is configured
 
 ### Team Standards
+
 - [ ] Follow conventional commit messages
 - [ ] Use feature branches for new work
 - [ ] Require code review for main branch
@@ -273,6 +298,7 @@ npx runlintic deps:outdated
 ## 🔗 Integration with CI/CD
 
 ### GitHub Actions Example
+
 ```yaml
 - name: Run Runlintic Quality Checks
   run: |
@@ -282,6 +308,7 @@ npx runlintic deps:outdated
 ```
 
 ### Pre-commit Hook Example
+
 ```bash
 #!/bin/sh
 npm run check-all
@@ -290,16 +317,19 @@ npm run check-all
 ## 📞 Getting Help
 
 ### Self-Help Resources
+
 1. Run `npx runlintic help` for command reference
 2. Check `RUNLINTIC-GUIDE.md` for detailed documentation
 3. Review error messages carefully - they're designed to be helpful
 
 ### Team Support
+
 1. Ask teammates about workflow questions
 2. Check team-specific documentation
 3. Review project-specific configurations
 
 ### Community Support
+
 1. GitHub Issues: https://github.com/R-Dolce-Group/runlintic-app/issues
 2. Documentation: https://github.com/R-Dolce-Group/runlintic-app
 3. Examples: See `_workflows/` directory in repo
