@@ -9,7 +9,8 @@
         "commitlint.config.cjs",
         ".husky/**",
         ".github/**",
-        "lib/utils/packageJsonHelper.js"
+        "lib/utils/packageJsonHelper.js",
+        "lib/scripts/runkit.js"
       ],
       "entry": [
         "lib/configs/*.js"
