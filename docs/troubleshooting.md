@@ -168,6 +168,46 @@ git add .
 runlintic commit
 ```
 
+### NPM Token Authentication Issues
+
+```bash
+# Error: This operation requires a one-time password (OTP)
+# Or: EOTP error when publishing
+
+# Problem: Cached/old NPM tokens in multiple locations
+
+# Check current token sources
+npm whoami                    # Shows authenticated user
+cat ~/.npmrc                  # Local NPM config
+echo $NPM_TOKEN               # Environment variable
+echo $NPM_ACCESS_TOKEN        # Alternative env variable
+
+# Solution 1: Update ~/.npmrc with new automation token
+# Replace old token in ~/.npmrc:
+//registry.npmjs.org/:_authToken=npm_YOUR_NEW_AUTOMATION_TOKEN
+
+# Solution 2: Clear cached environment variables
+unset NPM_TOKEN
+unset NPM_ACCESS_TOKEN
+
+# Update shell profile (~/.zshrc, ~/.bashrc, ~/.bash_profile)
+# Remove or update old token exports:
+export NPM_TOKEN="npm_YOUR_NEW_AUTOMATION_TOKEN"
+
+# Reload shell configuration
+source ~/.zshrc    # or ~/.bashrc
+
+# Solution 3: Use automation token for CI/CD
+# In GitHub repository secrets, set:
+# NPM_TOKEN = npm_YOUR_AUTOMATION_TOKEN (starts with npm_)
+
+# Verify new token works
+npm whoami
+npm publish --dry-run         # Test without publishing
+```
+
+**Pro Tip**: Use "Automation" tokens (not "Classic") from NPM for CI/CD - they bypass 2FA requirements and work better for automated publishing.
+
 ## Dependency Issues
 
 ### Unused Dependencies Warning
