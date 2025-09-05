@@ -2,6 +2,28 @@
 
 
 
+## <small>6.3.11 (2025-09-05)</small>
+
+* chore: add runkit.js script to depcheck ignore patterns ([be65040](https://github.com/R-Dolce-Group/runlintic-app/commit/be65040))
+* chore: add runkit.js to knip ignore list ([2f760bf](https://github.com/R-Dolce-Group/runlintic-app/commit/2f760bf))
+* chore: bump version to 6.3.10 and update changelog ([b1f1d20](https://github.com/R-Dolce-Group/runlintic-app/commit/b1f1d20))
+* chore: bump version to 6.3.9 and update changelog ([4c01d9a](https://github.com/R-Dolce-Group/runlintic-app/commit/4c01d9a))
+* docs: add troubleshooting guide for NPM token authentication issues ([a63dabc](https://github.com/R-Dolce-Group/runlintic-app/commit/a63dabc))
+* revert: back to token-based NPM authentication ([c027dc6](https://github.com/R-Dolce-Group/runlintic-app/commit/c027dc6))
+
+## <small>6.3.11 (2025-09-05)</small>
+
+* chore: add runkit.js script to depcheck ignore patterns ([be65040](https://github.com/R-Dolce-Group/runlintic-app/commit/be65040))
+* chore: add runkit.js to knip ignore list ([2f760bf](https://github.com/R-Dolce-Group/runlintic-app/commit/2f760bf))
+* chore: bump version to 6.3.10 and update changelog ([b1f1d20](https://github.com/R-Dolce-Group/runlintic-app/commit/b1f1d20))
+* chore: bump version to 6.3.9 and update changelog ([4c01d9a](https://github.com/R-Dolce-Group/runlintic-app/commit/4c01d9a))
+* docs: add troubleshooting guide for NPM token authentication issues ([a63dabc](https://github.com/R-Dolce-Group/runlintic-app/commit/a63dabc))
+* revert: back to token-based NPM authentication ([c027dc6](https://github.com/R-Dolce-Group/runlintic-app/commit/c027dc6))
+
+
+
+
+
 ## <small>6.3.10 (2025-09-04)</small>
 
 * chore: bump version to 6.3.9 and update changelog ([4c01d9a](https://github.com/R-Dolce-Group/runlintic-app/commit/4c01d9a))
