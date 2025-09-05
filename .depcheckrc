@@ -48,7 +48,8 @@
     "prettier.config.js",
     "turbo.json",
     ".release-it.json",
-    ".husky/*"
+    ".husky/*",
+    "lib/scripts/runkit.js"
   ],
   "skipMissing": false
 }
