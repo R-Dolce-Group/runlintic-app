@@ -2,6 +2,18 @@
 
 
 
+## <small>6.3.12 (2025-09-05)</small>
+
+* fix: remove sensitive tokens and environment variables from backup fil ([3879b3b](https://github.com/R-Dolce-Group/runlintic-app/commit/3879b3b))
+
+## <small>6.3.12 (2025-09-05)</small>
+
+* fix: remove sensitive tokens and environment variables from backup fil ([3879b3b](https://github.com/R-Dolce-Group/runlintic-app/commit/3879b3b))
+
+
+
+
+
 ## <small>6.3.11 (2025-09-05)</small>
 
 * chore: add runkit.js script to depcheck ignore patterns ([be65040](https://github.com/R-Dolce-Group/runlintic-app/commit/be65040))
