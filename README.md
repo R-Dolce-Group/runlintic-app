@@ -44,6 +44,8 @@ npm install -g @rdolcegroup/runlintic-app
 runlintic init
 ```
 
+<!-- Test commit to trigger CI workflow -->
+
 #### Local Installation (Project-specific)
 
 ```bash
