@@ -13,9 +13,13 @@
 Stop wrestling with ESLint configs, dependency management, and release workflows. Runlintic App provides everything you need in one simple CLI tool.
 
 ```bash
+# Global installation (recommended)
 npm install -g @rdolcegroup/runlintic-app
-runlintic init
-runlintic health-check
+runlintic init && runlintic health-check
+
+# Or local installation
+npm install --save-dev @rdolcegroup/runlintic-app
+npx runlintic init && npx runlintic health-check
 ```
 
 ## ✨ What It Does
@@ -31,9 +35,23 @@ runlintic health-check
 
 ### 1. Install
 
+Choose between **global** or **local** installation:
+
+#### Global Installation (Recommended)
 ```bash
 npm install -g @rdolcegroup/runlintic-app
+runlintic init
 ```
+
+#### Local Installation (Project-specific)
+```bash
+npm install --save-dev @rdolcegroup/runlintic-app
+npx runlintic init
+```
+
+**What's the difference?**
+- **Global**: Install once, use everywhere. Commands work from any directory with `runlintic`
+- **Local**: Install per project. Use with `npx runlintic` or add to package.json scripts
 
 ### 2. Initialize Your Project
 
@@ -146,8 +164,13 @@ ISC - See [LICENSE](LICENSE) file for details.
 **Ready to supercharge your development workflow?**
 
 ```bash
+# Global installation (recommended)
 npm install -g @rdolcegroup/runlintic-app
 runlintic init && runlintic health-check
+
+# Or add to your project
+npm install --save-dev @rdolcegroup/runlintic-app
+npx runlintic init && npx runlintic health-check
 ```
 
 Built with ❤️ by [The R. Dolce Organization](https://rdolcegroup.com)
