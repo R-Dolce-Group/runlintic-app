@@ -38,18 +38,21 @@ npx runlintic init && npx runlintic health-check
 Choose between **global** or **local** installation:
 
 #### Global Installation (Recommended)
+
 ```bash
 npm install -g @rdolcegroup/runlintic-app
 runlintic init
 ```
 
 #### Local Installation (Project-specific)
+
 ```bash
 npm install --save-dev @rdolcegroup/runlintic-app
 npx runlintic init
 ```
 
 **What's the difference?**
+
 - **Global**: Install once, use everywhere. Commands work from any directory with `runlintic`
 - **Local**: Install per project. Use with `npx runlintic` or add to package.json scripts
 
