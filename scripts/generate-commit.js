@@ -8,6 +8,25 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+// Security: Input sanitization functions
+function sanitizeInput(input, maxLength = 100) {
+  if (!input || typeof input !== 'string') return '';
+  // Remove dangerous shell metacharacters and limit length
+  return input.trim()
+    .slice(0, maxLength)
+    .replace(/[`$\\;|&<>(){}[\]]/g, '')
+    // eslint-disable-next-line no-control-regex
+    .replace(/\x00/g, ''); // Remove null bytes
+}
+
+function validateCommitType(type) {
+  const allowedTypes = Object.keys(COMMIT_TYPES);
+  if (!allowedTypes.includes(type)) {
+    throw new Error(`Invalid commit type: ${type}. Allowed types: ${allowedTypes.join(', ')}`);
+  }
+  return type;
+}
+
 // Conventional commit types
 const COMMIT_TYPES = {
   feat: 'A new feature',
@@ -22,6 +41,8 @@ const COMMIT_TYPES = {
   chore: 'Other changes that don\'t modify src or test files',
   revert: 'Reverts a previous commit'
 };
+
+// TODO: Add function to git add . (removed unused function)
 
 function getGitStatus() {
   try {
@@ -205,7 +226,8 @@ async function generateCommitMessage() {
 
   // Get commit type
   const type = await question(`Enter commit type (${suggested.join('|')}, press Enter for ${suggested[0]}): `);
-  const finalType = type.trim() || suggested[0];
+  const sanitizedType = sanitizeInput(type.trim() || suggested[0], 20);
+  const finalType = validateCommitType(sanitizedType);
   if (!COMMIT_TYPES[finalType]) {
     console.log('❌ Invalid commit type');
     process.exit(1);
@@ -220,7 +242,7 @@ async function generateCommitMessage() {
   else if (analysis.hasDocs) scopeHint = 'docs';
   
   const scope = await question(`Enter scope (optional${scopeHint ? `, suggested: ${scopeHint}, press Enter to use` : ', e.g., cli, templates, docs'}): `);
-  const finalScope = scope.trim() || scopeHint;
+  const finalScope = sanitizeInput(scope.trim() || scopeHint, 50);
   
   // Get description with smart suggestion
   let descriptionHint = '';
@@ -242,7 +264,7 @@ async function generateCommitMessage() {
   }
   
   const description = await question(`Enter brief description${descriptionHint ? ` (suggested: ${descriptionHint}, press Enter to use)` : ''}: `);
-  const finalDescription = description.trim() || descriptionHint;
+  const finalDescription = sanitizeInput(description.trim() || descriptionHint, 72);
   if (!finalDescription) {
     console.log('❌ Description is required');
     process.exit(1);
@@ -259,21 +281,27 @@ async function generateCommitMessage() {
   
   const body = await question(`Enter detailed description${suggestedBody ? ` (optional, press Enter to use detected changes):\n\n${suggestedBody}\n\n` : ' (optional): '}`);
   
+  // Sanitize body input
+  const sanitizedBody = sanitizeInput(body.trim() || suggestedBody, 500);
+  
   // Generate commit message
   let commitMsg = finalType;
   if (finalScope) commitMsg += `(${finalScope})`;
   if (isBreaking.toLowerCase() === 'y') commitMsg += '!';
   commitMsg += `: ${finalDescription}`;
   
-  // Use suggested body if user pressed Enter without typing anything
-  const finalBody = body.trim() || suggestedBody;
+  // Use sanitized body
+  const finalBody = sanitizedBody;
   if (finalBody) {
     commitMsg += `\n\n${finalBody}`;
   }
   
   if (isBreaking.toLowerCase() === 'y') {
     const breakingDesc = await question('Describe the breaking change: ');
-    commitMsg += `\n\nBREAKING CHANGE: ${breakingDesc}`;
+    const sanitizedBreakingDesc = sanitizeInput(breakingDesc.trim(), 200);
+    if (sanitizedBreakingDesc) {
+      commitMsg += `\n\nBREAKING CHANGE: ${sanitizedBreakingDesc}`;
+    }
   }
 
 
@@ -289,7 +317,8 @@ async function generateCommitMessage() {
   }
 
   try {
-    execSync(`git commit -m "${commitMsg.replace(/"/g, '\\"')}"`, { stdio: 'inherit' });
+    // Use array syntax to prevent command injection
+    execSync('git', ['commit', '-m', commitMsg], { stdio: 'inherit' });
     console.log('✅ Commit created successfully!');
   } catch (error) {
     console.error('❌ Commit failed:', error.message);
@@ -303,4 +332,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   generateCommitMessage().catch(console.error);
 }
 
-export { generateCommitMessage, analyzeChanges, suggestCommitType };
+export { analyzeChanges, generateCommitMessage, suggestCommitType };
