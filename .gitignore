@@ -272,4 +272,5 @@ CLAUDE.md
 !/bin/runlintic-example.js
 bin/runlintic-example.js
 .security/
-!/CHANGELOG.md.backup
+/CHANGELOG.md.backup
+/scripts/TODO.md
