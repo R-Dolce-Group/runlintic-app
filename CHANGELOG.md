@@ -2,6 +2,56 @@
 
 
 
+## <small>6.3.13 (2025-09-06)</small>
+
+* chore: change license from ISC to MIT ([54053f8](https://github.com/R-Dolce-Group/runlintic-app/commit/54053f8))
+* chore: add runkit.js script to depcheck ignore patterns ([2dd0e0d](https://github.com/R-Dolce-Group/runlintic-app/commit/2dd0e0d))
+* chore: add runkit.js to knip ignore list ([830a168](https://github.com/R-Dolce-Group/runlintic-app/commit/830a168))
+* chore: bump version to 6.3.10 and update changelog ([b11e9ae](https://github.com/R-Dolce-Group/runlintic-app/commit/b11e9ae))
+* chore: bump version to 6.3.9 and update changelog ([6dedbab](https://github.com/R-Dolce-Group/runlintic-app/commit/6dedbab))
+* chore: bump version to 6.3.7 and update changelog entries ([9b46569](https://github.com/R-Dolce-Group/runlintic-app/commit/9b46569))
+* chore: bump version from 6.3.3 to 6.3.5 and update changelog ([7dea34a](https://github.com/R-Dolce-Group/runlintic-app/commit/7dea34a))
+* chore(release): v6.3.12 ([8728002](https://github.com/R-Dolce-Group/runlintic-app/commit/8728002))
+* chore(release): v6.3.11 ([9ac829c](https://github.com/R-Dolce-Group/runlintic-app/commit/9ac829c))
+* chore(release): v6.3.8 ([033bda2](https://github.com/R-Dolce-Group/runlintic-app/commit/033bda2))
+* docs: simplify license file by removing third-party dependency licenses ([025f684](https://github.com/R-Dolce-Group/runlintic-app/commit/025f684))
+* docs: add local installation instructions and usage differences ([2b840ea](https://github.com/R-Dolce-Group/runlintic-app/commit/2b840ea))
+* docs: add troubleshooting guide for NPM token authentication issues ([ff8737d](https://github.com/R-Dolce-Group/runlintic-app/commit/ff8737d))
+* docs: improve documentation formatting and readability across multiple files ([283437c](https://github.com/R-Dolce-Group/runlintic-app/commit/283437c))
+* docs: update monorepo structure and convert packageJsonHelper to ESM ([8fdbae4](https://github.com/R-Dolce-Group/runlintic-app/commit/8fdbae4))
+* docs: improve issue template wording and simplify README.md ([563dcdf](https://github.com/R-Dolce-Group/runlintic-app/commit/563dcdf))
+* fix: remove sensitive tokens and environment variables from backup fil ([a5917df](https://github.com/R-Dolce-Group/runlintic-app/commit/a5917df))
+* fix: prevent release-it from publishing to NPM ([5f16f75](https://github.com/R-Dolce-Group/runlintic-app/commit/5f16f75))
+* fix: update GitHub Actions workflow for NPM Trusted Publisher ([5ff9a6c](https://github.com/R-Dolce-Group/runlintic-app/commit/5ff9a6c))
+* revert: back to token-based NPM authentication ([c611991](https://github.com/R-Dolce-Group/runlintic-app/commit/c611991))
+
+## <small>6.3.13 (2025-09-06)</small>
+
+* chore: add runkit.js script to depcheck ignore patterns ([2dd0e0d](https://github.com/R-Dolce-Group/runlintic-app/commit/2dd0e0d))
+* chore: add runkit.js to knip ignore list ([830a168](https://github.com/R-Dolce-Group/runlintic-app/commit/830a168))
+* chore: bump version from 6.3.3 to 6.3.5 and update changelog ([7dea34a](https://github.com/R-Dolce-Group/runlintic-app/commit/7dea34a))
+* chore: bump version to 6.3.10 and update changelog ([b11e9ae](https://github.com/R-Dolce-Group/runlintic-app/commit/b11e9ae))
+* chore: bump version to 6.3.7 and update changelog entries ([9b46569](https://github.com/R-Dolce-Group/runlintic-app/commit/9b46569))
+* chore: bump version to 6.3.9 and update changelog ([6dedbab](https://github.com/R-Dolce-Group/runlintic-app/commit/6dedbab))
+* chore: change license from ISC to MIT ([54053f8](https://github.com/R-Dolce-Group/runlintic-app/commit/54053f8))
+* chore(release): v6.3.11 ([9ac829c](https://github.com/R-Dolce-Group/runlintic-app/commit/9ac829c))
+* chore(release): v6.3.12 ([8728002](https://github.com/R-Dolce-Group/runlintic-app/commit/8728002))
+* chore(release): v6.3.8 ([033bda2](https://github.com/R-Dolce-Group/runlintic-app/commit/033bda2))
+* docs: add local installation instructions and usage differences ([2b840ea](https://github.com/R-Dolce-Group/runlintic-app/commit/2b840ea))
+* docs: add troubleshooting guide for NPM token authentication issues ([ff8737d](https://github.com/R-Dolce-Group/runlintic-app/commit/ff8737d))
+* docs: improve documentation formatting and readability across multiple files ([283437c](https://github.com/R-Dolce-Group/runlintic-app/commit/283437c))
+* docs: improve issue template wording and simplify README.md ([563dcdf](https://github.com/R-Dolce-Group/runlintic-app/commit/563dcdf))
+* docs: simplify license file by removing third-party dependency licenses ([025f684](https://github.com/R-Dolce-Group/runlintic-app/commit/025f684))
+* docs: update monorepo structure and convert packageJsonHelper to ESM ([8fdbae4](https://github.com/R-Dolce-Group/runlintic-app/commit/8fdbae4))
+* fix: prevent release-it from publishing to NPM ([5f16f75](https://github.com/R-Dolce-Group/runlintic-app/commit/5f16f75))
+* fix: remove sensitive tokens and environment variables from backup fil ([a5917df](https://github.com/R-Dolce-Group/runlintic-app/commit/a5917df))
+* fix: update GitHub Actions workflow for NPM Trusted Publisher ([5ff9a6c](https://github.com/R-Dolce-Group/runlintic-app/commit/5ff9a6c))
+* revert: back to token-based NPM authentication ([c611991](https://github.com/R-Dolce-Group/runlintic-app/commit/c611991))
+
+
+
+
+
 ## <small>6.3.12 (2025-09-05)</small>
 
 * fix: remove sensitive tokens and environment variables from backup fil ([3879b3b](https://github.com/R-Dolce-Group/runlintic-app/commit/3879b3b))
