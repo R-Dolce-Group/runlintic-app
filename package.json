@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/R-Dolce-Group/runlintic-app.git"
   },
-  "license": "ISC",
+  "license": "MIT",
   "author": "R. Dolce Group",
   "sideEffects": false,
   "type": "module",
