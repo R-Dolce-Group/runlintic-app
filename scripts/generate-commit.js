@@ -219,13 +219,29 @@ async function generateCommitMessage() {
     .filter(line => line.trim() && (line.startsWith(' M') || line.startsWith('??') || line.startsWith('AM')))
     .map(line => line.trim().substring(3));
   
-  if (unstagedFiles.length > 0) {
-    console.log('⚠️  Unstaged changes detected:');
+  // If no staged files and we have unstaged files, offer to stage them
+  if (!initialStatus.staged && unstagedFiles.length > 0) {
+    console.log('⚠️  No staged changes found, but unstaged changes detected:');
     unstagedFiles.forEach(file => console.log(`  • ${file}`));
     console.log();
     
     const shouldStage = await question('Stage all changes before committing? (Y/n): ');
     if (shouldStage.toLowerCase() !== 'n') {
+      if (!gitAddAll()) {
+        console.log('❌ Failed to stage changes. Exiting.');
+        process.exit(1);
+      }
+    } else {
+      console.log('❌ No staged changes to commit. Exiting.');
+      process.exit(0);
+    }
+  } else if (unstagedFiles.length > 0) {
+    console.log('⚠️  Additional unstaged changes detected:');
+    unstagedFiles.forEach(file => console.log(`  • ${file}`));
+    console.log();
+    
+    const shouldStage = await question('Stage additional changes before committing? (y/N): ');
+    if (shouldStage.toLowerCase() === 'y') {
       if (!gitAddAll()) {
         console.log('❌ Failed to stage changes. Exiting.');
         process.exit(1);
