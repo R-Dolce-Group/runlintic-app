@@ -2,6 +2,27 @@
 
 
 
+## <small>6.3.14 (2025-09-06)</small>
+
+**🔒 Major Security Enhancements**
+* feat(security): add Dependabot automation and fix critical security vulnerabilities ([ad8acab](https://github.com/R-Dolce-Group/runlintic-app/commit/ad8acab))
+  - Add comprehensive CodeQL security scanning workflow for JavaScript vulnerability detection  
+  - Enhance Dependabot configuration with dependency grouping to reduce PR noise
+  - Create professional SECURITY.md with vulnerability reporting procedures
+  - Fix critical command injection vulnerability in commit generation script
+  - Add comprehensive input sanitization for all user inputs
+
+**🛠️ Script Improvements**
+* feat(scripts): add auto-staging functionality to commit generator ([86bb870](https://github.com/R-Dolce-Group/runlintic-app/commit/86bb870))
+* fix(scripts): resolve git commit execution error ([77ca413](https://github.com/R-Dolce-Group/runlintic-app/commit/77ca413))
+* fix(scripts): improve auto-staging logic and user flow ([c32079b](https://github.com/R-Dolce-Group/runlintic-app/commit/c32079b))
+* fix(scripts): correct unstaged file detection and flow logic ([b80fe71](https://github.com/R-Dolce-Group/runlintic-app/commit/b80fe71))
+* fix(scripts): add shell option to git add command ([269f2bd](https://github.com/R-Dolce-Group/runlintic-app/commit/269f2bd))
+
+**📚 Documentation & Dependencies**
+* docs: update license from ISC to MIT in README badges and footer ([8285b1b](https://github.com/R-Dolce-Group/runlintic-app/commit/8285b1b))
+* fix(deps): update Dependabot configuration with correct GitHub usernames ([9784b33](https://github.com/R-Dolce-Group/runlintic-app/commit/9784b33))
+
 ## <small>6.3.13 (2025-09-06)</small>
 
 * chore: change license from ISC to MIT ([54053f8](https://github.com/R-Dolce-Group/runlintic-app/commit/54053f8))
