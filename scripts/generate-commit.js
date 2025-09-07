@@ -46,7 +46,7 @@ const COMMIT_TYPES = {
 function gitAddAll() {
   try {
     console.log('📦 Staging all changes...');
-    execSync('git add .', { stdio: 'inherit' });
+    execSync('git add .', { stdio: 'inherit', shell: true });
     console.log('✅ All changes staged successfully\n');
     return true;
   } catch (error) {
