@@ -73,8 +73,17 @@ function getGitStatus() {
 
 function analyzeChanges(staged) {
   if (!staged) {
-    console.log('\n❌ No staged changes found. Stage your changes first with: git add <files>');
-    process.exit(1);
+    return {
+      files: [],
+      hasTests: false,
+      hasComponents: false,
+      hasTypes: false,
+      hasConfig: false,
+      hasScripts: false,
+      hasPackageJson: false,
+      hasDocs: false,
+      hasStyles: false
+    };
   }
 
   const files = staged.split('\n').filter(f => f.trim());
@@ -216,8 +225,8 @@ async function generateCommitMessage() {
   // Check for unstaged changes and offer to stage them
   const initialStatus = getGitStatus();
   const unstagedFiles = initialStatus.status.split('\n')
-    .filter(line => line.trim() && (line.startsWith(' M') || line.startsWith('??') || line.startsWith('AM')))
-    .map(line => line.trim().substring(3));
+    .filter(line => line.trim() && (line.startsWith(' M') || line.startsWith('??')))
+    .map(line => line.trim().substring(2).trim());
   
   // If no staged files and we have unstaged files, offer to stage them
   if (!initialStatus.staged && unstagedFiles.length > 0) {
@@ -252,6 +261,11 @@ async function generateCommitMessage() {
   console.log('🔍 Analyzing staged changes...\n');
   
   const { staged, diff } = getGitStatus();
+  if (!staged) {
+    console.log('❌ No staged changes found after staging attempt. Exiting.');
+    process.exit(1);
+  }
+  
   const analysis = analyzeChanges(staged);
   const detectedChanges = analyzeDiffChanges(diff, analysis);
   
