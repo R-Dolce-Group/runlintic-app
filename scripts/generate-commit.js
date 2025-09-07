@@ -9,14 +9,21 @@ const rl = readline.createInterface({
 });
 
 // Security: Input sanitization functions
-function sanitizeInput(input, maxLength = 100) {
+function sanitizeInput(input, maxLength = 100, preserveNewlines = false) {
   if (!input || typeof input !== 'string') return '';
-  // Remove dangerous shell metacharacters and limit length
-  return input.trim()
+  
+  let sanitized = input.trim()
     .slice(0, maxLength)
     .replace(/[`$\\;|&<>(){}[\]]/g, '')
-    // eslint-disable-next-line no-control-regex
+    // eslint-disable-next-line no-control-regex  
     .replace(/\x00/g, ''); // Remove null bytes
+  
+  // For single-line inputs, remove newlines; for multi-line, preserve them
+  if (!preserveNewlines) {
+    sanitized = sanitized.replace(/\n/g, ' ');
+  }
+  
+  return sanitized;
 }
 
 function validateCommitType(type) {
@@ -221,6 +228,37 @@ function question(prompt) {
   });
 }
 
+// Multi-line input handler for detailed descriptions
+function multiLineQuestion(prompt) {
+  console.log(prompt);
+  console.log('📝 Enter detailed description (type your text, press Enter twice when done, or just Enter to skip):');
+  console.log('> ');
+  
+  return new Promise((resolve) => {
+    let input = '';
+    let emptyLineCount = 0;
+    
+    const handleLine = (line) => {
+      if (line.trim() === '') {
+        emptyLineCount++;
+        if (emptyLineCount >= 2 || input === '') {
+          rl.removeListener('line', handleLine);
+          resolve(input.trim());
+          return;
+        }
+        if (input) input += '\n';
+      } else {
+        emptyLineCount = 0;
+        if (input) input += '\n';
+        input += line;
+      }
+      process.stdout.write('> ');
+    };
+    
+    rl.on('line', handleLine);
+  });
+}
+
 async function generateCommitMessage() {
   // Check for unstaged changes and offer to stage them
   const initialStatus = getGitStatus();
@@ -340,10 +378,20 @@ async function generateCommitMessage() {
     suggestedBody = formatChangesList(detectedChanges);
   }
   
-  const body = await question(`Enter detailed description${suggestedBody ? ` (optional, press Enter to use detected changes):\n\n${suggestedBody}\n\n` : ' (optional): '}`);
+  // Use multi-line input for detailed description
+  let bodyInput;
+  if (suggestedBody) {
+    console.log('\n💡 Suggested detailed description:');
+    console.log(suggestedBody);
+    console.log('\n📝 You can use the suggestion above, or provide your own detailed description:');
+    bodyInput = await multiLineQuestion('Enter detailed description (optional):');
+  } else {
+    bodyInput = await multiLineQuestion('Enter detailed description (optional):');
+  }
   
-  // Sanitize body input
-  const sanitizedBody = sanitizeInput(body.trim() || suggestedBody, 500);
+  // Use input or fallback to suggestion, then sanitize (preserving newlines for body)
+  const finalBodyInput = bodyInput || suggestedBody || '';
+  const sanitizedBody = sanitizeInput(finalBodyInput, 500, true);
   
   // Generate commit message
   let commitMsg = finalType;
