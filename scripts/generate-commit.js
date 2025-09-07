@@ -42,7 +42,18 @@ const COMMIT_TYPES = {
   revert: 'Reverts a previous commit'
 };
 
-// TODO: Add function to git add . (removed unused function)
+// Git staging function
+function gitAddAll() {
+  try {
+    console.log('📦 Staging all changes...');
+    execSync('git add .', { stdio: 'inherit' });
+    console.log('✅ All changes staged successfully\n');
+    return true;
+  } catch (error) {
+    console.error('❌ Error staging changes:', error.message);
+    return false;
+  }
+}
 
 function getGitStatus() {
   try {
@@ -202,6 +213,26 @@ function question(prompt) {
 }
 
 async function generateCommitMessage() {
+  // Check for unstaged changes and offer to stage them
+  const initialStatus = getGitStatus();
+  const unstagedFiles = initialStatus.status.split('\n')
+    .filter(line => line.trim() && (line.startsWith(' M') || line.startsWith('??') || line.startsWith('AM')))
+    .map(line => line.trim().substring(3));
+  
+  if (unstagedFiles.length > 0) {
+    console.log('⚠️  Unstaged changes detected:');
+    unstagedFiles.forEach(file => console.log(`  • ${file}`));
+    console.log();
+    
+    const shouldStage = await question('Stage all changes before committing? (Y/n): ');
+    if (shouldStage.toLowerCase() !== 'n') {
+      if (!gitAddAll()) {
+        console.log('❌ Failed to stage changes. Exiting.');
+        process.exit(1);
+      }
+    }
+  }
+  
   console.log('🔍 Analyzing staged changes...\n');
   
   const { staged, diff } = getGitStatus();
