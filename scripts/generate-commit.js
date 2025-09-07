@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { execSync } from 'child_process';
+import { execSync, spawnSync } from 'child_process';
 import readline from 'readline';
 
 const rl = readline.createInterface({
@@ -378,8 +378,19 @@ async function generateCommitMessage() {
   }
 
   try {
-    // Use array syntax to prevent command injection
-    execSync('git', ['commit', '-m', commitMsg], { stdio: 'inherit' });
+    // Use spawn for secure command execution with proper argument separation
+    const result = spawnSync('git', ['commit', '-m', commitMsg], { 
+      stdio: 'inherit',
+      encoding: 'utf8'
+    });
+    
+    if (result.error) {
+      throw result.error;
+    }
+    if (result.status !== 0) {
+      throw new Error(`Git commit failed with status ${result.status}`);
+    }
+    
     console.log('✅ Commit created successfully!');
   } catch (error) {
     console.error('❌ Commit failed:', error.message);

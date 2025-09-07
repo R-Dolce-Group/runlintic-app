@@ -274,3 +274,5 @@ bin/runlintic-example.js
 .security/
 /CHANGELOG.md.backup
 /scripts/TODO.md
+/scripts/Future-Features.md
+/scripts/issues.md

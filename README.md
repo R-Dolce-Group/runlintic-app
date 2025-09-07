@@ -156,8 +156,10 @@ This package is part of [The R. Dolce Organization](https://rdolcegroup.com).
 ## 📞 Support
 
 - 🐛 **Bug Reports**: [GitHub Issues](https://github.com/R-Dolce-Group/runlintic-app/issues)
+- 🔒 **Security Issues**: [Security Policy](SECURITY.md) - Please report security vulnerabilities privately
 - 💬 **Questions**: [Discussions](https://github.com/R-Dolce-Group/runlintic-app/discussions)
 - 📖 **Documentation**: [Full Docs](docs/)
+- 📋 **Changelog**: [Release Notes](CHANGELOG.md) - See what's new in each version
 - 🚀 **Feature Requests**: [GitHub Issues](https://github.com/R-Dolce-Group/runlintic-app/issues)
 
 ## 📄 License
