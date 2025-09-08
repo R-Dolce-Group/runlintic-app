@@ -112,27 +112,5 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "runkitExampleFilename": "lib/scripts/runkit.js",
-  "dependencies": {
-    "lilconfig": "3.1.3",
-    "picocolors": "1.1.1",
-    "prompts": "2.4.2"
-  },
-  "overrides": {
-    "ansi-regex": "6.1.0",
-    "ansi-styles": "6.2.1",
-    "chalk": "npm:picocolors@^1.1.0",
-    "color-convert": "2.0.1",
-    "color-name": "2.0.0",
-    "is-arrayish": "0.3.2",
-    "supports-color": "9.4.0",
-    "cosmiconfig": "npm:lilconfig@^3.1.2",
-    "strip-ansi": "7.1.0",
-    "string-width": "7.2.0",
-    "wrap-ansi": "9.0.0",
-    "cliui": "8.0.1",
-    "yargs": "17.7.2",
-    "ora": "8.1.1",
-    "inquirer": "npm:prompts@^2.4.2"
-  }
+  "runkitExampleFilename": "lib/scripts/runkit.js"
 }
