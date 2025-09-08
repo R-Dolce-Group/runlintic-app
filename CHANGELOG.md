@@ -2,6 +2,66 @@
 
 
 
+## 6.4.0 (2025-09-08)
+
+* chore(deps): update package-lock.json after merging Dependabot PRs ([2e21cd6](https://github.com/R-Dolce-Group/runlintic-app/commit/2e21cd6)), closes [#21](https://github.com/R-Dolce-Group/runlintic-app/issues/21)
+* fix(deps): resolve TypeScript ESLint peer dependency conflict ([78d013c](https://github.com/R-Dolce-Group/runlintic-app/commit/78d013c)), closes [#16](https://github.com/R-Dolce-Group/runlintic-app/issues/16)
+* fix(deps): update Dependabot configuration with correct GitHub usernames ([01d2b74](https://github.com/R-Dolce-Group/runlintic-app/commit/01d2b74))
+* fix: temporarily use npm install instead of npm ci to resolve dependency sync ([4bca519](https://github.com/R-Dolce-Group/runlintic-app/commit/4bca519))
+* fix: resolve critical package.json typo and improve CI caching ([3d48f90](https://github.com/R-Dolce-Group/runlintic-app/commit/3d48f90))
+* fix: regenerate package-lock.json to resolve npm ci sync error ([bccdb93](https://github.com/R-Dolce-Group/runlintic-app/commit/bccdb93))
+* fix(scripts): remove .security/.env references from release script ([5ecbcaa](https://github.com/R-Dolce-Group/runlintic-app/commit/5ecbcaa))
+* fix(scripts): resolve git commit execution error ([9580c0b](https://github.com/R-Dolce-Group/runlintic-app/commit/9580c0b))
+* fix(scripts): add shell option to git add command ([49572e2](https://github.com/R-Dolce-Group/runlintic-app/commit/49572e2))
+* fix(scripts): correct unstaged file detection and flow logic ([78b68b4](https://github.com/R-Dolce-Group/runlintic-app/commit/78b68b4))
+* fix(scripts): improve auto-staging logic and user flow ([1302b15](https://github.com/R-Dolce-Group/runlintic-app/commit/1302b15))
+* docs(changelog): add comprehensive entry for v6.3.14 security enhancements ([b4de44c](https://github.com/R-Dolce-Group/runlintic-app/commit/b4de44c))
+* docs: add comprehensive v6.4.0 changelog with all critical fixes ([68dfd44](https://github.com/R-Dolce-Group/runlintic-app/commit/68dfd44))
+* docs: update license from ISC to MIT in README badges and footer ([7d7b074](https://github.com/R-Dolce-Group/runlintic-app/commit/7d7b074))
+* deps(deps-dev): bump knip from 5.63.0 to 5.63.1 in the build-tools group ([57f7173](https://github.com/R-Dolce-Group/runlintic-app/commit/57f7173))
+* deps(deps-dev): bump the dev-dependencies group with 2 updates ([f06e936](https://github.com/R-Dolce-Group/runlintic-app/commit/f06e936))
+* ci: trigger workflow to test dependency sync fix ([da579b8](https://github.com/R-Dolce-Group/runlintic-app/commit/da579b8))
+* ci(deps): bump actions/checkout from 4 to 5 ([be096f1](https://github.com/R-Dolce-Group/runlintic-app/commit/be096f1))
+* ci(deps): bump actions/add-to-project from 0.4.0 to 1.0.2 ([a0a1c73](https://github.com/R-Dolce-Group/runlintic-app/commit/a0a1c73))
+* ci(deps): bump actions/setup-node from 4 to 5 ([3c753f4](https://github.com/R-Dolce-Group/runlintic-app/commit/3c753f4))
+* ci(deps): bump actions/checkout from 4 to 5 ([9336932](https://github.com/R-Dolce-Group/runlintic-app/commit/9336932))
+* feat(scripts): improve commit generator UX with multi-line input support ([c62e631](https://github.com/R-Dolce-Group/runlintic-app/commit/c62e631))
+* feat(scripts): add auto-staging functionality to commit generator ([a9415fc](https://github.com/R-Dolce-Group/runlintic-app/commit/a9415fc))
+* feat(security): add Dependabot automation and fix critical security vulnerabilities ([c04dfa3](https://github.com/R-Dolce-Group/runlintic-app/commit/c04dfa3))
+* test: trigger CI workflow for branch protection setup ([ec297f4](https://github.com/R-Dolce-Group/runlintic-app/commit/ec297f4))
+
+## 6.4.0 (2025-09-08)
+
+* chore(deps): update package-lock.json after merging Dependabot PRs ([2e21cd6](https://github.com/R-Dolce-Group/runlintic-app/commit/2e21cd6)), closes [#21](https://github.com/R-Dolce-Group/runlintic-app/issues/21)
+* fix: regenerate package-lock.json to resolve npm ci sync error ([bccdb93](https://github.com/R-Dolce-Group/runlintic-app/commit/bccdb93))
+* fix: resolve critical package.json typo and improve CI caching ([3d48f90](https://github.com/R-Dolce-Group/runlintic-app/commit/3d48f90))
+* fix: temporarily use npm install instead of npm ci to resolve dependency sync ([4bca519](https://github.com/R-Dolce-Group/runlintic-app/commit/4bca519))
+* fix(deps): resolve TypeScript ESLint peer dependency conflict ([78d013c](https://github.com/R-Dolce-Group/runlintic-app/commit/78d013c)), closes [#16](https://github.com/R-Dolce-Group/runlintic-app/issues/16)
+* fix(deps): update Dependabot configuration with correct GitHub usernames ([01d2b74](https://github.com/R-Dolce-Group/runlintic-app/commit/01d2b74))
+* fix(scripts): add shell option to git add command ([49572e2](https://github.com/R-Dolce-Group/runlintic-app/commit/49572e2))
+* fix(scripts): correct unstaged file detection and flow logic ([78b68b4](https://github.com/R-Dolce-Group/runlintic-app/commit/78b68b4))
+* fix(scripts): improve auto-staging logic and user flow ([1302b15](https://github.com/R-Dolce-Group/runlintic-app/commit/1302b15))
+* fix(scripts): remove .security/.env references from release script ([5ecbcaa](https://github.com/R-Dolce-Group/runlintic-app/commit/5ecbcaa))
+* fix(scripts): resolve git commit execution error ([9580c0b](https://github.com/R-Dolce-Group/runlintic-app/commit/9580c0b))
+* docs: add comprehensive v6.4.0 changelog with all critical fixes ([68dfd44](https://github.com/R-Dolce-Group/runlintic-app/commit/68dfd44))
+* docs: update license from ISC to MIT in README badges and footer ([7d7b074](https://github.com/R-Dolce-Group/runlintic-app/commit/7d7b074))
+* docs(changelog): add comprehensive entry for v6.3.14 security enhancements ([b4de44c](https://github.com/R-Dolce-Group/runlintic-app/commit/b4de44c))
+* deps(deps-dev): bump knip from 5.63.0 to 5.63.1 in the build-tools group ([57f7173](https://github.com/R-Dolce-Group/runlintic-app/commit/57f7173))
+* deps(deps-dev): bump the dev-dependencies group with 2 updates ([f06e936](https://github.com/R-Dolce-Group/runlintic-app/commit/f06e936))
+* ci: trigger workflow to test dependency sync fix ([da579b8](https://github.com/R-Dolce-Group/runlintic-app/commit/da579b8))
+* ci(deps): bump actions/add-to-project from 0.4.0 to 1.0.2 ([a0a1c73](https://github.com/R-Dolce-Group/runlintic-app/commit/a0a1c73))
+* ci(deps): bump actions/checkout from 4 to 5 ([be096f1](https://github.com/R-Dolce-Group/runlintic-app/commit/be096f1))
+* ci(deps): bump actions/checkout from 4 to 5 ([9336932](https://github.com/R-Dolce-Group/runlintic-app/commit/9336932))
+* ci(deps): bump actions/setup-node from 4 to 5 ([3c753f4](https://github.com/R-Dolce-Group/runlintic-app/commit/3c753f4))
+* feat(scripts): add auto-staging functionality to commit generator ([a9415fc](https://github.com/R-Dolce-Group/runlintic-app/commit/a9415fc))
+* feat(scripts): improve commit generator UX with multi-line input support ([c62e631](https://github.com/R-Dolce-Group/runlintic-app/commit/c62e631))
+* feat(security): add Dependabot automation and fix critical security vulnerabilities ([c04dfa3](https://github.com/R-Dolce-Group/runlintic-app/commit/c04dfa3))
+* test: trigger CI workflow for branch protection setup ([ec297f4](https://github.com/R-Dolce-Group/runlintic-app/commit/ec297f4))
+
+
+
+
+
 ## <small>6.4.0 (2025-09-07)</small>
 
 **🔒 Critical Security Remediation**

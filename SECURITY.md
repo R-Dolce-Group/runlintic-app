@@ -9,11 +9,11 @@ The R. Dolce Group takes the security of **runlintic-app** seriously. We appreci
 Security updates are provided for the following versions:
 
 | Version | Supported  | Status                              |
-|---------|------------|-------------------------------------|
-| 6.3.x   | ✅ Yes      | Active development, regular updates |
-| 6.2.x   | ✅ Yes      | Security patches only               |
+| ------- | ---------- | ----------------------------------- |
+| 6.3.x   | ✅ Yes     | Active development, regular updates |
+| 6.2.x   | ✅ Yes     | Security patches only               |
 | 6.1.x   | ⚠️ Limited | Critical security issues only       |
-| < 6.1   | ❌ No       | End of life - please upgrade        |
+| < 6.1   | ❌ No      | End of life - please upgrade        |
 
 **Current Stable Version:** v6.3.13  
 **Minimum Supported Version:** v6.1.0
@@ -28,8 +28,9 @@ For security vulnerabilities that could impact users, please report privately:
 **Subject:** `[SECURITY] runlintic-app vulnerability report`
 
 **Include in your report:**
+
 - Description of the vulnerability
-- Steps to reproduce the issue  
+- Steps to reproduce the issue
 - Potential impact and severity assessment
 - Suggested fix (if you have one)
 - Your contact information for follow-up
@@ -48,7 +49,7 @@ You can also report vulnerabilities through GitHub's security advisory system:
 We aim to respond to security reports within:
 
 - **Initial acknowledgment:** 48 hours
-- **Preliminary assessment:** 5 business days  
+- **Preliminary assessment:** 5 business days
 - **Detailed response:** 10 business days
 - **Security fix release:** 30 days (for confirmed vulnerabilities)
 
@@ -57,6 +58,7 @@ We aim to respond to security reports within:
 ### ✅ **In Scope**
 
 Security issues in:
+
 - **Command injection** in commit generation scripts
 - **Input validation** bypasses in CLI interfaces
 - **Dependency vulnerabilities** in production dependencies
@@ -67,6 +69,7 @@ Security issues in:
 ### ❌ **Out of Scope**
 
 The following are typically NOT considered security vulnerabilities:
+
 - Issues in development-only dependencies
 - Social engineering attacks against repository maintainers
 - Physical access to development machines
@@ -88,12 +91,14 @@ We believe in recognizing security researchers who help improve our security:
 When using runlintic-app:
 
 ### ✅ **Do:**
+
 - Keep runlintic-app updated to the latest version
 - Review generated commit messages before execution
 - Use the tool in trusted development environments
 - Report suspicious behavior or unexpected outputs
 
 ### ❌ **Don't:**
+
 - Run runlintic-app with elevated privileges unnecessarily
 - Use in production environments without proper testing
 - Ignore security warnings from Dependabot or CodeQL
@@ -103,7 +108,7 @@ When using runlintic-app:
 
 **Primary Security Contact:** @mj163 (GitHub)  
 **Secondary Contact:** @mrsdo (GitHub)  
-**Organization:** R. Dolce Group  
+**Organization:** R. Dolce Group
 
 **PGP Key:** Available upon request for encrypted communications
 
@@ -119,4 +124,4 @@ When using runlintic-app:
 **Last Updated:** September 6, 2025  
 **Next Review:** December 2025
 
-*This security policy is subject to updates. Subscribe to repository releases to stay informed of changes.*
+_This security policy is subject to updates. Subscribe to repository releases to stay informed of changes._
