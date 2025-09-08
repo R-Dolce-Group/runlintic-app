@@ -1,12 +1,7 @@
 #!/usr/bin/env node
 
 import { execSync } from 'child_process';
-import readline from 'readline';
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+import prompts from 'prompts';
 
 // Conventional commit types
 const COMMIT_TYPES = {
@@ -174,10 +169,14 @@ function formatChangesList(changes) {
   return changes.map((change, i) => `${i + 1}. ${change}`).join('\n');
 }
 
-function question(prompt) {
-  return new Promise((resolve) => {
-    rl.question(prompt, resolve);
+async function question(message, initial = '') {
+  const response = await prompts({
+    type: 'text',
+    name: 'value',
+    message,
+    initial
   });
+  return response.value || '';
 }
 
 async function generateCommitMessage() {
@@ -204,8 +203,8 @@ async function generateCommitMessage() {
   }
 
   // Get commit type
-  const type = await question(`Enter commit type (${suggested.join('|')}, press Enter for ${suggested[0]}): `);
-  const finalType = type.trim() || suggested[0];
+  const type = await question(`Enter commit type (${suggested.join('|')}, press Enter for ${suggested[0]})`, suggested[0]);
+  const finalType = type || suggested[0];
   if (!COMMIT_TYPES[finalType]) {
     console.log('❌ Invalid commit type');
     process.exit(1);
@@ -219,8 +218,8 @@ async function generateCommitMessage() {
   else if (analysis.hasPackageJson) scopeHint = 'deps';
   else if (analysis.hasDocs) scopeHint = 'docs';
   
-  const scope = await question(`Enter scope (optional${scopeHint ? `, suggested: ${scopeHint}, press Enter to use` : ', e.g., cli, templates, docs'}): `);
-  const finalScope = scope.trim() || scopeHint;
+  const scope = await question(`Enter scope (optional${scopeHint ? `, suggested: ${scopeHint}` : ', e.g., cli, templates, docs'})`, scopeHint);
+  const finalScope = scope || scopeHint;
   
   // Get description with smart suggestion
   let descriptionHint = '';
@@ -241,15 +240,21 @@ async function generateCommitMessage() {
     }
   }
   
-  const description = await question(`Enter brief description${descriptionHint ? ` (suggested: ${descriptionHint}, press Enter to use)` : ''}: `);
-  const finalDescription = description.trim() || descriptionHint;
+  const description = await question(`Enter brief description${descriptionHint ? ` (suggested)` : ''}`, descriptionHint);
+  const finalDescription = description || descriptionHint;
   if (!finalDescription) {
     console.log('❌ Description is required');
     process.exit(1);
   }
 
   // Get breaking change info
-  const isBreaking = await question('Is this a breaking change? (y/N): ');
+  const breakingResponse = await prompts({
+    type: 'confirm',
+    name: 'value',
+    message: 'Is this a breaking change?',
+    initial: false
+  });
+  const isBreaking = breakingResponse.value;
   
   // Get detailed description with auto-suggestion from detected changes
   let suggestedBody = '';
@@ -257,22 +262,22 @@ async function generateCommitMessage() {
     suggestedBody = formatChangesList(detectedChanges);
   }
   
-  const body = await question(`Enter detailed description${suggestedBody ? ` (optional, press Enter to use detected changes):\n\n${suggestedBody}\n\n` : ' (optional): '}`);
+  const body = await question(`Enter detailed description (optional)${suggestedBody ? ` - press Enter for detected changes` : ''}`, suggestedBody);
   
   // Generate commit message
   let commitMsg = finalType;
   if (finalScope) commitMsg += `(${finalScope})`;
-  if (isBreaking.toLowerCase() === 'y') commitMsg += '!';
+  if (isBreaking) commitMsg += '!';
   commitMsg += `: ${finalDescription}`;
   
   // Use suggested body if user pressed Enter without typing anything
-  const finalBody = body.trim() || suggestedBody;
+  const finalBody = body || suggestedBody;
   if (finalBody) {
     commitMsg += `\n\n${finalBody}`;
   }
   
-  if (isBreaking.toLowerCase() === 'y') {
-    const breakingDesc = await question('Describe the breaking change: ');
+  if (isBreaking) {
+    const breakingDesc = await question('Describe the breaking change');
     commitMsg += `\n\nBREAKING CHANGE: ${breakingDesc}`;
   }
 
@@ -282,8 +287,14 @@ async function generateCommitMessage() {
   console.log(commitMsg);
   console.log('─'.repeat(50));
 
-  const confirm = await question('\nCommit with this message? (Y/n): ');
-  if (confirm.toLowerCase() === 'n') {
+  const confirmResponse = await prompts({
+    type: 'confirm',
+    name: 'value',
+    message: 'Commit with this message?',
+    initial: true
+  });
+  
+  if (!confirmResponse.value) {
     console.log('❌ Commit cancelled');
     process.exit(0);
   }
@@ -295,8 +306,6 @@ async function generateCommitMessage() {
     console.error('❌ Commit failed:', error.message);
     process.exit(1);
   }
-
-  rl.close();
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

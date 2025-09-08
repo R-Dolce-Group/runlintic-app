@@ -1,0 +1,129 @@
+name: Security Audit
+
+on:
+  schedule:
+    - cron: '0 2 * * 1'  # Weekly Monday 2AM UTC
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Run npm security audit
+        run: |
+          echo "## Security Audit Report" > security-report.md
+          echo "Generated on: $(date)" >> security-report.md
+          echo "" >> security-report.md
+          
+          # Run audit and capture results
+          if npm audit --audit-level=moderate --json > audit-results.json 2>/dev/null; then
+            echo "✅ No security vulnerabilities found!" >> security-report.md
+          else
+            echo "⚠️ Security vulnerabilities detected:" >> security-report.md
+            echo "" >> security-report.md
+            echo '```' >> security-report.md
+            npm audit --audit-level=moderate >> security-report.md || true
+            echo '```' >> security-report.md
+          fi
+          
+      - name: Check for critical vulnerabilities
+        run: |
+          CRITICAL_COUNT=$(npm audit --audit-level=critical --json 2>/dev/null | jq -r '.metadata.vulnerabilities.critical // 0')
+          HIGH_COUNT=$(npm audit --audit-level=high --json 2>/dev/null | jq -r '.metadata.vulnerabilities.high // 0')
+          
+          echo "Critical vulnerabilities: $CRITICAL_COUNT"
+          echo "High vulnerabilities: $HIGH_COUNT"
+          
+          if [ "$CRITICAL_COUNT" -gt "0" ]; then
+            echo "❌ CRITICAL: $CRITICAL_COUNT critical vulnerabilities found!"
+            exit 1
+          fi
+          
+          if [ "$HIGH_COUNT" -gt "5" ]; then
+            echo "⚠️ WARNING: $HIGH_COUNT high vulnerabilities found (threshold: 5)"
+            exit 1
+          fi
+          
+          echo "✅ Security check passed"
+        
+      - name: Upload security report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit-report
+          path: |
+            security-report.md
+            audit-results.json
+          retention-days: 30
+          
+      - name: Comment PR with security status
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let report = '## 🛡️ Security Audit Results\n\n';
+            
+            try {
+              const auditResults = JSON.parse(fs.readFileSync('audit-results.json', 'utf8'));
+              const vulnerabilities = auditResults.metadata?.vulnerabilities || {};
+              
+              if (Object.values(vulnerabilities).every(count => count === 0)) {
+                report += '✅ **No security vulnerabilities detected!**\n\n';
+                report += 'This PR maintains the security posture of the codebase.';
+              } else {
+                report += '⚠️ **Security vulnerabilities detected:**\n\n';
+                Object.entries(vulnerabilities).forEach(([severity, count]) => {
+                  if (count > 0) {
+                    report += `- ${severity}: ${count}\n`;
+                  }
+                });
+                report += '\nPlease review and address these vulnerabilities before merging.';
+              }
+            } catch (error) {
+              report += '❓ Unable to parse security audit results.';
+            }
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
+
+  dependency-review:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+      
+    steps:
+      - name: Checkout repository  
+        uses: actions/checkout@v4
+        
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: critical
+          comment-summary-in-pr: true
