@@ -21,7 +21,7 @@ export default [
     },
   },
   {
-    files: ["**/*.cjs", "**/bin/**/*.js"],
+    files: ["**/*.cjs", "**/bin/**/*.js", "**/lib/**/*.js"],
     languageOptions: {
       globals: {
         ...globals.node,

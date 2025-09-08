@@ -1,6 +1,6 @@
 {
   "name": "@rdolcegroup/runlintic-app",
-  "version": "6.4.1",
+  "version": "6.5.1",
   "description": "A toolkit for automating code quality, cleanup, and releases.",
   "keywords": [
     "release",
