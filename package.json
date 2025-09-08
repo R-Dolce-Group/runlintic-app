@@ -78,32 +78,30 @@
     "test:cli:all": "npm run test:cli && npm run test:cli:health && npm run test:cli:release:dry",
     "test:cli:health": "node bin/runlintic-app.js health-check",
     "test:cli:release:dry": "node bin/runlintic-app.js release:dry",
-    "typecheck": "tsc --noEmit --skipLibCheck || echo 'No TypeScript files found - skipping typecheck'",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+    "typecheck": "tsc --noEmit --skipLibCheck || echo 'No TypeScript files found - skipping typecheck'"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/js": "^9.33.0",
     "@next/eslint-plugin-next": "^15.0.3",
-    "@release-it/conventional-changelog": "^10.0.1",
+    "@release-it/conventional-changelog": "10.0.1",
     "@typescript-eslint/eslint-plugin": "^8.33.0",
-    "conventional-changelog-cli": "^5.0.0",
     "conventional-changelog-conventionalcommits": "^9.1.0",
-    "depcheck": "^1.4.7",
+    "depcheck": "1.4.7",
     "eslint": "^9.33.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-only-warn": "^1.1.0",
-    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react": "5.2.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "globals": "^16.2.0",
     "husky": "^9.1.7",
     "knip": "^5.0.0",
     "prettier": "^3.6.2",
-    "release-it": "^19.0.4",
+    "release-it": "19.0.4",
     "sort-package-json": "3.4.0",
     "typescript": "5.9.2",
-    "typescript-eslint": "^8.33.0"
+    "typescript-eslint": "8.14.0"
   },
   "engines": {
     "node": ">=22.16.0"
@@ -112,8 +110,5 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "runkitExampleFilename": "lib/scripts/runkit.js",
-  "dependencies": {
-    "conventional-commits-parser": "6.2.0"
-  }
+  "runkitExampleFilename": "lib/scripts/runkit.js"
 }
