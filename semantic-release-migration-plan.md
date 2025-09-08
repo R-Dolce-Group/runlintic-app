@@ -4,18 +4,18 @@
 
 ### ✅ **Full Feature Parity Achieved**
 
-| Feature | Release-it | Semantic-Release | Status |
-|---------|------------|------------------|--------|
-| Git Tagging | `v${version}` | `v${version}` | ✅ Identical |
-| GitHub Releases | ✅ | ✅ | ✅ Identical |
-| NPM Publishing | ✅ | ✅ | ✅ Identical |
-| Conventional Changelog | Angular preset | Angular preset | ✅ Identical |
-| Pre-release Hooks | Custom hooks | @semantic-release/exec | ✅ Equivalent |
-| Multiple Release Types | patch/minor/major/beta | Automatic + beta branch | ✅ Better |
-| Health Check Integration | before:init hook | prepareCmd | ✅ Equivalent |
-| Dependency Sync | before:git:tag hook | prepareCmd | ✅ Equivalent |
-| Custom Commit Messages | ✅ | ✅ | ✅ Identical |
-| Dry Run | --dry-run flag | --dry-run flag | ✅ Identical |
+| Feature                  | Release-it             | Semantic-Release        | Status        |
+| ------------------------ | ---------------------- | ----------------------- | ------------- |
+| Git Tagging              | `v${version}`          | `v${version}`           | ✅ Identical  |
+| GitHub Releases          | ✅                     | ✅                      | ✅ Identical  |
+| NPM Publishing           | ✅                     | ✅                      | ✅ Identical  |
+| Conventional Changelog   | Angular preset         | Angular preset          | ✅ Identical  |
+| Pre-release Hooks        | Custom hooks           | @semantic-release/exec  | ✅ Equivalent |
+| Multiple Release Types   | patch/minor/major/beta | Automatic + beta branch | ✅ Better     |
+| Health Check Integration | before:init hook       | prepareCmd              | ✅ Equivalent |
+| Dependency Sync          | before:git:tag hook    | prepareCmd              | ✅ Equivalent |
+| Custom Commit Messages   | ✅                     | ✅                      | ✅ Identical  |
+| Dry Run                  | --dry-run flag         | --dry-run flag          | ✅ Identical  |
 
 ### 🚀 **Semantic-Release Advantages**
 
@@ -47,17 +47,19 @@ npm install --save-dev semantic-release @semantic-release/changelog @semantic-re
 ### 📝 **Script Changes Required**
 
 #### package.json updates:
+
 ```json
 {
   "scripts": {
     "release": "lib/scripts/runlintic-app-release-with-auth.sh",
-    "release:beta": "lib/scripts/runlintic-app-release-with-auth.sh --preRelease=beta", 
+    "release:beta": "lib/scripts/runlintic-app-release-with-auth.sh --preRelease=beta",
     "release:dry": "lib/scripts/runlintic-app-release-with-auth.sh --dry-run"
   }
 }
 ```
 
 #### Shell script updates:
+
 - Replace `npx release-it` with `npx semantic-release`
 - Update CLI arguments for semantic-release format
 - Maintain same token validation and cleanup logic
@@ -65,7 +67,7 @@ npm install --save-dev semantic-release @semantic-release/changelog @semantic-re
 ### 🧪 **Testing Strategy**
 
 1. **Dry run test**: Verify changelog generation
-2. **Beta release test**: Test prerelease functionality  
+2. **Beta release test**: Test prerelease functionality
 3. **Full release test**: Complete workflow validation
 4. **Rollback plan**: Keep backups for quick revert
 

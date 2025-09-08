@@ -2,6 +2,19 @@
 
 
 
+## [7.0.0](https://github.com/R-Dolce-Group/runlintic-app/compare/v6.5.0...v7.0.0) (2025-09-08)
+
+### Bug Fixes
+
+* simplify release health check command in release-it configuration ([0f46fb9](https://github.com/R-Dolce-Group/runlintic-app/commit/0f46fb97fd99a9ca1f7d681c4f74a99226f428d3))
+
+## [7.0.0](https://github.com/R-Dolce-Group/runlintic-app/compare/v6.5.0...v7.0.0) (2025-09-08)
+
+### Bug Fixes
+
+* simplify release health check command in release-it configuration ([0f46fb9](https://github.com/R-Dolce-Group/runlintic-app/commit/0f46fb97fd99a9ca1f7d681c4f74a99226f428d3))
+
+
 ## <small>6.3.13 (2025-09-06)</small>
 
 * chore: change license from ISC to MIT ([54053f8](https://github.com/R-Dolce-Group/runlintic-app/commit/54053f8))
