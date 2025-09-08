@@ -11,7 +11,7 @@
     "publish": true
   },
   "hooks": {
-    "before:init": ["npm run health-check"],
+    "before:init": ["npm run health-check:release"],
     "after:bump": ["npm run format"],
     "before:git:tag": ["npm run deps:sync", "git add package-lock.json"],
     "before:release": ["git add -A"]
