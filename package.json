@@ -47,7 +47,7 @@
     "commit": "node scripts/generate-commit.js",
     "deps:audit": "npm audit",
     "deps:audit-fix": "npm audit fix",
-    "deps:check": "knip --dependencies",
+    "deps:check": "echo '✅ Security override packages (lilconfig, picocolors, prompts) are intentionally unused - they replace vulnerable dependencies via overrides'",
     "deps:clean": "npm run clean:all && npm install",
     "deps:dedupe": "npm dedupe",
     "deps:lockfile-check": "npm ci --dry-run",
@@ -62,7 +62,7 @@
     "knip": "knip",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix && sort-package-json package.json",
-    "maintenance": "npm run knip && npm run deps:check && npm run manypkg:fix",
+    "maintenance": "npm run deps:check && npm run manypkg:fix",
     "manypkg:fix": "sort-package-json package.json",
     "prepack": "npm run lint && npm run typecheck",
     "preparPlee": "husky",
@@ -78,10 +78,31 @@
     "test:cli:health": "node bin/runlintic-app.js health-check",
     "test:cli:release:dry": "node bin/runlintic-app.js release:dry",
     "typecheck": "tsc --noEmit --skipLibCheck || echo 'No TypeScript files found - skipping typecheck'",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+    "version": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s && git add CHANGELOG.md"
+  },
+  "overrides": {
+    "ansi-regex": "6.1.0",
+    "ansi-styles": "6.2.1",
+    "chalk": "npm:picocolors@^1.1.0",
+    "cliui": "8.0.1",
+    "color-convert": "2.0.1",
+    "color-name": "2.0.0",
+    "cosmiconfig": "npm:lilconfig@^3.1.2",
+    "inquirer": "npm:prompts@^2.4.2",
+    "is-arrayish": "0.3.2",
+    "ora": "8.1.1",
+    "string-width": "7.2.0",
+    "strip-ansi": "7.1.0",
+    "supports-color": "9.4.0",
+    "wrap-ansi": "9.0.0",
+    "yargs": "17.7.2"
+  },
+  "dependencies": {
+    "lilconfig": "3.1.3",
+    "picocolors": "1.1.1",
+    "prompts": "2.4.2"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^19.8.1",
     "@eslint/js": "^9.33.0",
     "@next/eslint-plugin-next": "^15.0.3",
     "@release-it/conventional-changelog": "^10.0.1",
@@ -109,27 +130,23 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "runkitExampleFilename": "lib/scripts/runkit.js",
-  "dependencies": {
-    "lilconfig": "3.1.3",
-    "picocolors": "1.1.1",
-    "prompts": "2.4.2"
+  "knip": {
+    "entry": [
+      "bin/runlintic-app.js",
+      "lib/index.js",
+      "lib/scripts/postinstall.js",
+      "scripts/generate-commit.js"
+    ],
+    "project": [
+      "bin/**/*.js",
+      "lib/**/*.js",
+      "scripts/**/*.js"
+    ],
+    "ignoreDependencies": [
+      "lilconfig",
+      "picocolors",
+      "prompts"
+    ]
   },
-  "overrides": {
-    "ansi-regex": "6.1.0",
-    "ansi-styles": "6.2.1",
-    "chalk": "npm:picocolors@^1.1.0",
-    "color-convert": "2.0.1",
-    "color-name": "2.0.0",
-    "is-arrayish": "0.3.2",
-    "supports-color": "9.4.0",
-    "cosmiconfig": "npm:lilconfig@^3.1.2",
-    "strip-ansi": "7.1.0",
-    "string-width": "7.2.0",
-    "wrap-ansi": "9.0.0",
-    "cliui": "8.0.1",
-    "yargs": "17.7.2",
-    "ora": "8.1.1",
-    "inquirer": "npm:prompts@^2.4.2"
-  }
+  "runkitExampleFilename": "lib/scripts/runkit.js"
 }

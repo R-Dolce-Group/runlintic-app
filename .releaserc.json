@@ -49,7 +49,7 @@
       }
     ]
   ],
-  "preset": "angular",
+  "preset": "conventionalcommits",
   "releaseRules": [
     {
       "type": "feat",
