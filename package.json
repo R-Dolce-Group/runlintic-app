@@ -112,5 +112,8 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "runkitExampleFilename": "lib/scripts/runkit.js"
+  "runkitExampleFilename": "lib/scripts/runkit.js",
+  "dependencies": {
+    "conventional-commits-parser": "6.2.0"
+  }
 }
