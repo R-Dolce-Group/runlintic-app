@@ -82,7 +82,7 @@
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.8.1",
+    "@commitlint/cli": "9.1.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/js": "^9.33.0",
     "@next/eslint-plugin-next": "^15.0.3",
@@ -90,7 +90,7 @@
     "@typescript-eslint/eslint-plugin": "^8.33.0",
     "conventional-changelog-cli": "^5.0.0",
     "conventional-changelog-conventionalcommits": "^9.1.0",
-    "depcheck": "^1.4.7",
+    "depcheck": "0.5.11",
     "eslint": "^9.33.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-only-warn": "^1.1.0",
