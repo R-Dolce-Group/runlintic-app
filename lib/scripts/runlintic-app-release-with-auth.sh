@@ -129,7 +129,7 @@ rm -f /tmp/gh_test.json /tmp/npm_test.json
 
 #10. Run comprehensive pre-release validation
 echo "🔍 Running pre-release validation..."
-if ! npm run health-check:release; then
+if ! npm run health-check; then
   echo "❌ Error: Pre-release health check failed" >&2
   echo "💡 Fix the issues above before releasing" >&2
   echo "💡 This includes: lint, typecheck, maintenance, dependency validation" >&2
