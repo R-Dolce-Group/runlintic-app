@@ -2,6 +2,40 @@
 
 
 
+## <small>6.4.0 (2025-09-07)</small>
+
+**🔒 Critical Security Remediation**
+* fix(security): permanently remove leaked token from entire git history ([234c4f3](https://github.com/R-Dolce-Group/runlintic-app/commit/234c4f3))
+  - Used git filter-branch to remove .security/.env.backup from all 208 commits
+  - Force-pushed cleaned history to permanently eliminate token from remote repository
+  - Temporarily disabled and restored branch protection for security cleanup
+  - Ensures complete removal of sensitive data from git history
+
+**🛠️ Critical Infrastructure Fixes**
+* fix(ci): resolve critical package.json typo and improve CI caching ([3d48f90](https://github.com/R-Dolce-Group/runlintic-app/commit/3d48f90))
+  - Fix 'preparPlee' typo to 'prepare' in package.json for proper Husky git hooks setup
+  - Add cache-dependency-path to GitHub Actions workflows for better cache invalidation
+  - Prevents CI failures and ensures consistent development environment
+* fix(ci): temporarily use npm install instead of npm ci to resolve dependency sync ([4bca519](https://github.com/R-Dolce-Group/runlintic-app/commit/4bca519))
+  - Change CI workflow to bypass lock file sync issues
+  - Ensures reliable CI execution while debugging dependency conflicts
+  - Maintains quality gate functionality during infrastructure improvements
+
+**📋 Dependency Management & Automation**
+* fix(deps): resolve complex TypeScript ESLint dependency conflicts ([3bb0e06](https://github.com/R-Dolce-Group/runlintic-app/commit/3bb0e06))
+  - Successfully merge Dependabot PR with version compatibility fixes
+  - Update GitHub Actions from v4 to v5 across all workflows
+  - Resolve peer dependency mismatches in TypeScript ESLint ecosystem
+* ci(deps): bump actions/setup-node from 4 to 5 ([3c753f4](https://github.com/R-Dolce-Group/runlintic-app/commit/3c753f4))
+  - Enhanced CI performance with latest GitHub Actions
+  - Improved Node.js environment setup and caching
+
+**🔧 Quality Assurance Improvements**
+* All CI quality checks now passing with enhanced reliability
+* Comprehensive security scanning operational with CodeQL
+* Improved error handling and developer experience
+* Enhanced branch protection and automated dependency management
+
 ## <small>6.3.14 (2025-09-06)</small>
 
 **🔒 Major Security Enhancements**
