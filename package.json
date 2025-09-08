@@ -1,6 +1,6 @@
 {
   "name": "@rdolcegroup/runlintic-app",
-  "version": "6.5.0",
+  "version": "6.3.13",
   "description": "A toolkit for automating code quality, cleanup, and releases.",
   "keywords": [
     "release",
@@ -66,7 +66,7 @@
     "maintenance": "npm run knip && npm run depcheck && npm run manypkg:fix",
     "manypkg:fix": "sort-package-json package.json",
     "prepack": "npm run lint && npm run typecheck",
-    "prepare": "husky",
+    "preparPlee": "husky",
     "release": "lib/scripts/runlintic-app-release-with-auth.sh",
     "release:beta": "lib/scripts/runlintic-app-release-with-auth.sh --preRelease=beta",
     "release:dry": "lib/scripts/runlintic-app-release-with-auth.sh --dry-run",

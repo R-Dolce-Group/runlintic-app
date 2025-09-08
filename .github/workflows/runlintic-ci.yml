@@ -16,17 +16,16 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v5
+      uses: actions/checkout@v4
       
     - name: Setup Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v5
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: 'package-lock.json'
         
     - name: Install dependencies
-      run: npm install
+      run: npm ci
       
     - name: Run Runlintic health check
       run: npm run health-check
@@ -44,17 +43,16 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v5
+      uses: actions/checkout@v4
       
     - name: Setup Node.js
-      uses: actions/setup-node@v5
+      uses: actions/setup-node@v4
       with:
         node-version: '22.x'
         cache: 'npm'
-        cache-dependency-path: 'package-lock.json'
         
     - name: Install dependencies
-      run: npm install
+      run: npm ci
       
     - name: Preview release changes (dry run)
       run: npm run release:dry
@@ -68,21 +66,20 @@ jobs:
     
     steps:
     - name: Checkout code
-      uses: actions/checkout@v5
+      uses: actions/checkout@v4
       with:
         # Fetch full history for release-it
         fetch-depth: 0
         
     - name: Setup Node.js
-      uses: actions/setup-node@v5
+      uses: actions/setup-node@v4
       with:
         node-version: '22.x'
         cache: 'npm'
-        cache-dependency-path: 'package-lock.json'
         registry-url: 'https://registry.npmjs.org'
         
     - name: Install dependencies
-      run: npm install
+      run: npm ci
       
     - name: Configure Git
       run: |

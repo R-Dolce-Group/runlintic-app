@@ -5,7 +5,7 @@
 [![GitHub Issues](https://img.shields.io/github/issues/R-Dolce-Group/runlintic-app)](https://github.com/R-Dolce-Group/runlintic-app/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/R-Dolce-Group/runlintic-app)](https://github.com/R-Dolce-Group/runlintic-app/pulls)
 [![Build Status](https://github.com/R-Dolce-Group/runlintic-app/actions/workflows/runlintic-ci.yml/badge.svg)](https://github.com/R-Dolce-Group/runlintic-app/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D22.16.0-brightgreen)](https://nodejs.org/)
 
 **A production-ready toolkit for automating code quality, cleanup, and releases.**
@@ -43,8 +43,6 @@ Choose between **global** or **local** installation:
 npm install -g @rdolcegroup/runlintic-app
 runlintic init
 ```
-
-<!-- Test auto-staging feature in commit script -->
 
 #### Local Installation (Project-specific)
 
@@ -156,15 +154,13 @@ This package is part of [The R. Dolce Organization](https://rdolcegroup.com).
 ## 📞 Support
 
 - 🐛 **Bug Reports**: [GitHub Issues](https://github.com/R-Dolce-Group/runlintic-app/issues)
-- 🔒 **Security Issues**: [Security Policy](SECURITY.md) - Please report security vulnerabilities privately
 - 💬 **Questions**: [Discussions](https://github.com/R-Dolce-Group/runlintic-app/discussions)
 - 📖 **Documentation**: [Full Docs](docs/)
-- 📋 **Changelog**: [Release Notes](CHANGELOG.md) - See what's new in each version
 - 🚀 **Feature Requests**: [GitHub Issues](https://github.com/R-Dolce-Group/runlintic-app/issues)
 
 ## 📄 License
 
-MIT - See [LICENSE](LICENSE) file for details.
+ISC - See [LICENSE](LICENSE) file for details.
 
 ---
 

@@ -46,7 +46,7 @@ jobs:
           
     - name: Add to bug tracking project
       if: github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'bug')
-      uses: actions/add-to-project@v1.0.2
+      uses: actions/add-to-project@v0.4.0
       with:
         project-url: https://github.com/orgs/R-Dolce-Group/projects/4
         github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}

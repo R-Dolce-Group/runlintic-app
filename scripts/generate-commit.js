@@ -1,38 +1,12 @@
 #!/usr/bin/env node
 
-import { execSync, spawnSync } from 'child_process';
+import { execSync } from 'child_process';
 import readline from 'readline';
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
-// Security: Input sanitization functions
-function sanitizeInput(input, maxLength = 100, preserveNewlines = false) {
-  if (!input || typeof input !== 'string') return '';
-  
-  let sanitized = input.trim()
-    .slice(0, maxLength)
-    .replace(/[`$\\;|&<>(){}[\]]/g, '')
-    // eslint-disable-next-line no-control-regex  
-    .replace(/\x00/g, ''); // Remove null bytes
-  
-  // For single-line inputs, remove newlines; for multi-line, preserve them
-  if (!preserveNewlines) {
-    sanitized = sanitized.replace(/\n/g, ' ');
-  }
-  
-  return sanitized;
-}
-
-function validateCommitType(type) {
-  const allowedTypes = Object.keys(COMMIT_TYPES);
-  if (!allowedTypes.includes(type)) {
-    throw new Error(`Invalid commit type: ${type}. Allowed types: ${allowedTypes.join(', ')}`);
-  }
-  return type;
-}
 
 // Conventional commit types
 const COMMIT_TYPES = {
@@ -48,19 +22,6 @@ const COMMIT_TYPES = {
   chore: 'Other changes that don\'t modify src or test files',
   revert: 'Reverts a previous commit'
 };
-
-// Git staging function
-function gitAddAll() {
-  try {
-    console.log('📦 Staging all changes...');
-    execSync('git add .', { stdio: 'inherit', shell: true });
-    console.log('✅ All changes staged successfully\n');
-    return true;
-  } catch (error) {
-    console.error('❌ Error staging changes:', error.message);
-    return false;
-  }
-}
 
 function getGitStatus() {
   try {
@@ -80,17 +41,8 @@ function getGitStatus() {
 
 function analyzeChanges(staged) {
   if (!staged) {
-    return {
-      files: [],
-      hasTests: false,
-      hasComponents: false,
-      hasTypes: false,
-      hasConfig: false,
-      hasScripts: false,
-      hasPackageJson: false,
-      hasDocs: false,
-      hasStyles: false
-    };
+    console.log('\n❌ No staged changes found. Stage your changes first with: git add <files>');
+    process.exit(1);
   }
 
   const files = staged.split('\n').filter(f => f.trim());
@@ -228,82 +180,10 @@ function question(prompt) {
   });
 }
 
-// Multi-line input handler for detailed descriptions
-function multiLineQuestion(prompt) {
-  console.log(prompt);
-  console.log('📝 Enter detailed description (type your text, press Enter twice when done, or just Enter to skip):');
-  console.log('> ');
-  
-  return new Promise((resolve) => {
-    let input = '';
-    let emptyLineCount = 0;
-    
-    const handleLine = (line) => {
-      if (line.trim() === '') {
-        emptyLineCount++;
-        if (emptyLineCount >= 2 || input === '') {
-          rl.removeListener('line', handleLine);
-          resolve(input.trim());
-          return;
-        }
-        if (input) input += '\n';
-      } else {
-        emptyLineCount = 0;
-        if (input) input += '\n';
-        input += line;
-      }
-      process.stdout.write('> ');
-    };
-    
-    rl.on('line', handleLine);
-  });
-}
-
 async function generateCommitMessage() {
-  // Check for unstaged changes and offer to stage them
-  const initialStatus = getGitStatus();
-  const unstagedFiles = initialStatus.status.split('\n')
-    .filter(line => line.trim() && (line.startsWith(' M') || line.startsWith('??')))
-    .map(line => line.trim().substring(2).trim());
-  
-  // If no staged files and we have unstaged files, offer to stage them
-  if (!initialStatus.staged && unstagedFiles.length > 0) {
-    console.log('⚠️  No staged changes found, but unstaged changes detected:');
-    unstagedFiles.forEach(file => console.log(`  • ${file}`));
-    console.log();
-    
-    const shouldStage = await question('Stage all changes before committing? (Y/n): ');
-    if (shouldStage.toLowerCase() !== 'n') {
-      if (!gitAddAll()) {
-        console.log('❌ Failed to stage changes. Exiting.');
-        process.exit(1);
-      }
-    } else {
-      console.log('❌ No staged changes to commit. Exiting.');
-      process.exit(0);
-    }
-  } else if (unstagedFiles.length > 0) {
-    console.log('⚠️  Additional unstaged changes detected:');
-    unstagedFiles.forEach(file => console.log(`  • ${file}`));
-    console.log();
-    
-    const shouldStage = await question('Stage additional changes before committing? (y/N): ');
-    if (shouldStage.toLowerCase() === 'y') {
-      if (!gitAddAll()) {
-        console.log('❌ Failed to stage changes. Exiting.');
-        process.exit(1);
-      }
-    }
-  }
-  
   console.log('🔍 Analyzing staged changes...\n');
   
   const { staged, diff } = getGitStatus();
-  if (!staged) {
-    console.log('❌ No staged changes found after staging attempt. Exiting.');
-    process.exit(1);
-  }
-  
   const analysis = analyzeChanges(staged);
   const detectedChanges = analyzeDiffChanges(diff, analysis);
   
@@ -325,8 +205,7 @@ async function generateCommitMessage() {
 
   // Get commit type
   const type = await question(`Enter commit type (${suggested.join('|')}, press Enter for ${suggested[0]}): `);
-  const sanitizedType = sanitizeInput(type.trim() || suggested[0], 20);
-  const finalType = validateCommitType(sanitizedType);
+  const finalType = type.trim() || suggested[0];
   if (!COMMIT_TYPES[finalType]) {
     console.log('❌ Invalid commit type');
     process.exit(1);
@@ -341,7 +220,7 @@ async function generateCommitMessage() {
   else if (analysis.hasDocs) scopeHint = 'docs';
   
   const scope = await question(`Enter scope (optional${scopeHint ? `, suggested: ${scopeHint}, press Enter to use` : ', e.g., cli, templates, docs'}): `);
-  const finalScope = sanitizeInput(scope.trim() || scopeHint, 50);
+  const finalScope = scope.trim() || scopeHint;
   
   // Get description with smart suggestion
   let descriptionHint = '';
@@ -363,7 +242,7 @@ async function generateCommitMessage() {
   }
   
   const description = await question(`Enter brief description${descriptionHint ? ` (suggested: ${descriptionHint}, press Enter to use)` : ''}: `);
-  const finalDescription = sanitizeInput(description.trim() || descriptionHint, 72);
+  const finalDescription = description.trim() || descriptionHint;
   if (!finalDescription) {
     console.log('❌ Description is required');
     process.exit(1);
@@ -378,20 +257,7 @@ async function generateCommitMessage() {
     suggestedBody = formatChangesList(detectedChanges);
   }
   
-  // Use multi-line input for detailed description
-  let bodyInput;
-  if (suggestedBody) {
-    console.log('\n💡 Suggested detailed description:');
-    console.log(suggestedBody);
-    console.log('\n📝 You can use the suggestion above, or provide your own detailed description:');
-    bodyInput = await multiLineQuestion('Enter detailed description (optional):');
-  } else {
-    bodyInput = await multiLineQuestion('Enter detailed description (optional):');
-  }
-  
-  // Use input or fallback to suggestion, then sanitize (preserving newlines for body)
-  const finalBodyInput = bodyInput || suggestedBody || '';
-  const sanitizedBody = sanitizeInput(finalBodyInput, 500, true);
+  const body = await question(`Enter detailed description${suggestedBody ? ` (optional, press Enter to use detected changes):\n\n${suggestedBody}\n\n` : ' (optional): '}`);
   
   // Generate commit message
   let commitMsg = finalType;
@@ -399,18 +265,15 @@ async function generateCommitMessage() {
   if (isBreaking.toLowerCase() === 'y') commitMsg += '!';
   commitMsg += `: ${finalDescription}`;
   
-  // Use sanitized body
-  const finalBody = sanitizedBody;
+  // Use suggested body if user pressed Enter without typing anything
+  const finalBody = body.trim() || suggestedBody;
   if (finalBody) {
     commitMsg += `\n\n${finalBody}`;
   }
   
   if (isBreaking.toLowerCase() === 'y') {
     const breakingDesc = await question('Describe the breaking change: ');
-    const sanitizedBreakingDesc = sanitizeInput(breakingDesc.trim(), 200);
-    if (sanitizedBreakingDesc) {
-      commitMsg += `\n\nBREAKING CHANGE: ${sanitizedBreakingDesc}`;
-    }
+    commitMsg += `\n\nBREAKING CHANGE: ${breakingDesc}`;
   }
 
 
@@ -426,19 +289,7 @@ async function generateCommitMessage() {
   }
 
   try {
-    // Use spawn for secure command execution with proper argument separation
-    const result = spawnSync('git', ['commit', '-m', commitMsg], { 
-      stdio: 'inherit',
-      encoding: 'utf8'
-    });
-    
-    if (result.error) {
-      throw result.error;
-    }
-    if (result.status !== 0) {
-      throw new Error(`Git commit failed with status ${result.status}`);
-    }
-    
+    execSync(`git commit -m "${commitMsg.replace(/"/g, '\\"')}"`, { stdio: 'inherit' });
     console.log('✅ Commit created successfully!');
   } catch (error) {
     console.error('❌ Commit failed:', error.message);
@@ -452,4 +303,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   generateCommitMessage().catch(console.error);
 }
 
-export { analyzeChanges, generateCommitMessage, suggestCommitType };
+export { generateCommitMessage, analyzeChanges, suggestCommitType };
