@@ -44,6 +44,10 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v5
+      with:
+        # Fetch full history and proper branch refs for release process
+        fetch-depth: 0
+        ref: ${{ github.head_ref }}
       
     - name: Setup Node.js
       uses: actions/setup-node@v5
