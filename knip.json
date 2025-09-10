@@ -29,7 +29,11 @@
   "ignoreDependencies": [
     "@types/*",
     "conventional-changelog-conventionalcommits",
-    "eslint-plugin-turbo"
+    "eslint-plugin-turbo",
+    "lilconfig",
+    "picocolors",
+    "prompts",
+    "@commitlint/config-conventional"
   ],
   "includeEntryExports": false
 }
