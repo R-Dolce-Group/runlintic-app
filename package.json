@@ -60,7 +60,7 @@
     "health-check": "npm run lint && npm run typecheck && npm run maintenance && npm run deps:validate",
     "postinstall": "node lib/scripts/postinstall.js",
     "knip": "knip",
-    "lint": "eslint . --max-warnings 0",
+    "lint": "eslint . --max-warnings 0 --format=json",
     "lint:fix": "eslint . --fix && sort-package-json package.json",
     "maintenance": "npm run deps:check && npm run manypkg:fix",
     "manypkg:fix": "sort-package-json package.json",
