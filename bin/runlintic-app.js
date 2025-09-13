@@ -123,12 +123,11 @@ function showHelp() {
 }
 
 function runCommand(scriptName, args = []) {
-  const command = process.platform === 'win32' ? 'npm.cmd' : 'npm';
   const fullArgs = ['run', scriptName, ...args];
   
-  const child = spawn(command, fullArgs, {
+  const child = spawn('npm', fullArgs, {
     stdio: 'inherit',
-    shell: process.platform === 'win32'
+    shell: false
   });
 
   child.on('close', (code) => {
