@@ -65,7 +65,7 @@
     "maintenance": "npm run deps:check && npm run manypkg:fix",
     "manypkg:fix": "sort-package-json package.json",
     "prepack": "npm run lint && npm run typecheck",
-    "preparPlee": "husky",
+    "prepare": "husky",
     "release": "lib/scripts/runlintic-app-release-with-auth.sh",
     "release:beta": "lib/scripts/runlintic-app-release-with-auth.sh --preRelease=beta",
     "release:dry": "lib/scripts/runlintic-app-release-with-auth.sh --dry-run",
