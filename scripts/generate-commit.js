@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { execSync } from 'child_process';
+import { execSync, spawnSync } from 'child_process';
 import prompts from 'prompts';
 
 // Conventional commit types
@@ -300,8 +300,13 @@ async function generateCommitMessage() {
   }
 
   try {
-    execSync(`git commit -m "${commitMsg.replace(/"/g, '\\"')}"`, { stdio: 'inherit' });
-    console.log('✅ Commit created successfully!');
+    const result = spawnSync('git', ['commit', '-m', commitMsg], { stdio: 'inherit' });
+    if (result.status === 0) {
+      console.log('✅ Commit created successfully!');
+    } else {
+      console.error('❌ Commit failed');
+      process.exit(result.status || 1);
+    }
   } catch (error) {
     console.error('❌ Commit failed:', error.message);
     process.exit(1);
