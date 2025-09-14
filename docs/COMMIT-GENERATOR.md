@@ -5,10 +5,12 @@ An intelligent tool that analyzes your staged changes and generates perfect conv
 ## Quick Start
 
 ```bash
-# Stage your changes
-git add .
+# Option 1: Auto-stage all changes (recommended)
+npm run commit
+# → Detects unstaged changes and prompts to stage automatically
 
-# Generate and commit with guided prompts
+# Option 2: Manual staging (traditional)
+git add .
 npm run commit
 ```
 
