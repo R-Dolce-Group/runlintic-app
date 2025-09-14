@@ -133,6 +133,16 @@ function analyzeDiffChanges(diff, analysis) {
         changes.push(`Added ${currentFile.includes('task') ? 'task' : currentFile.includes('resolution') ? 'resolution' : 'issue'} template`);
       } else if (currentFile.includes('workflow') && addedLine.includes('script:')) {
         changes.push('Added GitHub issue auto-close workflow');
+      } else if (currentFile.includes('codeql') || addedLine.includes('CodeQL')) {
+        changes.push('Added CodeQL security analysis for automated vulnerability scanning');
+      } else if (currentFile.includes('workflow') && addedLine.includes('security-events: write')) {
+        changes.push('Configured security scanning workflow with proper permissions');
+      } else if (currentFile.includes('workflow') && addedLine.includes('schedule:')) {
+        changes.push('Added scheduled workflow execution for automated monitoring');
+      } else if (currentFile.includes('workflow') && addedLine.includes('javascript-typescript')) {
+        changes.push('Configured JavaScript/TypeScript code analysis');
+      } else if (addedLine.includes('security-extended') || addedLine.includes('security-and-quality')) {
+        changes.push('Enhanced security scanning with extended query suites');
       } else if (addedLine.includes('function ') || addedLine.includes('const ') || addedLine.includes('let ')) {
         if (currentFile.includes('script')) {
           changes.push('Enhanced commit generation logic');
