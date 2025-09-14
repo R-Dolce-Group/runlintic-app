@@ -92,6 +92,24 @@ Combines file analysis and diff patterns to suggest the most appropriate:
 
 ## Example Output
 
+### Automatic Staging Workflow
+
+```
+🔍 Analyzing staged changes...
+
+🔍 No staged changes found, but detected unstaged changes.
+💡 Would you like to stage all changes and continue? (Y/n): Y
+📦 Staging all changes...
+✅ All changes staged successfully
+
+📁 Files to be committed:
+  • package.json
+  • scripts/generate-commit.js
+  • eslint.config.js
+```
+
+### Standard Workflow
+
 ```
 🔍 Analyzing staged changes...
 
