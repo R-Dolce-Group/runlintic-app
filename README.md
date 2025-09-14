@@ -7,6 +7,7 @@
 [![Build Status](https://github.com/R-Dolce-Group/runlintic-app/actions/workflows/runlintic-ci.yml/badge.svg)](https://github.com/R-Dolce-Group/runlintic-app/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D22.16.0-brightgreen)](https://nodejs.org/)
+[![Security](https://img.shields.io/badge/Security-Hardened-green)](https://github.com/R-Dolce-Group/runlintic-app/security)
 
 **A production-ready toolkit for automating code quality, cleanup, and releases.**
 
