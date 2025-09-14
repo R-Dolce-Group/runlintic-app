@@ -27,7 +27,7 @@ npx runlintic init && npx runlintic health-check
 - 🔧 **Lint & Format** – ESLint + Prettier with zero warnings
 - 🧹 **Clean Dependencies** – Remove unused deps automatically
 - 🚀 **Smart Releases** – Semantic versioning with changelogs
-- 📝 **Intelligent Commits** – Generate conventional commit messages
+- 📝 **Intelligent Commits** – Auto-stage changes & generate conventional commit messages
 - ⚡ **40% Faster** – Parallel execution for all quality checks
 - 🎯 **Zero Config** – Works immediately, customize later
 
