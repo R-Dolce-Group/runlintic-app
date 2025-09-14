@@ -34,10 +34,17 @@ function getGitStatus() {
   }
 }
 
-function analyzeChanges(staged) {
+function analyzeChanges(staged, status) {
   if (!staged) {
-    console.log('\n❌ No staged changes found. Stage your changes first with: git add <files>');
-    process.exit(1);
+    // Check if there are unstaged changes we can stage
+    if (status) {
+      console.log('\n🔍 No staged changes found, but detected unstaged changes.');
+      console.log('💡 Would you like to stage all changes and continue?');
+      return null; // Signal that we need to prompt for staging
+    } else {
+      console.log('\n❌ No changes found to commit.');
+      process.exit(1);
+    }
   }
 
   const files = staged.split('\n').filter(f => f.trim());
