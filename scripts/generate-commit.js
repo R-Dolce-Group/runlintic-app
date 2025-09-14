@@ -186,11 +186,50 @@ async function question(message, initial = '') {
   return response.value || '';
 }
 
+async function stageAllChanges() {
+  try {
+    console.log('📦 Staging all changes...');
+    const result = spawnSync('git', ['add', '.'], { stdio: 'inherit' });
+    if (result.status !== 0) {
+      console.error('❌ Failed to stage changes');
+      process.exit(result.status || 1);
+    }
+    console.log('✅ All changes staged successfully\n');
+    return true;
+  } catch (error) {
+    console.error('❌ Error staging changes:', error.message);
+    process.exit(1);
+  }
+}
+
 async function generateCommitMessage() {
   console.log('🔍 Analyzing staged changes...\n');
-  
-  const { staged, diff } = getGitStatus();
-  const analysis = analyzeChanges(staged);
+
+  let { status, staged, diff } = getGitStatus();
+  let analysis = analyzeChanges(staged, status);
+
+  // If no staged changes but unstaged changes exist, prompt to stage them
+  if (analysis === null && status) {
+    const stageResponse = await prompts({
+      type: 'confirm',
+      name: 'value',
+      message: 'Stage all changes and continue?',
+      initial: true
+    });
+
+    if (stageResponse.value) {
+      await stageAllChanges();
+      // Re-analyze after staging
+      const newStatus = getGitStatus();
+      staged = newStatus.staged;
+      diff = newStatus.diff;
+      analysis = analyzeChanges(staged, status);
+    } else {
+      console.log('❌ Cannot create commit without staged changes');
+      process.exit(0);
+    }
+  }
+
   const detectedChanges = analyzeDiffChanges(diff, analysis);
   
   console.log('📁 Files to be committed:');
