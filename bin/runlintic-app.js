@@ -299,16 +299,20 @@ async function initProject() {
     }
   });
 
-  // Copy files
+  // Copy files - atomic operations to prevent TOCTOU vulnerabilities
   filesToCopy.forEach(({ from, to, type, condition }) => {
     // Check condition if provided
     if (condition && !condition()) {
       return;
     }
 
-    if (fs.existsSync(from)) {
-      if (!fs.existsSync(to)) {
-        fs.copyFileSync(from, to);
+    try {
+      // Check source exists first
+      fs.accessSync(from, fs.constants.R_OK);
+
+      // Atomic copy operation - will fail if destination exists
+      try {
+        fs.copyFileSync(from, to, fs.constants.COPYFILE_EXCL);
 
         // Make setup.sh executable
         if (to === './setup.sh') {
@@ -330,9 +334,15 @@ async function initProject() {
 
         console.log(`✅ Created ${to}`);
         stats[type === 'config' ? 'configs' : type === 'guide' ? 'guides' : type === 'github' ? 'github' : type === 'vscode' ? 'vscode' : 'other']++;
-      } else {
-        console.log(`⚠️  ${to} already exists, skipping`);
+      } catch (copyError) {
+        if (copyError.code === 'EEXIST') {
+          console.log(`⚠️  ${to} already exists, skipping`);
+        } else {
+          console.warn(`Warning: Could not copy ${from} to ${to}:`, copyError.message);
+        }
       }
+    } catch (accessError) {
+      console.warn(`Warning: Source file ${from} not accessible:`, accessError.message);
     }
   });
 
