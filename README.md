@@ -102,10 +102,9 @@ runlintic health-check
 ## 🛠️ Daily Workflow
 
 ```bash
-# Make changes to your code
-git add .
+# Make changes to your code (edit files)
 
-# Generate smart commit message
+# Generate smart commit message (auto-stages changes)
 runlintic commit
 
 # Run quality checks
