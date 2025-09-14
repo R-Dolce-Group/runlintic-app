@@ -195,9 +195,21 @@ async function promptOptionalEnhancements(isMonorepo, hasTurboJson, templatesDir
       console.log('\n🔧 Adding optional enhancements...');
 
       enhancements.forEach(enhancement => {
-        if (!fs.existsSync(enhancement.target) && fs.existsSync(enhancement.file)) {
-          fs.copyFileSync(enhancement.file, enhancement.target);
+        try {
+          // Check source exists and is readable
+          fs.accessSync(enhancement.file, fs.constants.R_OK);
+
+          // Atomic copy operation - will fail if destination exists
+          fs.copyFileSync(enhancement.file, enhancement.target, fs.constants.COPYFILE_EXCL);
           console.log(`✅ Created ${enhancement.target}`);
+        } catch (error) {
+          if (error.code === 'EEXIST') {
+            console.log(`⚠️  ${enhancement.target} already exists, skipping`);
+          } else if (error.code === 'ENOENT') {
+            console.warn(`Warning: Source file ${enhancement.file} not found`);
+          } else {
+            console.warn(`Warning: Could not copy ${enhancement.file}:`, error.message);
+          }
         }
       });
 
