@@ -18,6 +18,13 @@ Press **Enter** at any prompt to use the intelligent suggestions!
 
 ## Features
 
+### 📦 **Automatic Git Staging** ✨ NEW
+
+- Detects unstaged changes when no staged changes exist
+- Prompts to automatically stage all changes before committing
+- Eliminates the need to run `git add .` manually
+- Secure implementation using atomic git operations
+
 ### 🔍 **Intelligent Change Detection**
 
 - Analyzes `git diff` to understand what actually changed
