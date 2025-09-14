@@ -5,7 +5,7 @@
 [![GitHub Issues](https://img.shields.io/github/issues/R-Dolce-Group/runlintic-app)](https://github.com/R-Dolce-Group/runlintic-app/issues)
 [![GitHub Pull Requests](https://img.shields.io/github/issues-pr/R-Dolce-Group/runlintic-app)](https://github.com/R-Dolce-Group/runlintic-app/pulls)
 [![Build Status](https://github.com/R-Dolce-Group/runlintic-app/actions/workflows/runlintic-ci.yml/badge.svg)](https://github.com/R-Dolce-Group/runlintic-app/actions)
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Node.js Version](https://img.shields.io/badge/node-%3E%3D22.16.0-brightgreen)](https://nodejs.org/)
 
 **A production-ready toolkit for automating code quality, cleanup, and releases.**
@@ -154,13 +154,13 @@ This package is part of [The R. Dolce Organization](https://rdolcegroup.com).
 ## 📞 Support
 
 - 🐛 **Bug Reports**: [GitHub Issues](https://github.com/R-Dolce-Group/runlintic-app/issues)
-- 💬 **Questions**: [Discussions](https://github.com/R-Dolce-Group/runlintic-app/discussions)
+- 💬 **Questions**: [DMITussions](https://github.com/R-Dolce-Group/runlintic-app/dMITussions)
 - 📖 **Documentation**: [Full Docs](docs/)
 - 🚀 **Feature Requests**: [GitHub Issues](https://github.com/R-Dolce-Group/runlintic-app/issues)
 
 ## 📄 License
 
-ISC - See [LICENSE](LICENSE) file for details.
+MIT - See [LICENSE](LICENSE) file for details.
 
 ---
 

@@ -286,11 +286,16 @@ async function initProject() {
     other: 0
   };
 
-  // Create directories first
+  // Create directories first - atomic operation, no TOCTOU vulnerability
   const dirsToCreate = ['.github/workflows', '.github/ISSUE_TEMPLATE', '.vscode', '.husky'];
   dirsToCreate.forEach(dir => {
-    if (!fs.existsSync(dir)) {
+    try {
       fs.mkdirSync(dir, { recursive: true });
+    } catch (error) {
+      // Directory already exists or permission error - safe to ignore for recursive: true
+      if (error.code !== 'EEXIST') {
+        console.warn(`Warning: Could not create directory ${dir}:`, error.message);
+      }
     }
   });
 
