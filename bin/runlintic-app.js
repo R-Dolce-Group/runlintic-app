@@ -271,21 +271,25 @@ async function initProject() {
     { from: path.join(templatesDir, 'pre-commit'), to: './.husky/pre-commit', type: 'husky', description: 'Pre-commit hook', condition: () => hasPackageJson }
   ];
 
-  // Detect project characteristics for optional enhancements
-  const isMonorepo = hasPackageJson && (() => {
+  // Detect project characteristics for optional enhancements - atomic read operation
+  let packageJsonData = null;
+  let isMonorepo = false;
+
+  if (hasPackageJson) {
     try {
-      const packageJson = JSON.parse(fs.readFileSync(path.join(cwd, 'package.json'), 'utf8'));
-      return (
-        packageJson.workspaces ||
-        packageJson.private === true && (
+      packageJsonData = JSON.parse(fs.readFileSync(path.join(cwd, 'package.json'), 'utf8'));
+      isMonorepo = Boolean(
+        packageJsonData.workspaces ||
+        (packageJsonData.private === true && (
           fs.existsSync(path.join(cwd, 'apps')) ||
           fs.existsSync(path.join(cwd, 'packages'))
-        )
+        ))
       );
-    } catch {
-      return false;
+    } catch (error) {
+      console.warn('Warning: Could not read package.json for monorepo detection:', error.message);
+      isMonorepo = false;
     }
-  })();
+  }
 
   // NOTE: turbo.json is no longer created automatically
   // Users will be prompted for optional enhancements after core files are created
