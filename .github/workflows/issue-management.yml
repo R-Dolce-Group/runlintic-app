@@ -26,7 +26,7 @@ jobs:
         
     - name: Request health-check on bug reports
       if: github.event.action == 'opened' && contains(github.event.issue.labels.*.name, 'bug')
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       with:
         script: |
           github.rest.issues.createComment({
