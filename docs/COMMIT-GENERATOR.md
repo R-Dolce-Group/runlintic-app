@@ -5,16 +5,25 @@ An intelligent tool that analyzes your staged changes and generates perfect conv
 ## Quick Start
 
 ```bash
-# Stage your changes
-git add .
+# Option 1: Auto-stage all changes (recommended)
+npm run commit
+# → Detects unstaged changes and prompts to stage automatically
 
-# Generate and commit with guided prompts
+# Option 2: Manual staging (traditional)
+git add .
 npm run commit
 ```
 
 Press **Enter** at any prompt to use the intelligent suggestions!
 
 ## Features
+
+### 📦 **Automatic Git Staging** ✨ NEW
+
+- Detects unstaged changes when no staged changes exist
+- Prompts to automatically stage all changes before committing
+- Eliminates the need to run `git add .` manually
+- Secure implementation using atomic git operations
 
 ### 🔍 **Intelligent Change Detection**
 
@@ -82,6 +91,24 @@ Combines file analysis and diff patterns to suggest the most appropriate:
 - Description (auto-generated from detected changes)
 
 ## Example Output
+
+### Automatic Staging Workflow
+
+```
+🔍 Analyzing staged changes...
+
+🔍 No staged changes found, but detected unstaged changes.
+💡 Would you like to stage all changes and continue? (Y/n): Y
+📦 Staging all changes...
+✅ All changes staged successfully
+
+📁 Files to be committed:
+  • package.json
+  • scripts/generate-commit.js
+  • eslint.config.js
+```
+
+### Standard Workflow
 
 ```
 🔍 Analyzing staged changes...

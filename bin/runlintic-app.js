@@ -195,9 +195,21 @@ async function promptOptionalEnhancements(isMonorepo, hasTurboJson, templatesDir
       console.log('\n🔧 Adding optional enhancements...');
 
       enhancements.forEach(enhancement => {
-        if (!fs.existsSync(enhancement.target) && fs.existsSync(enhancement.file)) {
-          fs.copyFileSync(enhancement.file, enhancement.target);
+        try {
+          // Check source exists and is readable
+          fs.accessSync(enhancement.file, fs.constants.R_OK);
+
+          // Atomic copy operation - will fail if destination exists
+          fs.copyFileSync(enhancement.file, enhancement.target, fs.constants.COPYFILE_EXCL);
           console.log(`✅ Created ${enhancement.target}`);
+        } catch (error) {
+          if (error.code === 'EEXIST') {
+            console.log(`⚠️  ${enhancement.target} already exists, skipping`);
+          } else if (error.code === 'ENOENT') {
+            console.warn(`Warning: Source file ${enhancement.file} not found`);
+          } else {
+            console.warn(`Warning: Could not copy ${enhancement.file}:`, error.message);
+          }
         }
       });
 
@@ -259,21 +271,25 @@ async function initProject() {
     { from: path.join(templatesDir, 'pre-commit'), to: './.husky/pre-commit', type: 'husky', description: 'Pre-commit hook', condition: () => hasPackageJson }
   ];
 
-  // Detect project characteristics for optional enhancements
-  const isMonorepo = hasPackageJson && (() => {
+  // Detect project characteristics for optional enhancements - atomic read operation
+  let packageJsonData = null;
+  let isMonorepo = false;
+
+  if (hasPackageJson) {
     try {
-      const packageJson = JSON.parse(fs.readFileSync(path.join(cwd, 'package.json'), 'utf8'));
-      return (
-        packageJson.workspaces ||
-        packageJson.private === true && (
+      packageJsonData = JSON.parse(fs.readFileSync(path.join(cwd, 'package.json'), 'utf8'));
+      isMonorepo = Boolean(
+        packageJsonData.workspaces ||
+        (packageJsonData.private === true && (
           fs.existsSync(path.join(cwd, 'apps')) ||
           fs.existsSync(path.join(cwd, 'packages'))
-        )
+        ))
       );
-    } catch {
-      return false;
+    } catch (error) {
+      console.warn('Warning: Could not read package.json for monorepo detection:', error.message);
+      isMonorepo = false;
     }
-  })();
+  }
 
   // NOTE: turbo.json is no longer created automatically
   // Users will be prompted for optional enhancements after core files are created
@@ -286,24 +302,33 @@ async function initProject() {
     other: 0
   };
 
-  // Create directories first
+  // Create directories first - atomic operation, no TOCTOU vulnerability
   const dirsToCreate = ['.github/workflows', '.github/ISSUE_TEMPLATE', '.vscode', '.husky'];
   dirsToCreate.forEach(dir => {
-    if (!fs.existsSync(dir)) {
+    try {
       fs.mkdirSync(dir, { recursive: true });
+    } catch (error) {
+      // Directory already exists or permission error - safe to ignore for recursive: true
+      if (error.code !== 'EEXIST') {
+        console.warn(`Warning: Could not create directory ${dir}:`, error.message);
+      }
     }
   });
 
-  // Copy files
+  // Copy files - atomic operations to prevent TOCTOU vulnerabilities
   filesToCopy.forEach(({ from, to, type, condition }) => {
     // Check condition if provided
     if (condition && !condition()) {
       return;
     }
 
-    if (fs.existsSync(from)) {
-      if (!fs.existsSync(to)) {
-        fs.copyFileSync(from, to);
+    try {
+      // Check source exists first
+      fs.accessSync(from, fs.constants.R_OK);
+
+      // Atomic copy operation - will fail if destination exists
+      try {
+        fs.copyFileSync(from, to, fs.constants.COPYFILE_EXCL);
 
         // Make setup.sh executable
         if (to === './setup.sh') {
@@ -325,9 +350,15 @@ async function initProject() {
 
         console.log(`✅ Created ${to}`);
         stats[type === 'config' ? 'configs' : type === 'guide' ? 'guides' : type === 'github' ? 'github' : type === 'vscode' ? 'vscode' : 'other']++;
-      } else {
-        console.log(`⚠️  ${to} already exists, skipping`);
+      } catch (copyError) {
+        if (copyError.code === 'EEXIST') {
+          console.log(`⚠️  ${to} already exists, skipping`);
+        } else {
+          console.warn(`Warning: Could not copy ${from} to ${to}:`, copyError.message);
+        }
       }
+    } catch (accessError) {
+      console.warn(`Warning: Source file ${from} not accessible:`, accessError.message);
     }
   });
 

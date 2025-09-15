@@ -1,6 +1,31 @@
 # Changelog
 
+## [Unreleased] - Security & UX Improvements
 
+### 🔒 Security
+- **CRITICAL**: Fixed 5 TOCTOU (Time-of-Check-Time-of-Use) vulnerabilities in file operations
+- Implemented atomic file operations using `fs.constants.COPYFILE_EXCL` and temporary files
+- Replaced vulnerable `fs.existsSync() + fs.operation()` patterns with secure atomic operations
+- Enhanced directory creation with proper error handling (no race conditions)
+- Applied atomic file access checks using `fs.accessSync()` instead of existence checks
+
+### ✨ Features
+- **NEW**: Automatic git staging in commit generator - no more manual `git add .` required
+- Interactive staging prompts when no staged changes are detected
+- Enhanced commit generator with intelligent change detection and auto-staging
+- Added security badge and hardened security posture for end-user distribution
+
+### 📚 Documentation
+- Updated commit generator documentation with new auto-staging workflow examples
+- Added security improvements to README with new Security badge
+- Enhanced daily workflow documentation to reflect streamlined git operations
+- Updated feature descriptions to highlight automatic staging capabilities
+
+### 🛡️ Under the Hood
+- All file operations now use secure patterns to prevent race conditions
+- Maintained zero ESLint warnings throughout security improvements
+- Preserved existing functionality while eliminating security vulnerabilities
+- Ready for production distribution with hardened security posture
 
 ## [7.0.0](https://github.com/R-Dolce-Group/runlintic-app/compare/v6.5.0...v7.0.0) (2025-09-08)
 

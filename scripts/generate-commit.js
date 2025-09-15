@@ -34,10 +34,17 @@ function getGitStatus() {
   }
 }
 
-function analyzeChanges(staged) {
+function analyzeChanges(staged, status) {
   if (!staged) {
-    console.log('\n❌ No staged changes found. Stage your changes first with: git add <files>');
-    process.exit(1);
+    // Check if there are unstaged changes we can stage
+    if (status) {
+      console.log('\n🔍 No staged changes found, but detected unstaged changes.');
+      console.log('💡 Would you like to stage all changes and continue?');
+      return null; // Signal that we need to prompt for staging
+    } else {
+      console.log('\n❌ No changes found to commit.');
+      process.exit(1);
+    }
   }
 
   const files = staged.split('\n').filter(f => f.trim());
@@ -126,6 +133,16 @@ function analyzeDiffChanges(diff, analysis) {
         changes.push(`Added ${currentFile.includes('task') ? 'task' : currentFile.includes('resolution') ? 'resolution' : 'issue'} template`);
       } else if (currentFile.includes('workflow') && addedLine.includes('script:')) {
         changes.push('Added GitHub issue auto-close workflow');
+      } else if (currentFile.includes('codeql') || addedLine.includes('CodeQL')) {
+        changes.push('Added CodeQL security analysis for automated vulnerability scanning');
+      } else if (currentFile.includes('workflow') && addedLine.includes('security-events: write')) {
+        changes.push('Configured security scanning workflow with proper permissions');
+      } else if (currentFile.includes('workflow') && addedLine.includes('schedule:')) {
+        changes.push('Added scheduled workflow execution for automated monitoring');
+      } else if (currentFile.includes('workflow') && addedLine.includes('javascript-typescript')) {
+        changes.push('Configured JavaScript/TypeScript code analysis');
+      } else if (addedLine.includes('security-extended') || addedLine.includes('security-and-quality')) {
+        changes.push('Enhanced security scanning with extended query suites');
       } else if (addedLine.includes('function ') || addedLine.includes('const ') || addedLine.includes('let ')) {
         if (currentFile.includes('script')) {
           changes.push('Enhanced commit generation logic');
@@ -179,11 +196,50 @@ async function question(message, initial = '') {
   return response.value || '';
 }
 
+async function stageAllChanges() {
+  try {
+    console.log('📦 Staging all changes...');
+    const result = spawnSync('git', ['add', '.'], { stdio: 'inherit' });
+    if (result.status !== 0) {
+      console.error('❌ Failed to stage changes');
+      process.exit(result.status || 1);
+    }
+    console.log('✅ All changes staged successfully\n');
+    return true;
+  } catch (error) {
+    console.error('❌ Error staging changes:', error.message);
+    process.exit(1);
+  }
+}
+
 async function generateCommitMessage() {
   console.log('🔍 Analyzing staged changes...\n');
-  
-  const { staged, diff } = getGitStatus();
-  const analysis = analyzeChanges(staged);
+
+  let { status, staged, diff } = getGitStatus();
+  let analysis = analyzeChanges(staged, status);
+
+  // If no staged changes but unstaged changes exist, prompt to stage them
+  if (analysis === null && status) {
+    const stageResponse = await prompts({
+      type: 'confirm',
+      name: 'value',
+      message: 'Stage all changes and continue?',
+      initial: true
+    });
+
+    if (stageResponse.value) {
+      await stageAllChanges();
+      // Re-analyze after staging
+      const newStatus = getGitStatus();
+      staged = newStatus.staged;
+      diff = newStatus.diff;
+      analysis = analyzeChanges(staged, status);
+    } else {
+      console.log('❌ Cannot create commit without staged changes');
+      process.exit(0);
+    }
+  }
+
   const detectedChanges = analyzeDiffChanges(diff, analysis);
   
   console.log('📁 Files to be committed:');
