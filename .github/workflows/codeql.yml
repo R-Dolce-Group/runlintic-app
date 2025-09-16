@@ -7,6 +7,7 @@ on:
     branches: [ "main" ]
   schedule:
     - cron: '25 3 * * 1'  # Weekly Monday at 3:25 AM UTC
+  workflow_dispatch:  # Allow manual triggers for testing
 
 jobs:
   analyze:
@@ -28,7 +29,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - language: javascript-typescript
+        - language: javascript
           build-mode: none
 
     steps:
@@ -60,11 +61,3 @@ jobs:
       with:
         category: "/language:${{matrix.language}}"
         upload: true
-
-    # Optional: Upload SARIF results to GitHub Security tab
-    - name: Upload SARIF results
-      uses: github/codeql-action/upload-sarif@v3
-      if: always()
-      with:
-        sarif_file: /home/runner/work/_temp/codeql_databases/javascript/results/javascript.sarif
-      continue-on-error: true
