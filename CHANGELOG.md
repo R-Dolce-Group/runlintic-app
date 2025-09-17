@@ -2,6 +2,35 @@
 
 
 
+## [7.2.0](https://github.com/R-Dolce-Group/runlintic-app/compare/v7.0.0...v7.2.0) (2025-09-17)
+
+### Features
+
+* **deps:** Phase 1 - Integrate depcheck for comprehensive dependency analysis ([#40](https://github.com/R-Dolce-Group/runlintic-app/issues/40)) ([91b1419](https://github.com/R-Dolce-Group/runlintic-app/commit/91b1419b91f8279621fdc90fdfa64b87ceb53108))
+* implement Phase 2 enhanced dependency analysis system ([#42](https://github.com/R-Dolce-Group/runlintic-app/issues/42)) ([d6c3826](https://github.com/R-Dolce-Group/runlintic-app/commit/d6c3826384506e99add7522556d8344b9eaa5cfc))
+
+### Bug Fixes
+
+* pass GitHub secrets to release dry run workflow ([#27](https://github.com/R-Dolce-Group/runlintic-app/issues/27)) ([86ccf4e](https://github.com/R-Dolce-Group/runlintic-app/commit/86ccf4ed3938ba70078315e21a66235af205028b))
+* remove .security/.env references from release script ([#26](https://github.com/R-Dolce-Group/runlintic-app/issues/26)) ([e043413](https://github.com/R-Dolce-Group/runlintic-app/commit/e043413616bf14200e44870a1ac645a03b9e35ab))
+* resolve GitHub Actions compatibility and dependency issues ([#25](https://github.com/R-Dolce-Group/runlintic-app/issues/25)) ([a36c33e](https://github.com/R-Dolce-Group/runlintic-app/commit/a36c33ea57ebcf56a59e46c43bae6c307a960be4))
+* **workflows:** use NPM_ACCESS_TOKEN for npm authentication in GitHub Actions ([#34](https://github.com/R-Dolce-Group/runlintic-app/issues/34)) ([67717d6](https://github.com/R-Dolce-Group/runlintic-app/commit/67717d6ec2302d9abfdc516e705754f54a43d7f5))
+
+## [7.2.0](https://github.com/R-Dolce-Group/runlintic-app/compare/v7.0.0...v7.2.0) (2025-09-17)
+
+### Features
+
+* **deps:** Phase 1 - Integrate depcheck for comprehensive dependency analysis ([#40](https://github.com/R-Dolce-Group/runlintic-app/issues/40)) ([91b1419](https://github.com/R-Dolce-Group/runlintic-app/commit/91b1419b91f8279621fdc90fdfa64b87ceb53108))
+* implement Phase 2 enhanced dependency analysis system ([#42](https://github.com/R-Dolce-Group/runlintic-app/issues/42)) ([d6c3826](https://github.com/R-Dolce-Group/runlintic-app/commit/d6c3826384506e99add7522556d8344b9eaa5cfc))
+
+### Bug Fixes
+
+* pass GitHub secrets to release dry run workflow ([#27](https://github.com/R-Dolce-Group/runlintic-app/issues/27)) ([86ccf4e](https://github.com/R-Dolce-Group/runlintic-app/commit/86ccf4ed3938ba70078315e21a66235af205028b))
+* remove .security/.env references from release script ([#26](https://github.com/R-Dolce-Group/runlintic-app/issues/26)) ([e043413](https://github.com/R-Dolce-Group/runlintic-app/commit/e043413616bf14200e44870a1ac645a03b9e35ab))
+* resolve GitHub Actions compatibility and dependency issues ([#25](https://github.com/R-Dolce-Group/runlintic-app/issues/25)) ([a36c33e](https://github.com/R-Dolce-Group/runlintic-app/commit/a36c33ea57ebcf56a59e46c43bae6c307a960be4))
+* **workflows:** use NPM_ACCESS_TOKEN for npm authentication in GitHub Actions ([#34](https://github.com/R-Dolce-Group/runlintic-app/issues/34)) ([67717d6](https://github.com/R-Dolce-Group/runlintic-app/commit/67717d6ec2302d9abfdc516e705754f54a43d7f5))
+
+
 ## [7.1.0](https://github.com/R-Dolce-Group/runlintic-app/compare/v7.0.0...v7.1.0) (2025-09-16)
 
 ### Bug Fixes
