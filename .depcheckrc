@@ -31,7 +31,9 @@
     "zod",
     "vitest",
     "auto-changelog",
-    "conventional-changelog-conventionalcommits"
+    "conventional-changelog-conventionalcommits",
+    "lilconfig",
+    "picocolors"
   ],
   "ignoreDirs": [
     "dist",
