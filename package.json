@@ -1,6 +1,6 @@
 {
   "name": "@rdolcegroup/runlintic-app",
-  "version": "7.0.0",
+  "version": "7.1.0",
   "description": "A toolkit for automating code quality, cleanup, and releases.",
   "keywords": [
     "release",
@@ -45,6 +45,7 @@
     "check-all": "npm run lint && npm run typecheck",
     "clean:all": "rm -rf node_modules package-lock.json pnpm-lock.yaml",
     "commit": "node scripts/generate-commit.js",
+    "depcheck": "depcheck || exit 0",
     "deps:audit": "npm audit",
     "deps:audit-fix": "npm audit fix",
     "deps:check": "echo '✅ Security override packages (lilconfig, picocolors, prompts) are intentionally unused - they replace vulnerable dependencies via overrides'",
@@ -53,6 +54,7 @@
     "deps:lockfile-check": "npm ci --dry-run",
     "deps:outdated": "npm outdated",
     "deps:sync": "npm install --package-lock-only",
+    "deps:unused": "depcheck",
     "deps:update": "npm update",
     "deps:update-latest": "npm update",
     "deps:validate": "npm run deps:check && npm run deps:audit && npm run deps:lockfile-check",
@@ -62,7 +64,7 @@
     "knip": "knip",
     "lint": "eslint . --max-warnings 0 --format=json",
     "lint:fix": "eslint . --fix && sort-package-json package.json",
-    "maintenance": "npm run deps:check && npm run manypkg:fix",
+    "maintenance": "npm run deps:check && npm run depcheck && npm run manypkg:fix",
     "manypkg:fix": "sort-package-json package.json",
     "prepack": "npm run lint && npm run typecheck",
     "prepare": "husky",
@@ -88,6 +90,9 @@
     "color-convert": "2.0.1",
     "color-name": "2.0.0",
     "cosmiconfig": "npm:lilconfig@^3.1.2",
+    "depcheck": {
+      "cosmiconfig": "^7.1.0"
+    },
     "inquirer": "npm:prompts@^2.4.2",
     "is-arrayish": "0.3.2",
     "ora": "8.1.1",
@@ -109,6 +114,7 @@
     "@typescript-eslint/eslint-plugin": "^8.33.0",
     "conventional-changelog-cli": "^5.0.0",
     "conventional-changelog-conventionalcommits": "^9.1.0",
+    "depcheck": "1.4.7",
     "eslint": "^9.33.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-only-warn": "^1.1.0",
