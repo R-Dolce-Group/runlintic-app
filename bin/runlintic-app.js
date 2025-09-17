@@ -20,6 +20,8 @@ const commands = {
   'deps:lockfile-check': 'Check package-lock.json sync with package.json',
   'deps:sync': 'Sync package-lock.json without installing',
   'deps:outdated': 'Check for outdated dependencies',
+  'deps:analyze': 'Comprehensive dependency analysis with intelligent recommendations',
+  'deps:health': 'Full dependency health report with risk assessment',
   'commit': 'Generate intelligent conventional commit messages',
   'release': 'Create a release',
   'release:dry': 'Dry run release (preview changes)',
@@ -72,7 +74,7 @@ function showHelp() {
     'Setup & Health': ['init', 'health-check'],
     'Code Quality': ['check-all', 'lint', 'lint:fix', 'typecheck', 'format'],
     'Git & Commits': ['commit'],
-    'Dependencies': ['deps:validate', 'deps:lockfile-check', 'deps:sync', 'deps:outdated'],
+    'Dependencies': ['deps:validate', 'deps:analyze', 'deps:health', 'deps:lockfile-check', 'deps:sync', 'deps:outdated'],
     'Maintenance': ['maintenance', 'clean', 'clean:all'],
     'Release Management': ['release', 'release:dry', 'release:patch', 'release:minor', 'release:major']
   };
@@ -452,6 +454,24 @@ async function initProject() {
 
     child.on('error', (err) => {
       console.error('❌ Error running commit generator:', err.message);
+      process.exit(1);
+    });
+  } else if (command === 'deps:analyze' || command === 'deps:health') {
+    // Run dependency analysis directly
+    const analysisScriptPath = path.join(_dirname, '..', 'lib', 'scripts', 'dependency-analysis.js');
+    const scriptArgs = command === 'deps:analyze' ? ['--report=detailed'] : ['--comprehensive'];
+
+    const child = spawn('node', [analysisScriptPath, ...scriptArgs, ...args], {
+      stdio: 'inherit',
+      shell: process.platform === 'win32'
+    });
+
+    child.on('close', (code) => {
+      process.exit(code);
+    });
+
+    child.on('error', (err) => {
+      console.error('❌ Error running dependency analysis:', err.message);
       process.exit(1);
     });
   } else if (commands[command]) {
