@@ -11,8 +11,9 @@ runlintic <command> [options]
 ## Quick Reference
 
 | Command        | Description        | Example                  |
-| -------------- | ------------------ | ------------------------ |
+|----------------|--------------------|--------------------------|
 | `init`         | Initialize project | `runlintic init`         |
+| `dashboard`    | Launch web UI      | `runlintic dashboard`    |
 | `help`         | Show help          | `runlintic help`         |
 | `health-check` | Full health check  | `runlintic health-check` |
 | `commit`       | Generate commit    | `runlintic commit`       |
@@ -52,6 +53,46 @@ runlintic help
 runlintic --help
 runlintic -h
 ```
+
+## Dashboard Commands
+
+### `runlintic dashboard`
+
+Launch the web-based admin dashboard for managing your project through a browser interface.
+
+```bash
+# Basic launch (auto-open browser on random port)
+runlintic dashboard
+
+# Specify port and don't open browser
+runlintic dashboard --port 3000 --no-open
+
+# Bind to all network interfaces (use with caution)
+runlintic dashboard --host 0.0.0.0 --port 8080
+```
+
+**What it provides:**
+
+- Web interface for all CLI functions
+- Real-time project health monitoring
+- Interactive dependency management
+- Visual git operations and commit generation
+- API endpoints for programmatic access
+- Secure token-based authentication
+
+**Options:**
+
+- `--port <number>` - Specify port (default: random free port)
+- `--host <address>` - Specify host address (default: 127.0.0.1)
+- `--no-open` - Don't automatically open browser
+
+**Security:**
+
+- Binds to localhost (127.0.0.1) by default for security
+- Generates unique token per session
+- No persistent authentication or data storage
+
+📖 **See also:** [`docs/DASHBOARD.md`](dashboard/DASHBOARD.md) for complete dashboard documentation.
 
 ## Quality Commands
 
@@ -420,7 +461,7 @@ export NODE_OPTIONS="--max-old-space-size=4096"  # For large projects
 
 ## Need Help?
 
-- 🆘 **[Troubleshooting Guide](troubleshooting.md)**
+- 🆘 **[Troubleshooting Guide](troubleshooting/troubleshooting.md)**
 - 🚀 **[Quick Start Guide](quick-start.md)**
 - 🔧 **[Configuration Guide](configuration.md)**
 - 📖 **[Full Documentation](../README.md)**

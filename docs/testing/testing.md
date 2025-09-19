@@ -529,7 +529,7 @@ Report issues with:
 
 - 📋 **[Commands Reference](../commands.md)** - Complete command documentation
 - 🚀 **[Quick Start](../quick-start.md)** - Get up and running fast
-- 🆘 **[Troubleshooting](../troubleshooting.md)** - Solve common issues
+- 🆘 **[Troubleshooting](../troubleshooting/troubleshooting.md)** - Solve common issues
 - 📦 **[Monorepo Setup](../examples/monorepo-setup.md)** - Specific monorepo guidance
 
 This testing strategy ensures Runlintic App works reliably across different environments and use cases. 🧪✅

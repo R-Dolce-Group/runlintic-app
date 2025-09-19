@@ -395,6 +395,6 @@ Once installed:
 1. 📋 **[Quick Start Guide](quick-start.md)** - Get running in 5 minutes
 2. 🔧 **[Configuration Guide](configuration.md)** - Customize for your project
 3. 📝 **[Commands Reference](commands.md)** - Learn all available commands
-4. 🆘 **[Troubleshooting](troubleshooting.md)** - Solve common issues
+4. 🆘 **[Troubleshooting](troubleshooting/troubleshooting.md)** - Solve common issues
 
-Need help? Check the [Troubleshooting Guide](troubleshooting.md) or [open an issue](https://github.com/R-Dolce-Group/runlintic-app/issues).
+Need help? Check the [Troubleshooting Guide](troubleshooting/troubleshooting.md) or [open an issue](https://github.com/R-Dolce-Group/runlintic-app/issues).

@@ -418,6 +418,6 @@ runlintic health-check  # Requires global install
 1. **Setup complete?** Try the [Daily Workflow](../quick-start.md#daily-workflow)
 2. **Need customization?** See [Configuration Guide](../configuration.md)
 3. **Release issues?** Check [Release Workflow](../release-workflow.md)
-4. **Problems?** See [Troubleshooting](../troubleshooting.md)
+4. **Problems?** See [Troubleshooting](../troubleshooting/troubleshooting.md)
 
 Your Next.js Turbo monorepo is now ready for automated code quality and releases! 🚀

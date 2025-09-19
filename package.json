@@ -31,7 +31,10 @@
   },
   "files": [
     "bin",
+    "lib/api",
     "lib/configs",
+    "lib/core",
+    "lib/dashboard/dist",
     "lib/index.js",
     "lib/scripts/postinstall.js",
     "lib/scripts/dependency-analysis.js",
@@ -108,7 +111,10 @@
     "yargs": "17.7.2"
   },
   "dependencies": {
-  "picocolors": "1.1.1",
+    "cors": "2.8.5",
+    "express": "5.1.0",
+    "open": "10.2.0",
+    "picocolors": "1.1.1",
     "prompts": "2.4.2"
   },
   "devDependencies": {

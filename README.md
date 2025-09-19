@@ -83,7 +83,7 @@ runlintic health-check
 ### Core Features
 
 - 📋 **[CLI Commands](docs/commands.md)** - Complete command reference
-- 📝 **[Commit Generator](docs/COMMIT-GENERATOR.md)** - Intelligent commit messages
+- 📝 **[Commit Generator](docs/commit-generator/COMMIT-GENERATOR.md)** - Intelligent commit messages
 - 🚀 **[Release Workflow](docs/release-workflow.md)** - Automated releases
 - 🔧 **[API Reference](docs/api-reference.md)** - Programmatic usage
 
@@ -95,7 +95,7 @@ runlintic health-check
 
 ### Help & Support
 
-- 🆘 **[Troubleshooting](docs/troubleshooting.md)** - Common issues & solutions
+- 🆘 **[Troubleshooting](docs/troubleshooting/troubleshooting.md)** - Common issues & solutions
 - ⚡ **[Performance Guide](docs/advanced/performance.md)** - Optimization tips
 - 🔧 **[Custom Configs](docs/advanced/custom-configs.md)** - Advanced customization
 

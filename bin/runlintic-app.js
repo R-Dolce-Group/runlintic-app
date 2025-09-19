@@ -493,6 +493,45 @@ async function initProject() {
       console.error('❌ Error running dependency analysis:', err.message);
       process.exit(1);
     });
+  } else if (command === 'dashboard') {
+    // Launch dashboard server
+    console.log('🎯 Launching runlintic admin dashboard...\n');
+
+    // Parse dashboard-specific arguments
+    const dashboardArgs = {
+      port: 0,
+      host: '127.0.0.1',
+      autoOpen: true
+    };
+
+    for (let i = 0; i < args.length; i++) {
+      if (args[i] === '--port' && args[i + 1]) {
+        dashboardArgs.port = parseInt(args[i + 1]);
+      } else if (args[i] === '--host' && args[i + 1]) {
+        dashboardArgs.host = args[i + 1];
+      } else if (args[i] === '--no-open') {
+        dashboardArgs.autoOpen = false;
+      }
+    }
+
+    try {
+      const dashboardModule = await import(path.join('file://', _dirname, '..', 'lib', 'api', 'dashboard-server.js'));
+      await dashboardModule.startDashboard({
+        ...dashboardArgs,
+        project: process.cwd()
+      });
+    } catch (error) {
+      if (error.code === 'MODULE_NOT_FOUND' || error.code === 'ERR_MODULE_NOT_FOUND') {
+        console.error('❌ Dashboard server module not found');
+        console.log('💡 This appears to be a development/installation issue');
+        console.log('📖 Please report this at: https://github.com/R-Dolce-Group/runlintic-app/issues');
+        process.exit(1);
+      } else {
+        console.error('❌ Error starting dashboard:', error.message);
+        console.log('💡 Try running: runlintic health-check');
+        process.exit(1);
+      }
+    }
   } else if (commands[command]) {
     // Validate token requirements for tiers
     validateTokenTier();
