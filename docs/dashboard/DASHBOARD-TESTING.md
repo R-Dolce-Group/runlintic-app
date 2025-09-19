@@ -7,6 +7,7 @@ Quick reference for testing the runlintic dashboard implementation.
 Before testing the dashboard, ensure you have:
 
 ### 1. System Requirements
+
 ```bash
 # Check Node.js version (must be 22.16.0+)
 node --version
@@ -16,6 +17,7 @@ npm --version
 ```
 
 ### 2. Install Runlintic
+
 Choose one installation method:
 
 ```bash
@@ -30,6 +32,7 @@ npm install -g @rdolcegroup/runlintic-app
 ```
 
 ### 3. Verify Installation
+
 ```bash
 # Check installation worked
 npx runlintic --version
@@ -41,6 +44,7 @@ npx runlintic help | grep dashboard
 ## Quick Test Commands
 
 ### 1. Basic Launch Test
+
 ```bash
 # Test dashboard launches successfully
 npx runlintic dashboard --no-open --port 3000
@@ -53,6 +57,7 @@ npx runlintic dashboard --no-open --port 3000
 ```
 
 ### 2. API Endpoint Tests
+
 After launching the dashboard, test each endpoint:
 
 ```bash
@@ -74,12 +79,14 @@ curl "http://127.0.0.1:$PORT/api/git/status?t=$TOKEN"
 ```
 
 ### 3. Browser Interface Test
+
 1. Launch dashboard: `npx runlintic dashboard --port 3000`
 2. Browser should auto-open to dashboard
 3. Click "Test" buttons for each API endpoint
 4. Verify JSON responses appear correctly
 
 ### 4. Automated Test Script
+
 For comprehensive automated testing:
 
 ```bash
@@ -92,6 +99,7 @@ docs/testing/test-dashboard.sh
 ```
 
 **What the script tests:**
+
 - ✅ System requirements verification
 - ✅ Package installation validation
 - ✅ Dashboard server launch
@@ -99,6 +107,7 @@ docs/testing/test-dashboard.sh
 - ✅ Basic functionality checks
 
 **Expected output:**
+
 ```
 🧪 Testing Runlintic Dashboard
 ==============================
@@ -125,6 +134,7 @@ docs/testing/test-dashboard.sh
 ## Expected Responses
 
 ### Health Endpoint
+
 ```json
 {
   "status": "online",
@@ -136,6 +146,7 @@ docs/testing/test-dashboard.sh
 ```
 
 ### Project Context
+
 ```json
 {
   "projectRoot": "/path/to/project",
@@ -149,6 +160,7 @@ docs/testing/test-dashboard.sh
 ```
 
 ### Git Status
+
 ```json
 {
   "currentBranch": "feature/dashboard-uiux-phase4",
@@ -162,6 +174,7 @@ docs/testing/test-dashboard.sh
 ## Troubleshooting Tests
 
 ### If Dashboard Won't Start
+
 ```bash
 # Check node version
 node --version  # Should be 22+
@@ -177,6 +190,7 @@ npx runlintic health-check
 ```
 
 ### If API Returns Errors
+
 ```bash
 # Verify token format
 echo $TOKEN  # Should be base64url string
@@ -191,6 +205,7 @@ curl "http://127.0.0.1:$PORT/api/health?t=invalid"
 ### Common Error Responses
 
 **Missing Token (401):**
+
 ```json
 {
   "code": "MISSING_TOKEN",
@@ -200,6 +215,7 @@ curl "http://127.0.0.1:$PORT/api/health?t=invalid"
 ```
 
 **Invalid Token (401):**
+
 ```json
 {
   "code": "INVALID_TOKEN",
@@ -211,12 +227,14 @@ curl "http://127.0.0.1:$PORT/api/health?t=invalid"
 ## Test Checklist
 
 ### ✅ CLI Integration
+
 - [ ] `runlintic dashboard` command is recognized
 - [ ] Help output includes dashboard in command list
 - [ ] Arguments parsing works (`--port`, `--host`, `--no-open`)
 - [ ] Error handling for missing dependencies
 
 ### ✅ Server Functionality
+
 - [ ] Server starts without errors
 - [ ] Random port assignment works (default)
 - [ ] Custom port assignment works
@@ -224,12 +242,14 @@ curl "http://127.0.0.1:$PORT/api/health?t=invalid"
 - [ ] Graceful shutdown on Ctrl+C
 
 ### ✅ Security
+
 - [ ] API requires authentication token
 - [ ] Invalid tokens are rejected (401)
 - [ ] Missing tokens are rejected (401)
 - [ ] Server binds to 127.0.0.1 by default
 
 ### ✅ API Endpoints
+
 - [ ] `/api/health` returns server status
 - [ ] `/api/project/context` returns project info
 - [ ] `/api/dependencies/stats` returns dependency data
@@ -237,6 +257,7 @@ curl "http://127.0.0.1:$PORT/api/health?t=invalid"
 - [ ] All endpoints return valid JSON
 
 ### ✅ Browser Interface
+
 - [ ] HTML page loads correctly
 - [ ] Test buttons work for all endpoints
 - [ ] API responses display in result area
@@ -244,6 +265,7 @@ curl "http://127.0.0.1:$PORT/api/health?t=invalid"
 - [ ] Development status is accurate
 
 ### ✅ Error Handling
+
 - [ ] Invalid API endpoints return 404
 - [ ] Server errors return 500 with details
 - [ ] Missing project files handled gracefully
@@ -252,6 +274,7 @@ curl "http://127.0.0.1:$PORT/api/health?t=invalid"
 ## Performance Tests
 
 ### Response Time
+
 ```bash
 # Test API response times
 time curl "http://127.0.0.1:$PORT/api/health?t=$TOKEN"
@@ -259,6 +282,7 @@ time curl "http://127.0.0.1:$PORT/api/project/context?t=$TOKEN"
 ```
 
 ### Memory Usage
+
 ```bash
 # Monitor memory during operation
 ps aux | grep node
@@ -268,6 +292,7 @@ curl "http://127.0.0.1:$PORT/api/health?t=$TOKEN" | jq .memory
 ```
 
 ### Concurrent Requests
+
 ```bash
 # Test multiple simultaneous requests
 for i in {1..5}; do
@@ -279,6 +304,7 @@ wait
 ## Integration Tests
 
 ### With Existing CLI Commands
+
 ```bash
 # Verify CLI still works while dashboard is running
 npx runlintic health-check
@@ -287,6 +313,7 @@ npx runlintic commit --dry-run
 ```
 
 ### With Project Operations
+
 ```bash
 # Test with actual project changes
 touch test-file.txt
@@ -301,6 +328,7 @@ rm test-file.txt
 When reporting dashboard issues, include:
 
 1. **Environment**:
+
    ```bash
    node --version
    npm --version
@@ -308,6 +336,7 @@ When reporting dashboard issues, include:
    ```
 
 2. **Command used**:
+
    ```bash
    npx runlintic dashboard --port 3000
    ```
@@ -317,6 +346,7 @@ When reporting dashboard issues, include:
 4. **Console output** (full output from dashboard launch)
 
 5. **API test results**:
+
    ```bash
    curl -v "http://127.0.0.1:PORT/api/health?t=TOKEN"
    ```
@@ -354,4 +384,4 @@ npx runlintic dashboard --port 3000
 
 ---
 
-*Quick reference for testing dashboard implementation*
+_Quick reference for testing dashboard implementation_

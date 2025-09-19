@@ -5,12 +5,14 @@ The runlintic dashboard provides a web-based interface for all CLI functionality
 ## Prerequisites
 
 ### System Requirements
+
 - **Node.js**: Version 22.16.0 or higher
 - **npm**: Version 8.0.0 or higher (included with Node.js)
 - **Operating System**: macOS, Linux, or Windows
 - **Browser**: Modern browser (Chrome, Firefox, Safari, Edge)
 
 ### Check Your Environment
+
 ```bash
 # Verify Node.js version
 node --version
@@ -24,6 +26,7 @@ npm --version
 ## Installation
 
 ### Option 1: Local Project Installation (Recommended)
+
 ```bash
 # Install in your project
 npm install @rdolcegroup/runlintic-app
@@ -33,6 +36,7 @@ npx runlintic dashboard
 ```
 
 ### Option 2: Global Installation
+
 ```bash
 # Install globally
 npm install -g @rdolcegroup/runlintic-app
@@ -42,12 +46,14 @@ runlintic dashboard
 ```
 
 ### Option 3: One-time Use
+
 ```bash
 # Run without installing (downloads temporarily)
 npx @rdolcegroup/runlintic-app dashboard
 ```
 
 ### Verify Installation
+
 ```bash
 # Check if runlintic is installed correctly
 npx runlintic --version
@@ -62,6 +68,7 @@ npx runlintic help | grep dashboard
 ## Quick Start
 
 ### Launch Dashboard
+
 ```bash
 # Launch with default settings (random port, auto-open browser)
 npx runlintic dashboard
@@ -77,13 +84,16 @@ npx runlintic dashboard --host 0.0.0.0 --port 3000
 ```
 
 ### Access Dashboard
+
 After launching, the dashboard will:
+
 1. Start a secure local web server
 2. Generate a unique access token for this session
 3. Automatically open your browser (unless `--no-open` is used)
 4. Display the dashboard URL with token for manual access
 
 Example output:
+
 ```
 🎯 Starting runlintic dashboard server...
 📁 Project: /path/to/your/project
@@ -97,12 +107,14 @@ Example output:
 ## Features
 
 ### Project Overview
+
 - **Health Score**: Overall project health (0-100) based on linting, type checking, and dependencies
 - **Quick Actions**: One-click access to common operations
 - **Project Context**: Automatic detection of project type, frameworks, and configuration
 - **Recent Activity**: Timeline of dashboard actions and git commits
 
 ### Dependency Management
+
 - **Security Analysis**: Real-time vulnerability scanning
 - **Outdated Packages**: Visual list of packages with available updates
 - **Unused Dependencies**: Detection of packages that can be safely removed
@@ -110,12 +122,14 @@ Example output:
 - **Update Scheduler**: Plan and execute dependency updates
 
 ### Git Operations
+
 - **Status Overview**: Visual representation of git repository state
 - **Commit Generation**: AI-powered conventional commit message creation
 - **Recent Commits**: Timeline view of project history
 - **Branch Information**: Current branch status and change tracking
 
 ### Code Quality
+
 - **Lint Results**: Real-time ESLint results with error/warning counts
 - **Type Checking**: TypeScript error detection and reporting
 - **Format Status**: Code formatting consistency checks
@@ -126,11 +140,14 @@ Example output:
 All endpoints require authentication via the session token.
 
 ### Authentication
+
 Include the token in requests using either:
+
 - **Query parameter**: `?t=YOUR_TOKEN`
 - **Authorization header**: `Authorization: Bearer YOUR_TOKEN`
 
 ### Health Endpoints
+
 ```bash
 # Get server status
 GET /api/health
@@ -144,6 +161,7 @@ GET /api/health/typecheck
 ```
 
 ### Project Endpoints
+
 ```bash
 # Get project context
 GET /api/project/context
@@ -153,6 +171,7 @@ GET /api/project/info
 ```
 
 ### Dependencies Endpoints
+
 ```bash
 # Get dependency statistics
 GET /api/dependencies/stats
@@ -171,6 +190,7 @@ GET /api/dependencies/health
 ```
 
 ### Git Endpoints
+
 ```bash
 # Get git status
 GET /api/git/status
@@ -189,6 +209,7 @@ GET /api/git/commits?limit=10
 ## Testing the Dashboard
 
 ### Manual API Testing
+
 You can test individual API endpoints using curl or your browser:
 
 ```bash
@@ -209,6 +230,7 @@ curl "http://127.0.0.1:PORT/api/git/status?t=$TOKEN"
 ```
 
 ### Using the Temporary Dashboard
+
 The current implementation includes a temporary HTML interface for testing:
 
 1. **API Testing Interface**: Click buttons to test different endpoints
@@ -217,13 +239,16 @@ The current implementation includes a temporary HTML interface for testing:
 4. **Security Information**: View your session token and security details
 
 ### Browser Testing
+
 Open the dashboard URL in your browser and:
+
 1. Test each API endpoint using the interactive buttons
 2. Verify all responses return proper JSON data
 3. Check that authentication works correctly
 4. Confirm project context detection is accurate
 
 ### Automated Testing
+
 For quick automated verification of the dashboard:
 
 ```bash
@@ -236,6 +261,7 @@ docs/testing/test-dashboard.sh
 ```
 
 The test script will:
+
 - ✅ Verify system requirements (Node.js 22.16.0+)
 - ✅ Check runlintic installation
 - ✅ Test dashboard server launch
@@ -247,17 +273,21 @@ The test script will:
 ## Security
 
 ### Local-Only by Default
+
 - Server binds to `127.0.0.1` (loopback) by default
 - Only accessible from the same machine
 - No network exposure unless explicitly configured
 
 ### Token Authentication
+
 - Unique token generated per session using crypto-secure random bytes
 - Token required for all API access
 - No persistent sessions - tokens expire when server stops
 
 ### Network Access Warning
+
 Using `--host 0.0.0.0` exposes the dashboard to your local network:
+
 ```bash
 ⚠️  WARNING: --host 0.0.0.0 exposes dashboard to local network
 🔒 Ensure your firewall is properly configured
@@ -269,6 +299,7 @@ Using `--host 0.0.0.0` exposes the dashboard to your local network:
 ### Installation Issues
 
 #### Command Not Found
+
 ```bash
 # If "runlintic: command not found"
 npm install @rdolcegroup/runlintic-app
@@ -281,6 +312,7 @@ npm list -g @rdolcegroup/runlintic-app
 ```
 
 #### Permission Errors
+
 ```bash
 # On macOS/Linux, you might need to fix npm permissions
 # Option 1: Use npx (recommended)
@@ -291,6 +323,7 @@ npx runlintic dashboard
 ```
 
 #### Version Conflicts
+
 ```bash
 # Clear npm cache
 npm cache clean --force
@@ -304,6 +337,7 @@ npx runlintic --version
 ```
 
 ### Dashboard Won't Start
+
 ```bash
 # Check if port is already in use
 npx runlintic dashboard --port 3001
@@ -319,11 +353,13 @@ npx runlintic --version
 ```
 
 ### API Endpoints Return 401
+
 - Verify you're using the correct token from the launch output
 - Check that the token is included in the request
 - Ensure you're making requests to the correct port
 
 ### Browser Doesn't Open
+
 ```bash
 # Launch without auto-open, then manually visit URL
 npx runlintic dashboard --no-open
@@ -333,6 +369,7 @@ open http://127.0.0.1:PORT/?t=TOKEN
 ```
 
 ### Module Not Found Errors
+
 ```bash
 # Reinstall dependencies
 npm install
@@ -347,6 +384,7 @@ ls -la node_modules/@rdolcegroup/runlintic-app/
 ## Development Status
 
 ### Current Implementation (Phase 1)
+
 - ✅ Secure Express.js server with token authentication
 - ✅ Complete REST API for all CLI functions
 - ✅ Project context detection and health checking
@@ -354,12 +392,14 @@ ls -la node_modules/@rdolcegroup/runlintic-app/
 - ✅ Full CLI integration with argument parsing
 
 ### Upcoming Features (Phase 2)
+
 - 🔄 React-based dashboard UI
 - 🔄 Real-time WebSocket updates
 - 🔄 Interactive data visualization
 - 🔄 Advanced dependency management interface
 
 ### Future Enhancements (Phase 3+)
+
 - ⏳ Team collaboration features
 - ⏳ Analytics and reporting
 - ⏳ Custom workflow automation
@@ -368,17 +408,20 @@ ls -la node_modules/@rdolcegroup/runlintic-app/
 ## Command Line Options
 
 ### Basic Usage
+
 ```bash
 runlintic dashboard [options]
 ```
 
 ### Options
+
 - `--port <number>`: Specify port number (default: random free port)
 - `--host <string>`: Specify host address (default: 127.0.0.1)
 - `--no-open`: Don't automatically open browser
 - `--help`: Show help information
 
 ### Examples
+
 ```bash
 # Development setup
 runlintic dashboard --port 3000 --no-open
@@ -393,7 +436,9 @@ runlintic dashboard --host 127.0.0.1 --port 3000
 ## Integration with Existing Workflow
 
 ### Package.json Scripts
+
 Add dashboard to your project scripts:
+
 ```json
 {
   "scripts": {
@@ -404,7 +449,9 @@ Add dashboard to your project scripts:
 ```
 
 ### Team Development
+
 Each team member can run their own dashboard instance:
+
 ```bash
 # Developer A
 npm run dashboard -- --port 3001
@@ -414,7 +461,9 @@ npm run dashboard -- --port 3002
 ```
 
 ### CI/CD Integration
+
 The dashboard API can be used for automated project analysis:
+
 ```bash
 # Health check in CI
 curl -f "http://127.0.0.1:$PORT/api/health/run?t=$TOKEN" || exit 1
@@ -426,6 +475,7 @@ curl "http://127.0.0.1:$PORT/api/dependencies/security?t=$TOKEN"
 ## Support
 
 ### Getting Help
+
 - **Documentation**: Check this file and other docs in `/docs`
 - **CLI Help**: Run `npx runlintic help`
 - **Health Check**: Run `npx runlintic health-check`
@@ -447,4 +497,4 @@ A: Yes, it automatically detects monorepo structure and provides appropriate con
 
 ---
 
-*Last updated: Dashboard Phase 1 Implementation*
+_Last updated: Dashboard Phase 1 Implementation_
