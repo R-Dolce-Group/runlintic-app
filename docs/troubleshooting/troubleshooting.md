@@ -402,7 +402,7 @@ runlintic health-check > debug.log 2>&1
 
 - 🐛 **Bug Reports**: [GitHub Issues](https://github.com/R-Dolce-Group/runlintic-app/issues)
 - 💬 **Questions**: [GitHub Discussions](https://github.com/R-Dolce-Group/runlintic-app/discussions)
-- 📖 **Documentation**: [Full Guide](../README.md)
+- 📖 **Documentation**: [Full Guide](../../README.md)
 - 🚀 **Feature Requests**: [GitHub Issues](https://github.com/R-Dolce-Group/runlintic-app/issues)
 
-Remember: Most issues are solved by ensuring you have Node.js ≥ 22.16.0 and following the [Quick Start Guide](quick-start.md) exactly. 🔧
+Remember: Most issues are solved by ensuring you have Node.js ≥ 22.16.0 and following the [Quick Start Guide](../quick-start.md) exactly. 🔧

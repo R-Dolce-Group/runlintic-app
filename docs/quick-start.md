@@ -106,7 +106,7 @@ runlintic release:patch  # 1.0.0 → 1.0.1
 - 📋 **[Complete Command Reference](commands.md)**
 - 🔧 **[Configuration Guide](configuration.md)**
 - 🚀 **[Release Workflow](release-workflow.md)**
-- 🆘 **[Troubleshooting](troubleshooting.md)**
+- 🆘 **[Troubleshooting](troubleshooting/troubleshooting.md)**
 
 ## Package.json Integration
 
