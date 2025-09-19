@@ -32,7 +32,8 @@ const commands = {
   'release:major': 'Create major release',
   'clean': 'Clean build artifacts',
   'clean:all': 'Complete clean (removes node_modules)',
-  'init': 'Initialize runlintic in current project'
+  'init': 'Initialize runlintic in current project',
+  'dashboard': 'Launch admin dashboard web interface'
 };
 
 function validateTokenTier() {
@@ -74,6 +75,7 @@ function showHelp() {
   // Group commands by category
   const categories = {
     'Setup & Health': ['init', 'health-check'],
+    'Dashboard': ['dashboard'],
     'Code Quality': ['check-all', 'lint', 'lint:fix', 'typecheck', 'format'],
     'Git & Commits': ['commit'],
     'Dependencies': ['deps:validate', 'deps:analyze', 'deps:health', 'deps:updates', 'deps:security', 'deps:lockfile-check', 'deps:sync', 'deps:outdated'],
