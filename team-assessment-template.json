@@ -1,0 +1,45 @@
+{
+  "projectInfo": {
+    "name": "runlintic-app",
+    "currentVersion": "7.2.0",
+    "targetVersion": "8.0.0"
+  },
+  "teamSize": 3,
+  "timeline": {
+    "availableWeeks": 8,
+    "dashboardPriority": "high",
+    "frameworkDecisionDeadline": "2 weeks"
+  },
+  "experience": {
+    "expressjs": {
+      "senior": 2,
+      "intermediate": 1,
+      "averageYears": 3.5,
+      "comfortLevel": 8.5
+    },
+    "fastify": {
+      "senior": 0,
+      "intermediate": 1,
+      "averageYears": 0.5,
+      "comfortLevel": 6.0
+    },
+    "react": {
+      "senior": 2,
+      "intermediate": 1,
+      "averageYears": 4.0,
+      "comfortLevel": 8.0
+    }
+  },
+  "businessFactors": {
+    "performancePriority": "high",
+    "timeToMarketPressure": "medium",
+    "technicalDebtConcern": "medium",
+    "competitiveAdvantageImportance": "high"
+  },
+  "constraints": {
+    "mustMaintainExistingAPI": true,
+    "dashboardTimelineProtected": true,
+    "maxLearningCurveWeeks": 2,
+    "rollbackPlanRequired": true
+  }
+}
