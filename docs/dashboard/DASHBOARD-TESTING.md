@@ -7,7 +7,6 @@ Quick reference for testing the runlintic dashboard implementation.
 Before testing the dashboard, ensure you have:
 
 ### 1. System Requirements
-
 ```bash
 # Check Node.js version (must be 22.16.0+)
 node --version
@@ -384,4 +383,4 @@ npx runlintic dashboard --port 3000
 
 ---
 
-_Quick reference for testing dashboard implementation_
+*Quick reference for testing dashboard implementation*
