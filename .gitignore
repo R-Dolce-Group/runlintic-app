@@ -273,3 +273,10 @@ CLAUDE.md
 bin/runlintic-example.js
 .security/
 !/CHANGELOG.md.backup
+# Framework Decision Evaluation
+logs/*.log
+reports/*
+benchmark-results-*.json
+quality-gates-*.json
+decision-scorecard-*.json
+team-assessment.json

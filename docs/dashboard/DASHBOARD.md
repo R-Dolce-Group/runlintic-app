@@ -56,13 +56,76 @@ npx @rdolcegroup/runlintic-app dashboard
 
 ```bash
 # Check if runlintic is installed correctly
-npx runlintic --version
+npx runlintic help | head -1
 
-# Test help command
-npx runlintic help
-
-# Should show dashboard in command list
+# Test help command and verify dashboard is available
 npx runlintic help | grep dashboard
+# Should output: dashboard          Launch admin dashboard web interface
+```
+
+## Upgrading from Previous Versions
+
+### Upgrading Within Same Package (v7.x.x → v8.x.x)
+
+If you already have `@rdolcegroup/runlintic-app` installed, use npm update:
+
+```bash
+# Option 1: Update globally installed package
+npm update -g @rdolcegroup/runlintic-app
+
+# Option 2: Update locally installed package
+npm update @rdolcegroup/runlintic-app
+
+# Verify new version (check help output for version info)
+npx runlintic help | head -5
+# Should show dashboard command available
+```
+
+### Upgrading from Package Name Change
+
+If you have the old package `@rdolcegroup/runlintic` (without `-app`), you need to uninstall the old package first:
+
+```bash
+# Remove old package
+npm uninstall -g @rdolcegroup/runlintic
+
+# Install new package
+npm install -g @rdolcegroup/runlintic-app
+
+# Verify installation (dashboard command should be available)
+npx runlintic help | grep dashboard
+```
+
+### Handling Installation Conflicts
+
+If you encounter `EEXIST` errors during installation:
+
+```bash
+# Check what's already installed
+which runlintic
+npm list -g @rdolcegroup/runlintic-app
+
+# If conflicts exist, force reinstall
+npm install -g @rdolcegroup/runlintic-app --force
+
+# Or clean install
+npm uninstall -g @rdolcegroup/runlintic-app
+npm cache clean --force
+npm install -g @rdolcegroup/runlintic-app
+```
+
+### Verifying Dashboard Feature
+
+After upgrading, confirm dashboard functionality is available:
+
+```bash
+# Check for dashboard command
+npx runlintic help | grep dashboard
+
+# Test dashboard launch (without opening browser)
+npx runlintic dashboard --no-open --port 3000
+
+# Expected: Server starts with token authentication
 ```
 
 ## Quick Start
@@ -311,6 +374,20 @@ npx @rdolcegroup/runlintic-app dashboard
 npm list -g @rdolcegroup/runlintic-app
 ```
 
+#### Package Already Exists (EEXIST Error)
+
+This commonly occurs when upgrading. See the [Upgrading from Previous Versions](#upgrading-from-previous-versions) section above for detailed resolution steps.
+
+**Quick resolution:**
+```bash
+# For same package upgrades
+npm update -g @rdolcegroup/runlintic-app
+
+# For package name changes or conflicts
+npm uninstall -g @rdolcegroup/runlintic
+npm install -g @rdolcegroup/runlintic-app --force
+```
+
 #### Permission Errors
 
 ```bash
@@ -374,8 +451,8 @@ open http://127.0.0.1:PORT/?t=TOKEN
 # Reinstall dependencies
 npm install
 
-# Verify installation
-npx runlintic --version
+# Verify installation (dashboard command should be available)
+npx runlintic help | grep dashboard
 
 # Check file permissions
 ls -la node_modules/@rdolcegroup/runlintic-app/

@@ -49,7 +49,13 @@ export default [
       "node_modules/**",
       "public/**",
       ".turbo/**",
-      "CHANGELOG.md"
+      "CHANGELOG.md",
+      "_workflows/**",
+      "logs/**",
+      "reports/**",
+      "benchmark-results-*.json",
+      "quality-gates-*.json",
+      "decision-scorecard-*.json"
     ]
   }
 ];
