@@ -92,7 +92,7 @@ runlintic dashboard --host 0.0.0.0 --port 8080
 - Generates unique token per session
 - No persistent authentication or data storage
 
-📖 **See also:** [`docs/DASHBOARD.md`](dashboard/DASHBOARD.md) for complete dashboard documentation.
+📖 **See also:** [`docs/DASHBOARD.md`](../_workflows/features/dashboard/DASHBOARD.md) for complete dashboard documentation.
 
 ## Quality Commands
 
