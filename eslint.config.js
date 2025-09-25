@@ -21,6 +21,17 @@ export default [
     },
   },
   {
+    files: ["lib/dashboard/src/**/*.js", "lib/dashboard/**/*.jsx"],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.es2021,
+      },
+      ecmaVersion: "latest",
+      sourceType: "module",
+    },
+  },
+  {
     files: ["**/*.cjs", "**/bin/**/*.js", "**/lib/**/*.js"],
     languageOptions: {
       globals: {
@@ -53,6 +64,7 @@ export default [
       "_workflows/**",
       "logs/**",
       "reports/**",
+      "lib/dashboard/dist/**",
       "benchmark-results-*.json",
       "quality-gates-*.json",
       "decision-scorecard-*.json"
