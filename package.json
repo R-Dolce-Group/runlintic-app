@@ -99,6 +99,7 @@
     "version": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "overrides": {
+    "@octokit/plugin-paginate-rest": "^11.5.0",
     "ansi-regex": "6.1.0",
     "ansi-styles": "6.2.1",
     "chalk": "npm:picocolors@^1.1.0",
