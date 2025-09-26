@@ -102,7 +102,6 @@
     "@octokit/plugin-paginate-rest": "^11.5.0",
     "ansi-regex": "6.1.0",
     "ansi-styles": "6.2.1",
-    "chalk": "npm:picocolors@^1.1.0",
     "cliui": "8.0.1",
     "color-convert": "2.0.1",
     "color-name": "2.0.0",
