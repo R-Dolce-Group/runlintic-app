@@ -106,7 +106,6 @@
     "cliui": "8.0.1",
     "color-convert": "2.0.1",
     "color-name": "2.0.0",
-    "cosmiconfig": "npm:lilconfig@^3.1.2",
     "depcheck": {
       "cosmiconfig": "^7.1.0"
     },
