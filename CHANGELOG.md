@@ -2,6 +2,489 @@
 
 
 
+## <small>8.0.1 (2025-09-27)</small>
+
+* fix(deps): resolve peer dependency conflicts for CI compatibility ([3449ccd](https://github.com/R-Dolce-Group/runlintic-app/commit/3449ccd))
+* fix: reduce Dependabot frequency to prevent token authentication conflicts ([fdcb967](https://github.com/R-Dolce-Group/runlintic-app/commit/fdcb967))
+* fix: remove chalk override to resolve release-it API compatibility ([6005aa5](https://github.com/R-Dolce-Group/runlintic-app/commit/6005aa5))
+* fix: pass GitHub secrets to release dry run workflow (#27) ([86ccf4e](https://github.com/R-Dolce-Group/runlintic-app/commit/86ccf4e)), closes [#27](https://github.com/R-Dolce-Group/runlintic-app/issues/27)
+* fix: remove .security/.env references from release script (#26) ([e043413](https://github.com/R-Dolce-Group/runlintic-app/commit/e043413)), closes [#26](https://github.com/R-Dolce-Group/runlintic-app/issues/26)
+* fix: resolve GitHub Actions compatibility and dependency issues (#25) ([a36c33e](https://github.com/R-Dolce-Group/runlintic-app/commit/a36c33e)), closes [#25](https://github.com/R-Dolce-Group/runlintic-app/issues/25)
+* fix(release): resolve cosmiconfig override breaking release-it ([a5b9dd4](https://github.com/R-Dolce-Group/runlintic-app/commit/a5b9dd4))
+* fix(security): resolve conventional-changelog vulnerability and exclude dist files (#58) ([6bf116e](https://github.com/R-Dolce-Group/runlintic-app/commit/6bf116e)), closes [#58](https://github.com/R-Dolce-Group/runlintic-app/issues/58)
+* fix(security): resolve @octokit/plugin-paginate-rest vulnerability via override ([50f67eb](https://github.com/R-Dolce-Group/runlintic-app/commit/50f67eb))
+* fix(security): resolve conventional-changelog vulnerability and exclude dist files ([5e3b795](https://github.com/R-Dolce-Group/runlintic-app/commit/5e3b795))
+* fix(workflows): use NPM_ACCESS_TOKEN for npm authentication in GitHub Actions (#34) ([67717d6](https://github.com/R-Dolce-Group/runlintic-app/commit/67717d6)), closes [#34](https://github.com/R-Dolce-Group/runlintic-app/issues/34)
+* config: disable GitHub release creation in release-it workflow ([8429f84](https://github.com/R-Dolce-Group/runlintic-app/commit/8429f84))
+* deps-dev(deps-dev): bump typescript-eslint from 8.43.0 to 8.44.0 ([d870913](https://github.com/R-Dolce-Group/runlintic-app/commit/d870913))
+* deps-dev(deps-dev): bump knip from 5.63.1 to 5.64.0 (#52) ([8e3932b](https://github.com/R-Dolce-Group/runlintic-app/commit/8e3932b)), closes [#52](https://github.com/R-Dolce-Group/runlintic-app/issues/52)
+* Phase 4 Dashboard: Complete Framework Decision System & Enhanced Infrastructure (#47) ([6eeac39](https://github.com/R-Dolce-Group/runlintic-app/commit/6eeac39)), closes [#47](https://github.com/R-Dolce-Group/runlintic-app/issues/47)
+* Phase 4: Dashboard UI/UX Foundation Implementation (#46) ([ad57b59](https://github.com/R-Dolce-Group/runlintic-app/commit/ad57b59)), closes [#46](https://github.com/R-Dolce-Group/runlintic-app/issues/46)
+* Feature/phase 2 enhanced analysis (#43) ([ae00c94](https://github.com/R-Dolce-Group/runlintic-app/commit/ae00c94)), closes [#43](https://github.com/R-Dolce-Group/runlintic-app/issues/43)
+* Fix/workflow npm access token (#38) ([fdec932](https://github.com/R-Dolce-Group/runlintic-app/commit/fdec932)), closes [#38](https://github.com/R-Dolce-Group/runlintic-app/issues/38)
+* deps-dev(deps-dev): bump run-applescript from 7.0.0 to 7.1.0 (#33) ([961fb1b](https://github.com/R-Dolce-Group/runlintic-app/commit/961fb1b)), closes [#33](https://github.com/R-Dolce-Group/runlintic-app/issues/33)
+* deps-dev(deps-dev): bump get-east-asian-width from 1.3.1 to 1.4.0 (#31) ([d61f8bd](https://github.com/R-Dolce-Group/runlintic-app/commit/d61f8bd)), closes [#31](https://github.com/R-Dolce-Group/runlintic-app/issues/31)
+* deps-dev(deps-dev): bump globals from 16.3.0 to 16.4.0 (#32) ([60052fe](https://github.com/R-Dolce-Group/runlintic-app/commit/60052fe)), closes [#32](https://github.com/R-Dolce-Group/runlintic-app/issues/32)
+* Security fixes 20250913 (#29) ([7ddcefd](https://github.com/R-Dolce-Group/runlintic-app/commit/7ddcefd)), closes [#29](https://github.com/R-Dolce-Group/runlintic-app/issues/29)
+* Security fixes 20250913 (#28) ([65b1f1d](https://github.com/R-Dolce-Group/runlintic-app/commit/65b1f1d)), closes [#28](https://github.com/R-Dolce-Group/runlintic-app/issues/28)
+* docs(security): add comprehensive security policy ([9908e7a](https://github.com/R-Dolce-Group/runlintic-app/commit/9908e7a))
+* feat(deps): Phase 1 - Integrate depcheck for comprehensive dependency analysis (#40) ([91b1419](https://github.com/R-Dolce-Group/runlintic-app/commit/91b1419)), closes [#40](https://github.com/R-Dolce-Group/runlintic-app/issues/40) [#40](https://github.com/R-Dolce-Group/runlintic-app/issues/40)
+* feat: Phase 4 Dashboard UI/UX Foundation - CLI Integration & Architecture Setup (#45) ([b909eda](https://github.com/R-Dolce-Group/runlintic-app/commit/b909eda)), closes [#45](https://github.com/R-Dolce-Group/runlintic-app/issues/45)
+* feat: implement Phase 2 enhanced dependency analysis system (#42) ([d6c3826](https://github.com/R-Dolce-Group/runlintic-app/commit/d6c3826)), closes [#42](https://github.com/R-Dolce-Group/runlintic-app/issues/42)
+* chore(release): v7.2.0 (#44) ([63f127d](https://github.com/R-Dolce-Group/runlintic-app/commit/63f127d)), closes [#44](https://github.com/R-Dolce-Group/runlintic-app/issues/44) [#44](https://github.com/R-Dolce-Group/runlintic-app/issues/44)
+* ci: enable manual trigger and simplify CodeQL workflow by removing redundant SARIF upload (#39) ([6bcc438](https://github.com/R-Dolce-Group/runlintic-app/commit/6bcc438)), closes [#39](https://github.com/R-Dolce-Group/runlintic-app/issues/39)
+* ci(deps): bump actions/checkout from 4 to 5 ([2c3b9f7](https://github.com/R-Dolce-Group/runlintic-app/commit/2c3b9f7))
+* ci(deps): bump actions/add-to-project from 0.4.0 to 1.0.2 ([2cd32ae](https://github.com/R-Dolce-Group/runlintic-app/commit/2cd32ae))
+* ci(deps): bump actions/github-script from 6 to 8 (#24) ([73cc89e](https://github.com/R-Dolce-Group/runlintic-app/commit/73cc89e)), closes [#24](https://github.com/R-Dolce-Group/runlintic-app/issues/24)
+* ci(deps): bump actions/setup-node from 4 to 5 (#23) ([762fb77](https://github.com/R-Dolce-Group/runlintic-app/commit/762fb77)), closes [#23](https://github.com/R-Dolce-Group/runlintic-app/issues/23)
+* ci(deps): bump actions/checkout from 4 to 5 (#22) ([3accd14](https://github.com/R-Dolce-Group/runlintic-app/commit/3accd14)), closes [#22](https://github.com/R-Dolce-Group/runlintic-app/issues/22)
+* deps(deps): bump the patch-updates group with 5 updates (#30) ([1779c5f](https://github.com/R-Dolce-Group/runlintic-app/commit/1779c5f)), closes [#30](https://github.com/R-Dolce-Group/runlintic-app/issues/30)
+
+
+### BREAKING CHANGE
+
+* Added Express.js dashboard server with secure token authentication
+
+New Features:
+- Complete web-based admin dashboard with REST API
+- Secure Express.js server with crypto-generated tokens
+- Zero-trust authentication model (loopback binding by default)
+- Core business logic extraction for reusable components
+- Comprehensive API endpoints for all CLI functionality
+- Interactive HTML testing interface for API validation
+- Real-time project context detection and health monitoring
+
+Technical Implementation:
+- Added Express.js 5.1.0, CORS 2.8.5, and open 10.2.0 dependencies
+- Modular architecture with lib/api/ and lib/core/ directories
+- Token-based authentication middleware with crypto-secure generation
+- Project context detection with monorepo and framework identification
+- Complete REST API coverage: health, project, dependencies, git operations
+- Temporary HTML dashboard for development and testing
+
+Documentation & Testing:
+- Comprehensive dashboard user guide with prerequisites and troubleshooting
+- Automated testing script with system requirements verification
+- Complete API endpoint documentation with curl examples
+- Reorganized docs structure by category for better navigation
+- Updated CLI command reference with dashboard integration
+
+Security Features:
+- Localhost-only binding (127.0.0.1) by default for secure development
+- Unique session tokens with no persistent storage
+- Network exposure warnings for team demo configurations
+- Comprehensive input validation and error handling
+
+Files Added:
+- lib/api/dashboard-server.js (Express.js server implementation)
+- lib/api/middleware/auth.js (authentication middleware)
+- lib/api/routes/ (modular API endpoint routing)
+- lib/core/project-detector.js (project context analysis)
+- docs/dashboard/ (complete user documentation)
+- docs/testing/test-dashboard.sh (automated testing script)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
+* fix: resolve ESLint warnings in Phase 4 dashboard implementation
+
+- Replace __filename/__dirname with filename/dirname to avoid global redeclaration warnings
+- Fix unused parameter 'options' in GitOperations.generateCommit()
+- Remove unused parameter in createTemporaryDashboard function
+- Replace unused catch parameter with catch block without parameter
+- Import specific randomBytes function instead of entire crypto module
+
+All ESLint warnings resolved, maintaining zero-warning policy for clean codebase.
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+* Added Express.js dashboard server with secure token authentication
+
+New Features:
+- Complete web-based admin dashboard with REST API
+- Secure Express.js server with crypto-generated tokens
+- Zero-trust authentication model (loopback binding by default)
+- Core business logic extraction for reusable components
+- Comprehensive API endpoints for all CLI functionality
+- Interactive HTML testing interface for API validation
+- Real-time project context detection and health monitoring
+
+Technical Implementation:
+- Added Express.js 5.1.0, CORS 2.8.5, and open 10.2.0 dependencies
+- Modular architecture with lib/api/ and lib/core/ directories
+- Token-based authentication middleware with crypto-secure generation
+- Project context detection with monorepo and framework identification
+- Complete REST API coverage: health, project, dependencies, git operations
+- Temporary HTML dashboard for development and testing
+
+Documentation & Testing:
+- Comprehensive dashboard user guide with prerequisites and troubleshooting
+- Automated testing script with system requirements verification
+- Complete API endpoint documentation with curl examples
+- Reorganized docs structure by category for better navigation
+- Updated CLI command reference with dashboard integration
+
+Security Features:
+- Localhost-only binding (127.0.0.1) by default for secure development
+- Unique session tokens with no persistent storage
+- Network exposure warnings for team demo configurations
+- Comprehensive input validation and error handling
+
+Files Added:
+- lib/api/dashboard-server.js (Express.js server implementation)
+- lib/api/middleware/auth.js (authentication middleware)
+- lib/api/routes/ (modular API endpoint routing)
+- lib/core/project-detector.js (project context analysis)
+- docs/dashboard/ (complete user documentation)
+- docs/testing/test-dashboard.sh (automated testing script)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
+* fix: resolve ESLint warnings in Phase 4 dashboard implementation
+
+- Replace __filename/__dirname with filename/dirname to avoid global redeclaration warnings
+- Fix unused parameter 'options' in GitOperations.generateCommit()
+- Remove unused parameter in createTemporaryDashboard function
+- Replace unused catch parameter with catch block without parameter
+- Import specific randomBytes function instead of entire crypto module
+
+All ESLint warnings resolved, maintaining zero-warning policy for clean codebase.
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
+* chore(release): v8.0.0
+
+* feat: integrate Express.js vs Fastify decision framework and enhance Phase 4 dashboard
+
+## Framework Decision System Integration
+
+### Core Framework Components
+- Add production-ready framework decision evaluation system in `lib/framework/`
+- Implement `DecisionScorecard` class with weighted criteria analysis
+- Add comprehensive benchmark suite for Express.js vs Fastify comparison
+- Create `QualityGatesManager` for automated quality assessment
+- Implement performance monitoring and error handling utilities
+- Add Fastify prototype server for side-by-side evaluation
+
+### Team Assessment & Configuration
+- Update `team-assessment.json` to align with decision framework expectations
+- Add structured experience tracking for Express.js and Fastify capabilities
+- Include learning capacity metrics and confidence scoring
+- Add specific concerns for Phase 4 dashboard timeline constraints
+- Create `team-assessment-template.json` for future team evaluations
+
+### Automation & Scripts
+- Add `setup-framework.sh` for seamless framework integration
+- Implement npm scripts for decision evaluation workflow:
+  - `npm run decision:quick` - 2-minute evaluation
+  - `npm run decision:evaluate` - comprehensive 30-minute analysis
+  - `npm run decision:benchmark` - performance comparison
+  - `npm run quality:gates` - quality assessment
+  - `npm run fastify:prototype` - prototype server launch
+- Update `.gitignore` for framework evaluation artifacts
+
+### Dashboard Infrastructure Improvements
+- Enhance dashboard documentation with comprehensive upgrade guides
+- Add troubleshooting for package installation conflicts (EEXIST errors)
+- Improve routing architecture in `dashboard-server.js`
+- Add proper SPA routing fallback for future dashboard components
+- Update documentation for v8.0.0 package structure
+
+### Package Management & Dependencies
+- Update package.json with new framework decision scripts
+- Synchronize package-lock.json with latest dependency tree
+- Add framework evaluation dependencies for production use
+
+### Code Quality & Linting
+- Update ESLint configuration to properly ignore `_workflows` directory
+- Add comprehensive ignore patterns for framework evaluation artifacts
+- Ensure zero warnings policy maintained across all production code
+
+## Technical Details
+
+### Decision Framework Architecture
+The integrated system provides data-driven framework evaluation using:
+- **Weighted Scoring**: 70% critical factors (timeline, performance, technical debt)
+- **30% Important factors**: team capability and competitive advantage
+- **Automated Data Collection**: benchmark results, quality gates, team metrics
+- **Confidence Scoring**: based on data quality and score differentials
+
+### Quality Assurance
+- Comprehensive error handling for missing data inputs
+- Fallback values for incomplete assessments
+- Detailed logging and report generation
+- Integration with existing health-check workflow
+
+### Future-Proofing
+- Modular design supports additional framework evaluations
+- Template system for consistent team assessments
+- Integration hooks for CI/CD pipeline quality gates
+- Extensible benchmark suite for custom performance tests
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
+* fix: resolve ESLint warnings in framework files to achieve Week 1 success criteria
+
+- Remove unused variables and parameters across all framework files
+- Fix performance global redeclaration by removing redundant imports
+- Preserve reporting functionality in benchmark suite for KPI tracking
+- Enable proper error handler signatures for Express.js middleware
+- Achieve 0 ESLint warnings target required for dashboard development
+
+Files updated:
+- lib/framework/benchmark-suite.js: Store report result to fix unused variable
+- lib/framework/error-handler.js: Remove unused 'next' parameter
+- lib/framework/performance-monitoring.js: Remove performance import (global available)
+- lib/framework/quality-gates.js: Remove performance import (global available)
+
+Health check now passes: lint + typecheck + maintenance + deps validation
+Ready for Phase 2 React dashboard development
+
+* refactor: reorganize npm scripts in package.json to improve readability
+
+## <small>8.0.1 (2025-09-27)</small>
+
+* fix: pass GitHub secrets to release dry run workflow (#27) ([86ccf4e](https://github.com/R-Dolce-Group/runlintic-app/commit/86ccf4e)), closes [#27](https://github.com/R-Dolce-Group/runlintic-app/issues/27)
+* fix: reduce Dependabot frequency to prevent token authentication conflicts ([fdcb967](https://github.com/R-Dolce-Group/runlintic-app/commit/fdcb967))
+* fix: remove .security/.env references from release script (#26) ([e043413](https://github.com/R-Dolce-Group/runlintic-app/commit/e043413)), closes [#26](https://github.com/R-Dolce-Group/runlintic-app/issues/26)
+* fix: remove chalk override to resolve release-it API compatibility ([6005aa5](https://github.com/R-Dolce-Group/runlintic-app/commit/6005aa5))
+* fix: resolve GitHub Actions compatibility and dependency issues (#25) ([a36c33e](https://github.com/R-Dolce-Group/runlintic-app/commit/a36c33e)), closes [#25](https://github.com/R-Dolce-Group/runlintic-app/issues/25)
+* fix(deps): resolve peer dependency conflicts for CI compatibility ([3449ccd](https://github.com/R-Dolce-Group/runlintic-app/commit/3449ccd))
+* fix(release): resolve cosmiconfig override breaking release-it ([a5b9dd4](https://github.com/R-Dolce-Group/runlintic-app/commit/a5b9dd4))
+* fix(security): resolve @octokit/plugin-paginate-rest vulnerability via override ([50f67eb](https://github.com/R-Dolce-Group/runlintic-app/commit/50f67eb))
+* fix(security): resolve conventional-changelog vulnerability and exclude dist files ([5e3b795](https://github.com/R-Dolce-Group/runlintic-app/commit/5e3b795))
+* fix(security): resolve conventional-changelog vulnerability and exclude dist files (#58) ([6bf116e](https://github.com/R-Dolce-Group/runlintic-app/commit/6bf116e)), closes [#58](https://github.com/R-Dolce-Group/runlintic-app/issues/58)
+* fix(workflows): use NPM_ACCESS_TOKEN for npm authentication in GitHub Actions (#34) ([67717d6](https://github.com/R-Dolce-Group/runlintic-app/commit/67717d6)), closes [#34](https://github.com/R-Dolce-Group/runlintic-app/issues/34)
+* config: disable GitHub release creation in release-it workflow ([8429f84](https://github.com/R-Dolce-Group/runlintic-app/commit/8429f84))
+* deps-dev(deps-dev): bump get-east-asian-width from 1.3.1 to 1.4.0 (#31) ([d61f8bd](https://github.com/R-Dolce-Group/runlintic-app/commit/d61f8bd)), closes [#31](https://github.com/R-Dolce-Group/runlintic-app/issues/31)
+* deps-dev(deps-dev): bump globals from 16.3.0 to 16.4.0 (#32) ([60052fe](https://github.com/R-Dolce-Group/runlintic-app/commit/60052fe)), closes [#32](https://github.com/R-Dolce-Group/runlintic-app/issues/32)
+* deps-dev(deps-dev): bump knip from 5.63.1 to 5.64.0 (#52) ([8e3932b](https://github.com/R-Dolce-Group/runlintic-app/commit/8e3932b)), closes [#52](https://github.com/R-Dolce-Group/runlintic-app/issues/52)
+* deps-dev(deps-dev): bump run-applescript from 7.0.0 to 7.1.0 (#33) ([961fb1b](https://github.com/R-Dolce-Group/runlintic-app/commit/961fb1b)), closes [#33](https://github.com/R-Dolce-Group/runlintic-app/issues/33)
+* deps-dev(deps-dev): bump typescript-eslint from 8.43.0 to 8.44.0 ([d870913](https://github.com/R-Dolce-Group/runlintic-app/commit/d870913))
+* Feature/phase 2 enhanced analysis (#43) ([ae00c94](https://github.com/R-Dolce-Group/runlintic-app/commit/ae00c94)), closes [#43](https://github.com/R-Dolce-Group/runlintic-app/issues/43)
+* Fix/workflow npm access token (#38) ([fdec932](https://github.com/R-Dolce-Group/runlintic-app/commit/fdec932)), closes [#38](https://github.com/R-Dolce-Group/runlintic-app/issues/38)
+* Phase 4 Dashboard: Complete Framework Decision System & Enhanced Infrastructure (#47) ([6eeac39](https://github.com/R-Dolce-Group/runlintic-app/commit/6eeac39)), closes [#47](https://github.com/R-Dolce-Group/runlintic-app/issues/47)
+* Phase 4: Dashboard UI/UX Foundation Implementation (#46) ([ad57b59](https://github.com/R-Dolce-Group/runlintic-app/commit/ad57b59)), closes [#46](https://github.com/R-Dolce-Group/runlintic-app/issues/46)
+* Security fixes 20250913 (#28) ([65b1f1d](https://github.com/R-Dolce-Group/runlintic-app/commit/65b1f1d)), closes [#28](https://github.com/R-Dolce-Group/runlintic-app/issues/28)
+* Security fixes 20250913 (#29) ([7ddcefd](https://github.com/R-Dolce-Group/runlintic-app/commit/7ddcefd)), closes [#29](https://github.com/R-Dolce-Group/runlintic-app/issues/29)
+* docs(security): add comprehensive security policy ([9908e7a](https://github.com/R-Dolce-Group/runlintic-app/commit/9908e7a))
+* feat: implement Phase 2 enhanced dependency analysis system (#42) ([d6c3826](https://github.com/R-Dolce-Group/runlintic-app/commit/d6c3826)), closes [#42](https://github.com/R-Dolce-Group/runlintic-app/issues/42)
+* feat: Phase 4 Dashboard UI/UX Foundation - CLI Integration & Architecture Setup (#45) ([b909eda](https://github.com/R-Dolce-Group/runlintic-app/commit/b909eda)), closes [#45](https://github.com/R-Dolce-Group/runlintic-app/issues/45)
+* feat(deps): Phase 1 - Integrate depcheck for comprehensive dependency analysis (#40) ([91b1419](https://github.com/R-Dolce-Group/runlintic-app/commit/91b1419)), closes [#40](https://github.com/R-Dolce-Group/runlintic-app/issues/40) [#40](https://github.com/R-Dolce-Group/runlintic-app/issues/40)
+* chore(release): v7.2.0 (#44) ([63f127d](https://github.com/R-Dolce-Group/runlintic-app/commit/63f127d)), closes [#44](https://github.com/R-Dolce-Group/runlintic-app/issues/44) [#44](https://github.com/R-Dolce-Group/runlintic-app/issues/44)
+* ci: enable manual trigger and simplify CodeQL workflow by removing redundant SARIF upload (#39) ([6bcc438](https://github.com/R-Dolce-Group/runlintic-app/commit/6bcc438)), closes [#39](https://github.com/R-Dolce-Group/runlintic-app/issues/39)
+* ci(deps): bump actions/add-to-project from 0.4.0 to 1.0.2 ([2cd32ae](https://github.com/R-Dolce-Group/runlintic-app/commit/2cd32ae))
+* ci(deps): bump actions/checkout from 4 to 5 ([2c3b9f7](https://github.com/R-Dolce-Group/runlintic-app/commit/2c3b9f7))
+* ci(deps): bump actions/checkout from 4 to 5 (#22) ([3accd14](https://github.com/R-Dolce-Group/runlintic-app/commit/3accd14)), closes [#22](https://github.com/R-Dolce-Group/runlintic-app/issues/22)
+* ci(deps): bump actions/github-script from 6 to 8 (#24) ([73cc89e](https://github.com/R-Dolce-Group/runlintic-app/commit/73cc89e)), closes [#24](https://github.com/R-Dolce-Group/runlintic-app/issues/24)
+* ci(deps): bump actions/setup-node from 4 to 5 (#23) ([762fb77](https://github.com/R-Dolce-Group/runlintic-app/commit/762fb77)), closes [#23](https://github.com/R-Dolce-Group/runlintic-app/issues/23)
+* deps(deps): bump the patch-updates group with 5 updates (#30) ([1779c5f](https://github.com/R-Dolce-Group/runlintic-app/commit/1779c5f)), closes [#30](https://github.com/R-Dolce-Group/runlintic-app/issues/30)
+
+
+### BREAKING CHANGE
+
+* Added Express.js dashboard server with secure token authentication
+
+New Features:
+- Complete web-based admin dashboard with REST API
+- Secure Express.js server with crypto-generated tokens
+- Zero-trust authentication model (loopback binding by default)
+- Core business logic extraction for reusable components
+- Comprehensive API endpoints for all CLI functionality
+- Interactive HTML testing interface for API validation
+- Real-time project context detection and health monitoring
+
+Technical Implementation:
+- Added Express.js 5.1.0, CORS 2.8.5, and open 10.2.0 dependencies
+- Modular architecture with lib/api/ and lib/core/ directories
+- Token-based authentication middleware with crypto-secure generation
+- Project context detection with monorepo and framework identification
+- Complete REST API coverage: health, project, dependencies, git operations
+- Temporary HTML dashboard for development and testing
+
+Documentation & Testing:
+- Comprehensive dashboard user guide with prerequisites and troubleshooting
+- Automated testing script with system requirements verification
+- Complete API endpoint documentation with curl examples
+- Reorganized docs structure by category for better navigation
+- Updated CLI command reference with dashboard integration
+
+Security Features:
+- Localhost-only binding (127.0.0.1) by default for secure development
+- Unique session tokens with no persistent storage
+- Network exposure warnings for team demo configurations
+- Comprehensive input validation and error handling
+
+Files Added:
+- lib/api/dashboard-server.js (Express.js server implementation)
+- lib/api/middleware/auth.js (authentication middleware)
+- lib/api/routes/ (modular API endpoint routing)
+- lib/core/project-detector.js (project context analysis)
+- docs/dashboard/ (complete user documentation)
+- docs/testing/test-dashboard.sh (automated testing script)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
+* fix: resolve ESLint warnings in Phase 4 dashboard implementation
+
+- Replace __filename/__dirname with filename/dirname to avoid global redeclaration warnings
+- Fix unused parameter 'options' in GitOperations.generateCommit()
+- Remove unused parameter in createTemporaryDashboard function
+- Replace unused catch parameter with catch block without parameter
+- Import specific randomBytes function instead of entire crypto module
+
+All ESLint warnings resolved, maintaining zero-warning policy for clean codebase.
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+* Added Express.js dashboard server with secure token authentication
+
+New Features:
+- Complete web-based admin dashboard with REST API
+- Secure Express.js server with crypto-generated tokens
+- Zero-trust authentication model (loopback binding by default)
+- Core business logic extraction for reusable components
+- Comprehensive API endpoints for all CLI functionality
+- Interactive HTML testing interface for API validation
+- Real-time project context detection and health monitoring
+
+Technical Implementation:
+- Added Express.js 5.1.0, CORS 2.8.5, and open 10.2.0 dependencies
+- Modular architecture with lib/api/ and lib/core/ directories
+- Token-based authentication middleware with crypto-secure generation
+- Project context detection with monorepo and framework identification
+- Complete REST API coverage: health, project, dependencies, git operations
+- Temporary HTML dashboard for development and testing
+
+Documentation & Testing:
+- Comprehensive dashboard user guide with prerequisites and troubleshooting
+- Automated testing script with system requirements verification
+- Complete API endpoint documentation with curl examples
+- Reorganized docs structure by category for better navigation
+- Updated CLI command reference with dashboard integration
+
+Security Features:
+- Localhost-only binding (127.0.0.1) by default for secure development
+- Unique session tokens with no persistent storage
+- Network exposure warnings for team demo configurations
+- Comprehensive input validation and error handling
+
+Files Added:
+- lib/api/dashboard-server.js (Express.js server implementation)
+- lib/api/middleware/auth.js (authentication middleware)
+- lib/api/routes/ (modular API endpoint routing)
+- lib/core/project-detector.js (project context analysis)
+- docs/dashboard/ (complete user documentation)
+- docs/testing/test-dashboard.sh (automated testing script)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
+* fix: resolve ESLint warnings in Phase 4 dashboard implementation
+
+- Replace __filename/__dirname with filename/dirname to avoid global redeclaration warnings
+- Fix unused parameter 'options' in GitOperations.generateCommit()
+- Remove unused parameter in createTemporaryDashboard function
+- Replace unused catch parameter with catch block without parameter
+- Import specific randomBytes function instead of entire crypto module
+
+All ESLint warnings resolved, maintaining zero-warning policy for clean codebase.
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
+* chore(release): v8.0.0
+
+* feat: integrate Express.js vs Fastify decision framework and enhance Phase 4 dashboard
+
+## Framework Decision System Integration
+
+### Core Framework Components
+- Add production-ready framework decision evaluation system in `lib/framework/`
+- Implement `DecisionScorecard` class with weighted criteria analysis
+- Add comprehensive benchmark suite for Express.js vs Fastify comparison
+- Create `QualityGatesManager` for automated quality assessment
+- Implement performance monitoring and error handling utilities
+- Add Fastify prototype server for side-by-side evaluation
+
+### Team Assessment & Configuration
+- Update `team-assessment.json` to align with decision framework expectations
+- Add structured experience tracking for Express.js and Fastify capabilities
+- Include learning capacity metrics and confidence scoring
+- Add specific concerns for Phase 4 dashboard timeline constraints
+- Create `team-assessment-template.json` for future team evaluations
+
+### Automation & Scripts
+- Add `setup-framework.sh` for seamless framework integration
+- Implement npm scripts for decision evaluation workflow:
+  - `npm run decision:quick` - 2-minute evaluation
+  - `npm run decision:evaluate` - comprehensive 30-minute analysis
+  - `npm run decision:benchmark` - performance comparison
+  - `npm run quality:gates` - quality assessment
+  - `npm run fastify:prototype` - prototype server launch
+- Update `.gitignore` for framework evaluation artifacts
+
+### Dashboard Infrastructure Improvements
+- Enhance dashboard documentation with comprehensive upgrade guides
+- Add troubleshooting for package installation conflicts (EEXIST errors)
+- Improve routing architecture in `dashboard-server.js`
+- Add proper SPA routing fallback for future dashboard components
+- Update documentation for v8.0.0 package structure
+
+### Package Management & Dependencies
+- Update package.json with new framework decision scripts
+- Synchronize package-lock.json with latest dependency tree
+- Add framework evaluation dependencies for production use
+
+### Code Quality & Linting
+- Update ESLint configuration to properly ignore `_workflows` directory
+- Add comprehensive ignore patterns for framework evaluation artifacts
+- Ensure zero warnings policy maintained across all production code
+
+## Technical Details
+
+### Decision Framework Architecture
+The integrated system provides data-driven framework evaluation using:
+- **Weighted Scoring**: 70% critical factors (timeline, performance, technical debt)
+- **30% Important factors**: team capability and competitive advantage
+- **Automated Data Collection**: benchmark results, quality gates, team metrics
+- **Confidence Scoring**: based on data quality and score differentials
+
+### Quality Assurance
+- Comprehensive error handling for missing data inputs
+- Fallback values for incomplete assessments
+- Detailed logging and report generation
+- Integration with existing health-check workflow
+
+### Future-Proofing
+- Modular design supports additional framework evaluations
+- Template system for consistent team assessments
+- Integration hooks for CI/CD pipeline quality gates
+- Extensible benchmark suite for custom performance tests
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
+* fix: resolve ESLint warnings in framework files to achieve Week 1 success criteria
+
+- Remove unused variables and parameters across all framework files
+- Fix performance global redeclaration by removing redundant imports
+- Preserve reporting functionality in benchmark suite for KPI tracking
+- Enable proper error handler signatures for Express.js middleware
+- Achieve 0 ESLint warnings target required for dashboard development
+
+Files updated:
+- lib/framework/benchmark-suite.js: Store report result to fix unused variable
+- lib/framework/error-handler.js: Remove unused 'next' parameter
+- lib/framework/performance-monitoring.js: Remove performance import (global available)
+- lib/framework/quality-gates.js: Remove performance import (global available)
+
+Health check now passes: lint + typecheck + maintenance + deps validation
+Ready for Phase 2 React dashboard development
+
+* refactor: reorganize npm scripts in package.json to improve readability
+
+
+
+
 ## [8.0.0](https://github.com/R-Dolce-Group/runlintic-app/compare/v7.2.0...v8.0.0) (2025-09-19)
 
 ### ⚠ BREAKING CHANGES

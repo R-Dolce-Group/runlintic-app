@@ -11,7 +11,7 @@ runlintic <command> [options]
 ## Quick Reference
 
 | Command        | Description        | Example                  |
-|----------------|--------------------|--------------------------|
+| -------------- | ------------------ | ------------------------ |
 | `init`         | Initialize project | `runlintic init`         |
 | `dashboard`    | Launch web UI      | `runlintic dashboard`    |
 | `help`         | Show help          | `runlintic help`         |
