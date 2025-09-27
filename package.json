@@ -99,13 +99,12 @@
     "version": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "overrides": {
+    "@octokit/plugin-paginate-rest": "^11.5.0",
     "ansi-regex": "6.1.0",
     "ansi-styles": "6.2.1",
-    "chalk": "npm:picocolors@^1.1.0",
     "cliui": "8.0.1",
     "color-convert": "2.0.1",
     "color-name": "2.0.0",
-    "cosmiconfig": "npm:lilconfig@^3.1.2",
     "depcheck": {
       "cosmiconfig": "^7.1.0"
     },
@@ -131,9 +130,9 @@
     "@fastify/cors": "11.1.0",
     "@fastify/rate-limit": "10.3.0",
     "@next/eslint-plugin-next": "^15.0.3",
-    "@release-it/conventional-changelog": "^10.0.1",
+    "@release-it/conventional-changelog": "8.0.1",
     "@typescript-eslint/eslint-plugin": "^8.33.0",
-    "conventional-changelog-cli": "^5.0.0",
+    "conventional-changelog-cli": "4.1.0",
     "conventional-changelog-conventionalcommits": "^9.1.0",
     "depcheck": "1.4.7",
     "eslint": "^9.33.0",
@@ -148,7 +147,7 @@
     "pino": "9.11.0",
     "pino-pretty": "13.1.1",
     "prettier": "^3.6.2",
-    "release-it": "^19.0.4",
+    "release-it": "17.11.0",
     "sort-package-json": "3.4.0",
     "typescript": "5.9.2",
     "typescript-eslint": "^8.33.0",
