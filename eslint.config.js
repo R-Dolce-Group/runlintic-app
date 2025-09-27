@@ -56,7 +56,8 @@ export default [
       "benchmark-results-*.json",
       "quality-gates-*.json",
       "decision-scorecard-*.json",
-      "lib/dashboard/dist/**"
+      "lib/dashboard/dist/**",
+      "lib/dashboard/src/**"
     ]
   }
 ];
