@@ -68,7 +68,7 @@ if [[ ! "${GH_TOKEN}" =~ ^[a-zA-Z0-9_\-]+$ ]]; then
 fi
 
 # Test GitHub API connectivity and token validity
-if curl -s -m 30 -H "Authorization: Bearer ${GH_TOKEN}" \
+if curl -s -m 30 -H "Authorization: token ${GH_TOKEN}" \
      -H "Accept: application/vnd.github.v3+json" \
      "https://api.github.com/user" > /tmp/gh_test.json 2>/dev/null; then
   echo "✅ GitHub API test successful"
@@ -144,7 +144,7 @@ git config --local url."https://x-access-token:${GH_TOKEN}@github.com/".insteadO
 echo "🔍 Verifying repository access..."
 REPO_URL=$(git config --get remote.origin.url | sed 's|https://github.com/||' | sed 's|\.git$||')
 if [[ -n "$REPO_URL" ]]; then
-  if ! curl -s -m 30 -H "Authorization: Bearer ${GH_TOKEN}" \
+  if ! curl -s -m 30 -H "Authorization: token ${GH_TOKEN}" \
        -H "Accept: application/vnd.github.v3+json" \
        "https://api.github.com/repos/${REPO_URL}" > /dev/null 2>&1; then
     echo "❌ Error: Cannot access repository ${REPO_URL}" >&2
@@ -192,7 +192,7 @@ if npx release-it "$@" ${DEFAULT_INCREMENT} --ci --git.requireCleanWorkingDir=fa
 
     # Verify GitHub release exists
     if [[ -n "$REPO_URL" ]]; then
-      RELEASE_RESPONSE=$(curl -s -m 30 -H "Authorization: Bearer ${GH_TOKEN}" \
+      RELEASE_RESPONSE=$(curl -s -m 30 -H "Authorization: token ${GH_TOKEN}" \
                          -H "Accept: application/vnd.github.v3+json" \
                          "https://api.github.com/repos/${REPO_URL}/releases/tags/${LATEST_TAG}" \
                          2>/dev/null || echo "")
