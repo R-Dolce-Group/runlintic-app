@@ -59,9 +59,8 @@ function HomePage() {
 
   const handleRunHealthCheck = async () => {
     try {
-      setLoading(true)
       await api.runHealthCheck()
-      await loadDashboardData() // Refresh data after health check
+      await loadDashboardData() // Refresh data after health check (handles loading state)
     } catch (err) {
       console.error('Health check failed:', err)
       setError('Health check failed: ' + err.message)
