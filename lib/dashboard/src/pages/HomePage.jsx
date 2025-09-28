@@ -91,10 +91,9 @@ function HomePage() {
           <button
             className="btn btn-primary"
             onClick={handleRunHealthCheck}
-            disabled={loading}
           >
             <span>⚡</span>
-            {loading ? 'Running...' : 'Run Health Check'}
+            Run Health Check
           </button>
         </div>
       </div>
