@@ -6,6 +6,18 @@ set -euo pipefail
 # Security: Disable command history to prevent token exposure
 set +H
 
+# Ensure proper environment setup for all execution contexts
+# Add common binary paths to ensure gh CLI is available
+export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
+
+# Ensure we have access to common shell profile variables
+if [[ -f "$HOME/.bashrc" ]]; then
+  source "$HOME/.bashrc" 2>/dev/null || true
+fi
+if [[ -f "$HOME/.zshrc" ]]; then
+  source "$HOME/.zshrc" 2>/dev/null || true
+fi
+
 # Cleanup function to restore git config on exit
 cleanup() {
   local exit_code=$?
@@ -67,20 +79,50 @@ if [[ ! "${GH_TOKEN}" =~ ^[a-zA-Z0-9_\-]+$ ]]; then
   exit 1
 fi
 
-# Test GitHub API connectivity and token validity using gh CLI
+# Test GitHub API connectivity and token validity
+# Try multiple approaches for maximum compatibility
+GH_CLI_AVAILABLE=false
+GH_CLI_PATHS="/usr/local/bin/gh /opt/homebrew/bin/gh"
+
+# Check for gh CLI in multiple locations
+for gh_path in $GH_CLI_PATHS; do
+  if [[ -x "$gh_path" ]]; then
+    GH_CLI_AVAILABLE=true
+    GH_CLI_CMD="$gh_path"
+    break
+  fi
+done
+
+# Also check if gh is in PATH
 if command -v gh >/dev/null 2>&1; then
+  GH_CLI_AVAILABLE=true
+  GH_CLI_CMD="gh"
+fi
+
+if [[ "$GH_CLI_AVAILABLE" == "true" ]]; then
   # Use gh CLI which handles authentication correctly
-  if USER_LOGIN=$(gh api user --jq '.login' 2>/dev/null); then
+  echo "🔍 Testing GitHub API with gh CLI..."
+  if USER_LOGIN=$($GH_CLI_CMD api user --jq '.login' 2>/dev/null); then
     echo "✅ GitHub API test successful - authenticated as: $USER_LOGIN"
     # Create a temporary JSON file for compatibility with later parsing
-    gh api user > /tmp/gh_test.json 2>/dev/null
+    $GH_CLI_CMD api user > /tmp/gh_test.json 2>/dev/null
   else
     echo "❌ Error: GitHub API test failed with gh CLI" >&2
-    echo "💡 Try running: gh auth login" >&2
-    exit 1
+    echo "💡 Falling back to curl with GH_TOKEN..." >&2
+    # Fallback to curl instead of exiting
+    if curl -s -m 30 -H "Authorization: token ${GH_TOKEN}" \
+         -H "Accept: application/vnd.github.v3+json" \
+         "https://api.github.com/user" > /tmp/gh_test.json 2>/dev/null; then
+      echo "✅ GitHub API test successful (curl fallback)"
+    else
+      echo "❌ Error: Both gh CLI and curl authentication failed" >&2
+      echo "💡 Try running: gh auth login" >&2
+      exit 1
+    fi
   fi
 else
   # Fallback to curl if gh CLI is not available
+  echo "🔍 gh CLI not found, using curl with GH_TOKEN..."
   if curl -s -m 30 -H "Authorization: token ${GH_TOKEN}" \
        -H "Accept: application/vnd.github.v3+json" \
        "https://api.github.com/user" > /tmp/gh_test.json 2>/dev/null; then
@@ -162,14 +204,23 @@ git config --local url."https://x-access-token:${GH_TOKEN}@github.com/".insteadO
 echo "🔍 Verifying repository access..."
 REPO_URL=$(git config --get remote.origin.url | sed 's|https://github.com/||' | sed 's|\.git$||' | sed 's|git@github.com:||')
 if [[ -n "$REPO_URL" ]]; then
-  if command -v gh >/dev/null 2>&1; then
+  if [[ "$GH_CLI_AVAILABLE" == "true" ]]; then
     # Use gh CLI for repository access verification
-    if gh api "repos/${REPO_URL}" --jq '.name' > /dev/null 2>&1; then
+    if $GH_CLI_CMD api "repos/${REPO_URL}" --jq '.name' > /dev/null 2>&1; then
       echo "✅ Repository access verified: ${REPO_URL}"
     else
-      echo "❌ Error: Cannot access repository ${REPO_URL}" >&2
-      echo "💡 Check repository exists and gh CLI has proper permissions" >&2
-      exit 1
+      echo "❌ Error: Cannot access repository ${REPO_URL} with gh CLI" >&2
+      echo "💡 Falling back to curl verification..." >&2
+      # Fallback to curl instead of exiting
+      if curl -s -m 30 -H "Authorization: token ${GH_TOKEN}" \
+           -H "Accept: application/vnd.github.v3+json" \
+           "https://api.github.com/repos/${REPO_URL}" > /dev/null 2>&1; then
+        echo "✅ Repository access verified: ${REPO_URL} (curl fallback)"
+      else
+        echo "❌ Error: Cannot access repository ${REPO_URL}" >&2
+        echo "💡 Check repository exists and token has proper permissions" >&2
+        exit 1
+      fi
     fi
   else
     # Fallback to curl if gh CLI not available
@@ -222,9 +273,9 @@ if npx release-it "$@" ${DEFAULT_INCREMENT} --ci --git.requireCleanWorkingDir=fa
 
     # Verify GitHub release exists
     if [[ -n "$REPO_URL" ]]; then
-      if command -v gh >/dev/null 2>&1; then
+      if [[ "$GH_CLI_AVAILABLE" == "true" ]]; then
         # Use gh CLI to check for release
-        if gh api "repos/${REPO_URL}/releases/tags/${LATEST_TAG}" --jq '.id' > /dev/null 2>&1; then
+        if $GH_CLI_CMD api "repos/${REPO_URL}/releases/tags/${LATEST_TAG}" --jq '.id' > /dev/null 2>&1; then
           echo "🎉 GitHub release verified: https://github.com/${REPO_URL}/releases/tag/${LATEST_TAG}"
         else
           echo "⚠️  Warning: Git tag created but GitHub release may not be visible yet"
