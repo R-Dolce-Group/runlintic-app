@@ -50,20 +50,12 @@ fi
 
 if [[ -z "${GH_TOKEN}" ]]; then
   echo "❌ Error: GH_TOKEN is empty" >&2
-  echo "💡 Check your token value" >&2
   exit 1
 fi
 
 if [[ -z "${NPM_ACCESS_TOKEN:-}" ]]; then
   echo "❌ Error: NPM_ACCESS_TOKEN is not available" >&2
-  echo "💡 Set NPM_TOKEN as environment variable or repository secret" >&2
-  exit 1
-fi
-
-# Validate token formats (basic check)
-if [[ ! "${GH_TOKEN}" =~ ^[a-zA-Z0-9_\-]+$ ]]; then
-  echo "❌ Error: Invalid GH_TOKEN format" >&2
-  echo "💡 Token should contain only letters, numbers, underscores, and hyphens" >&2
+  echo "💡 Set NPM_ACCESS_TOKEN as environment variable or repository secret" >&2
   exit 1
 fi
 
@@ -77,7 +69,7 @@ else
   exit 1
 fi
 
-#7. Test NPM connectivity and token validity
+# Test NPM connectivity and token validity
 if curl -s -m 30 -H "Authorization: Bearer ${NPM_ACCESS_TOKEN}" \
      "https://registry.npmjs.org/-/whoami" > /tmp/npm_test.json 2>/dev/null; then
   # Parse NPM username without requiring jq
