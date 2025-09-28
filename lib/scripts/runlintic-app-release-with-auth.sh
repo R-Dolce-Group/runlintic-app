@@ -67,14 +67,29 @@ if [[ ! "${GH_TOKEN}" =~ ^[a-zA-Z0-9_\-]+$ ]]; then
   exit 1
 fi
 
-# Test GitHub API connectivity and token validity
-if curl -s -m 30 -H "Authorization: Bearer ${GH_TOKEN}" \
-     -H "Accept: application/vnd.github.v3+json" \
-     "https://api.github.com/user" > /tmp/gh_test.json 2>/dev/null; then
-  echo "✅ GitHub API test successful"
+# Test GitHub API connectivity and token validity using gh CLI
+if command -v gh >/dev/null 2>&1; then
+  # Use gh CLI which handles authentication correctly
+  if USER_LOGIN=$(gh api user --jq '.login' 2>/dev/null); then
+    echo "✅ GitHub API test successful - authenticated as: $USER_LOGIN"
+    # Create a temporary JSON file for compatibility with later parsing
+    gh api user > /tmp/gh_test.json 2>/dev/null
+  else
+    echo "❌ Error: GitHub API test failed with gh CLI" >&2
+    echo "💡 Try running: gh auth login" >&2
+    exit 1
+  fi
 else
-  echo "❌ Error: GitHub API test failed" >&2
-  exit 1
+  # Fallback to curl if gh CLI is not available
+  if curl -s -m 30 -H "Authorization: token ${GH_TOKEN}" \
+       -H "Accept: application/vnd.github.v3+json" \
+       "https://api.github.com/user" > /tmp/gh_test.json 2>/dev/null; then
+    echo "✅ GitHub API test successful"
+  else
+    echo "❌ Error: GitHub API test failed" >&2
+    echo "💡 Install gh CLI or check your GH_TOKEN" >&2
+    exit 1
+  fi
 fi
 
 #7. Test NPM connectivity and token validity
@@ -101,27 +116,30 @@ else
   exit 1
 fi
 
-#8. Parse JSON response without requiring jq
-if command -v jq >/dev/null 2>&1; then
-  USER_LOGIN=$(jq -r '.login // empty' /tmp/gh_test.json 2>/dev/null)
-elif command -v python3 >/dev/null 2>&1; then
-  # Use Python for reliable JSON parsing
-  USER_LOGIN=$(python3 -c "import json; data=json.load(open('/tmp/gh_test.json')); print(data.get('login', ''))" 2>/dev/null || echo "")
-else
-  # Fallback: improved grep/sed parsing
-  USER_LOGIN=$(grep -o '"login":[[:space:]]*"[^"]*"' /tmp/gh_test.json 2>/dev/null | sed 's/.*"login":[[:space:]]*"\([^"]*\)".*/\1/' || echo "")
-fi
+#8. Parse user login if not already obtained from gh CLI
+if [[ -z "${USER_LOGIN:-}" ]]; then
+  # Only needed if we used curl fallback instead of gh CLI
+  if command -v jq >/dev/null 2>&1; then
+    USER_LOGIN=$(jq -r '.login // empty' /tmp/gh_test.json 2>/dev/null)
+  elif command -v python3 >/dev/null 2>&1; then
+    # Use Python for reliable JSON parsing
+    USER_LOGIN=$(python3 -c "import json; data=json.load(open('/tmp/gh_test.json')); print(data.get('login', ''))" 2>/dev/null || echo "")
+  else
+    # Fallback: improved grep/sed parsing
+    USER_LOGIN=$(grep -o '"login":[[:space:]]*"[^"]*"' /tmp/gh_test.json 2>/dev/null | sed 's/.*"login":[[:space:]]*"\([^"]*\)".*/\1/' || echo "")
+  fi
 
-if [[ -z "$USER_LOGIN" ]]; then
-  echo "❌ Error: Failed to parse GitHub user login from API response." >&2
-  echo "💡 This could indicate:" >&2
-  echo "   - Invalid or expired GitHub token" >&2
-  echo "   - Network connectivity issues" >&2
-  echo "   - GitHub API rate limiting" >&2
-  echo "   - Missing JSON parsing tools (jq/python3)" >&2
-  exit 1
+  if [[ -z "$USER_LOGIN" ]]; then
+    echo "❌ Error: Failed to parse GitHub user login from API response." >&2
+    echo "💡 This could indicate:" >&2
+    echo "   - Invalid or expired GitHub token" >&2
+    echo "   - Network connectivity issues" >&2
+    echo "   - GitHub API rate limiting" >&2
+    echo "   - Missing JSON parsing tools (jq/python3)" >&2
+    exit 1
+  fi
+  echo "✅ GitHub API test successful - authenticated as: $USER_LOGIN"
 fi
-echo "✅ GitHub API test successful - authenticated as: $USER_LOGIN"
 
 #9. Clean up temporary files
 rm -f /tmp/gh_test.json /tmp/npm_test.json
@@ -142,16 +160,28 @@ git config --local url."https://x-access-token:${GH_TOKEN}@github.com/".insteadO
 
 #11. Verify repository access
 echo "🔍 Verifying repository access..."
-REPO_URL=$(git config --get remote.origin.url | sed 's|https://github.com/||' | sed 's|\.git$||')
+REPO_URL=$(git config --get remote.origin.url | sed 's|https://github.com/||' | sed 's|\.git$||' | sed 's|git@github.com:||')
 if [[ -n "$REPO_URL" ]]; then
-  if ! curl -s -m 30 -H "Authorization: Bearer ${GH_TOKEN}" \
-       -H "Accept: application/vnd.github.v3+json" \
-       "https://api.github.com/repos/${REPO_URL}" > /dev/null 2>&1; then
-    echo "❌ Error: Cannot access repository ${REPO_URL}" >&2
-    echo "💡 Check repository exists and token has proper permissions" >&2
-    exit 1
+  if command -v gh >/dev/null 2>&1; then
+    # Use gh CLI for repository access verification
+    if gh api "repos/${REPO_URL}" --jq '.name' > /dev/null 2>&1; then
+      echo "✅ Repository access verified: ${REPO_URL}"
+    else
+      echo "❌ Error: Cannot access repository ${REPO_URL}" >&2
+      echo "💡 Check repository exists and gh CLI has proper permissions" >&2
+      exit 1
+    fi
+  else
+    # Fallback to curl if gh CLI not available
+    if ! curl -s -m 30 -H "Authorization: token ${GH_TOKEN}" \
+         -H "Accept: application/vnd.github.v3+json" \
+         "https://api.github.com/repos/${REPO_URL}" > /dev/null 2>&1; then
+      echo "❌ Error: Cannot access repository ${REPO_URL}" >&2
+      echo "💡 Check repository exists and token has proper permissions" >&2
+      exit 1
+    fi
+    echo "✅ Repository access verified: ${REPO_URL}"
   fi
-  echo "✅ Repository access verified: ${REPO_URL}"
 fi
 
 #12. Run the release command using locally installed release-it in non-interactive mode
@@ -192,22 +222,32 @@ if npx release-it "$@" ${DEFAULT_INCREMENT} --ci --git.requireCleanWorkingDir=fa
 
     # Verify GitHub release exists
     if [[ -n "$REPO_URL" ]]; then
-      RELEASE_RESPONSE=$(curl -s -m 30 -H "Authorization: Bearer ${GH_TOKEN}" \
-                         -H "Accept: application/vnd.github.v3+json" \
-                         "https://api.github.com/repos/${REPO_URL}/releases/tags/${LATEST_TAG}" \
-                         2>/dev/null || echo "")
-
-      if command -v jq >/dev/null 2>&1; then
-        RELEASE_ID=$(echo "$RELEASE_RESPONSE" | jq -r '.id // empty' 2>/dev/null || echo "")
+      if command -v gh >/dev/null 2>&1; then
+        # Use gh CLI to check for release
+        if gh api "repos/${REPO_URL}/releases/tags/${LATEST_TAG}" --jq '.id' > /dev/null 2>&1; then
+          echo "🎉 GitHub release verified: https://github.com/${REPO_URL}/releases/tag/${LATEST_TAG}"
+        else
+          echo "⚠️  Warning: Git tag created but GitHub release may not be visible yet"
+        fi
       else
-        # Fallback: check if response contains an id field
-        RELEASE_ID=$(echo "$RELEASE_RESPONSE" | grep -o '"id": *[0-9][0-9]*' | sed 's/.*"id": *\([0-9]*\).*/\1/' || echo "")
-      fi
+        # Fallback to curl if gh CLI not available
+        RELEASE_RESPONSE=$(curl -s -m 30 -H "Authorization: token ${GH_TOKEN}" \
+                           -H "Accept: application/vnd.github.v3+json" \
+                           "https://api.github.com/repos/${REPO_URL}/releases/tags/${LATEST_TAG}" \
+                           2>/dev/null || echo "")
 
-      if [[ -n "$RELEASE_ID" ]]; then
-        echo "🎉 GitHub release verified: https://github.com/${REPO_URL}/releases/tag/${LATEST_TAG}"
-      else
-        echo "⚠️  Warning: Git tag created but GitHub release may not be visible yet"
+        if command -v jq >/dev/null 2>&1; then
+          RELEASE_ID=$(echo "$RELEASE_RESPONSE" | jq -r '.id // empty' 2>/dev/null || echo "")
+        else
+          # Fallback: check if response contains an id field
+          RELEASE_ID=$(echo "$RELEASE_RESPONSE" | grep -o '"id": *[0-9][0-9]*' | sed 's/.*"id": *\([0-9]*\).*/\1/' || echo "")
+        fi
+
+        if [[ -n "$RELEASE_ID" ]]; then
+          echo "🎉 GitHub release verified: https://github.com/${REPO_URL}/releases/tag/${LATEST_TAG}"
+        else
+          echo "⚠️  Warning: Git tag created but GitHub release may not be visible yet"
+        fi
       fi
     fi
   else
