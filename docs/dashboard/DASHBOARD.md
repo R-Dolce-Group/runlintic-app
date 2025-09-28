@@ -150,6 +150,7 @@ npx runlintic dashboard --host 0.0.0.0 --port 3000
 ### Access Dashboard
 
 After launching, the dashboard will:
+
 1. Start a secure local web server
 2. Generate a unique access token for this session
 3. Automatically open your browser (unless `--no-open` is used)
@@ -205,6 +206,7 @@ All endpoints require authentication via the session token.
 ### Authentication
 
 Include the token in requests using either:
+
 - **Query parameter**: `?t=YOUR_TOKEN`
 - **Authorization header**: `Authorization: Bearer YOUR_TOKEN`
 
@@ -303,6 +305,7 @@ The current implementation includes a temporary HTML interface for testing:
 ### Browser Testing
 
 Open the dashboard URL in your browser and:
+
 1. Test each API endpoint using the interactive buttons
 2. Verify all responses return proper JSON data
 3. Check that authentication works correctly
@@ -348,6 +351,7 @@ The test script will:
 ### Network Access Warning
 
 Using `--host 0.0.0.0` exposes the dashboard to your local network:
+
 ```bash
 ⚠️  WARNING: --host 0.0.0.0 exposes dashboard to local network
 🔒 Ensure your firewall is properly configured
@@ -376,6 +380,7 @@ npm list -g @rdolcegroup/runlintic-app
 This commonly occurs when upgrading. See the [Upgrading from Previous Versions](#upgrading-from-previous-versions) section above for detailed resolution steps.
 
 **Quick resolution:**
+
 ```bash
 # For same package upgrades
 npm update -g @rdolcegroup/runlintic-app
@@ -386,6 +391,7 @@ npm install -g @rdolcegroup/runlintic-app --force
 ```
 
 #### Permission Errors
+
 ```bash
 # On macOS/Linux, you might need to fix npm permissions
 # Option 1: Use npx (recommended)
@@ -511,6 +517,7 @@ runlintic dashboard --host 127.0.0.1 --port 3000
 ### Package.json Scripts
 
 Add dashboard to your project scripts:
+
 ```json
 {
   "scripts": {
@@ -523,6 +530,7 @@ Add dashboard to your project scripts:
 ### Team Development
 
 Each team member can run their own dashboard instance:
+
 ```bash
 # Developer A
 npm run dashboard -- --port 3001
@@ -534,6 +542,7 @@ npm run dashboard -- --port 3002
 ### CI/CD Integration
 
 The dashboard API can be used for automated project analysis:
+
 ```bash
 # Health check in CI
 curl -f "http://127.0.0.1:$PORT/api/health/run?t=$TOKEN" || exit 1
@@ -567,4 +576,4 @@ A: Yes, it automatically detects monorepo structure and provides appropriate con
 
 ---
 
-*Last updated: Dashboard Phase 1 Implementation*
+_Last updated: Dashboard Phase 1 Implementation_
