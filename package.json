@@ -90,6 +90,7 @@
     "release:major": "lib/scripts/runlintic-app-release-with-auth.sh --increment=major",
     "release:minor": "lib/scripts/runlintic-app-release-with-auth.sh --increment=minor",
     "release:patch": "lib/scripts/runlintic-app-release-with-auth.sh --increment=patch",
+    "setup:auth": "lib/scripts/setup-npm-auth.sh",
     "test": "echo 'No tests configured - run npm run test:cli for CLI testing'",
     "test:cli": "node bin/runlintic-app.js help",
     "test:cli:all": "npm run test:cli && npm run test:cli:health && npm run test:cli:release:dry",
