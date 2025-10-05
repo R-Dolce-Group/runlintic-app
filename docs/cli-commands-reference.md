@@ -10,16 +10,16 @@ runlintic <command> [options]
 
 ## Quick Reference
 
-| Command        | Description        | Example                  |
-| -------------- | ------------------ | ------------------------ |
-| `init`         | Initialize project | `runlintic init`         |
-| `dashboard`    | Launch web UI      | `runlintic dashboard`    |
-| `help`         | Show help          | `runlintic help`         |
-| `health-check` | Full health check  | `runlintic health-check` |
-| `commit`       | Generate commit    | `runlintic commit`       |
-| `lint`         | Run ESLint         | `runlintic lint`         |
-| `release:dry`  | Preview release    | `runlintic release:dry`  |
-| `setup:auth`   | Setup NPM auth     | `runlintic setup:auth`   |
+| Command        | Description                  | Example                  |
+| -------------- | ---------------------------- | ------------------------ |
+| `init`         | Initialize project           | `runlintic init`         |
+| `dashboard`    | Launch web UI                | `runlintic dashboard`    |
+| `help`         | Show help                    | `runlintic help`         |
+| `health-check` | Full health check            | `runlintic health-check` |
+| `commit`       | Generate commit              | `runlintic commit`       |
+| `lint`         | Run linter (ESLint or Biome) | `runlintic lint`         |
+| `release:dry`  | Preview release              | `runlintic release:dry`  |
+| `setup:auth`   | Setup NPM auth               | `runlintic setup:auth`   |
 
 ## Setup Commands
 
