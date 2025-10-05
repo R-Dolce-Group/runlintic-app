@@ -32,11 +32,13 @@ runlintic init
 
 This creates essential config files:
 
-- `eslint.config.js` - Zero-warning ESLint setup
+- `eslint.config.js` - Zero-warning ESLint setup (or uses your existing Biome config)
 - `tsconfig.json` - Strict TypeScript config
 - `.release-it.json` - Release automation
 - `commitlint.config.cjs` - Conventional commits
 - `RUNLINTIC-*.md` - Documentation guides
+
+**Linter Support:** Runlintic auto-detects and works with both ESLint and Biome!
 
 ## First Health Check
 
@@ -46,7 +48,7 @@ runlintic health-check
 
 This runs:
 
-- ✅ ESLint with zero warnings
+- ✅ Linter with zero warnings (ESLint or Biome, auto-detected)
 - ✅ TypeScript type checking
 - ✅ Dependency validation
 - ✅ Package.json cleanup
@@ -76,7 +78,7 @@ runlintic check-all  # Parallel execution - 40% faster
 ### 4. Auto-fix Issues
 
 ```bash
-runlintic lint:fix   # Fix ESLint issues
+runlintic lint:fix   # Fix linter issues (ESLint or Biome)
 runlintic format     # Format with Prettier
 ```
 
