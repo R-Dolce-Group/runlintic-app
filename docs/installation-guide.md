@@ -4,14 +4,14 @@ Complete installation guide for all scenarios.
 
 ## Prerequisites
 
-- **Node.js** ≥ 22.16.0 ([Download](https://nodejs.org/))
+- **Node.js** ≥ 22.16.0 or ≥ 24.0.0 ([Download](https://nodejs.org/))
 - **npm** (comes with Node.js), **yarn**, or **pnpm**
 - **Git** (recommended for version control)
 
 ### Check Prerequisites
 
 ```bash
-node --version    # Should be >= 22.16.0
+node --version    # Should be >= 22.16.0 or >= 24.0.0
 npm --version     # Any recent version
 git --version     # Any recent version
 ```
@@ -171,9 +171,9 @@ node --version
 **Option 1: Using nvm**
 
 ```bash
-nvm install 22
-nvm use 22
-nvm alias default 22
+nvm install 24  # or nvm install 22
+nvm use 24      # or nvm use 22
+nvm alias default 24
 ```
 
 **Option 2: Direct download**

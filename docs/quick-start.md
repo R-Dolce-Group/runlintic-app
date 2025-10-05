@@ -4,7 +4,7 @@ Get up and running with Runlintic App in under 5 minutes.
 
 ## Prerequisites
 
-- Node.js ≥ 22.16.0
+- Node.js ≥ 22.16.0 or ≥ 24.0.0
 - npm, yarn, or pnpm
 - Git (recommended)
 
@@ -103,7 +103,7 @@ runlintic release:patch  # 1.0.0 → 1.0.1
 
 ## Next Steps
 
-- 📋 **[Complete Command Reference](commands.md)**
+- 📋 **[Complete Command Reference](cli-commands-reference.md)**
 - 🔧 **[Configuration Guide](configuration.md)**
 - 🚀 **[Release Workflow](release-workflow.md)**
 - 🆘 **[Troubleshooting](troubleshooting/troubleshooting.md)**

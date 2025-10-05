@@ -19,6 +19,7 @@ runlintic <command> [options]
 | `commit`       | Generate commit    | `runlintic commit`       |
 | `lint`         | Run ESLint         | `runlintic lint`         |
 | `release:dry`  | Preview release    | `runlintic release:dry`  |
+| `setup:auth`   | Setup NPM auth     | `runlintic setup:auth`   |
 
 ## Setup Commands
 
@@ -53,6 +54,21 @@ runlintic help
 runlintic --help
 runlintic -h
 ```
+
+### `runlintic setup:auth`
+
+Setup NPM authentication for release workflows.
+
+```bash
+runlintic setup:auth
+```
+
+**What it does:**
+
+- Guides you through NPM authentication setup
+- Configures tokens for release automation
+- Verifies authentication credentials
+- Sets up environment variables for CI/CD
 
 ## Dashboard Commands
 
@@ -92,7 +108,7 @@ runlintic dashboard --host 0.0.0.0 --port 8080
 - Generates unique token per session
 - No persistent authentication or data storage
 
-📖 **See also:** [`docs/DASHBOARD.md`](../_workflows/features/dashboard/DASHBOARD.md) for complete dashboard documentation.
+📖 **See also:** [`docs/dashboard/DASHBOARD.md`](dashboard/DASHBOARD.md) for complete dashboard documentation.
 
 ## Quality Commands
 
@@ -277,6 +293,7 @@ runlintic release
 
 **All release commands:**
 
+- **Enhanced Authentication**: Uses both environment variables and gh CLI fallback
 - Run pre-release health check
 - Update version in package.json
 - Generate conventional changelog
@@ -284,6 +301,11 @@ runlintic release
 - Push to GitHub
 - Create GitHub release
 - Clean up on completion
+
+**Authentication Methods** (in order of preference):
+1. Environment variables: `GH_TOKEN` + `NPM_TOKEN`/`NPM_ACCESS_TOKEN`
+2. gh CLI fallback: Automatically extracts token from authenticated gh CLI
+3. Manual setup: `runlintic setup:auth` for guided configuration
 
 ## Maintenance Commands
 
