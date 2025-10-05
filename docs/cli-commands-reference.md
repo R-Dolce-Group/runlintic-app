@@ -122,7 +122,7 @@ runlintic health-check
 
 **What it does:**
 
-1. ESLint validation (zero warnings)
+1. Linter validation (ESLint or Biome, auto-detected, zero warnings)
 2. TypeScript type checking
 3. Dependency validation
 4. Package.json cleanup
@@ -146,33 +146,60 @@ runlintic check-all
 
 ### `runlintic lint`
 
-Run ESLint with zero-warning policy.
+Run linter with zero-warning policy. **Auto-detects ESLint or Biome.**
 
 ```bash
 runlintic lint
 ```
 
-**Features:**
+**Auto-Detection:**
+
+Runlintic automatically detects which linter you're using:
+
+- **ESLint detected** → Runs `eslint . --max-warnings 0`
+- **Biome detected** → Runs `biome lint .`
+- **Both detected** → Uses ESLint (for stability)
+- **None detected** → Falls back to ESLint
+
+**Detection criteria:**
+
+- Config files: `eslint.config.js`, `.eslintrc.*`, `biome.json`, `biome.jsonc`
+- Package dependencies: `eslint`, `@biomejs/biome`
+
+**Features (ESLint):**
 
 - Zero warnings allowed
 - Node.js globals support
 - React/Next.js rules included
 - Modern ES2022 syntax
 
+**Features (Biome):**
+
+- Ultra-fast performance
+- Zero-config defaults
+- TypeScript native support
+- Integrated formatter
+
 ### `runlintic lint:fix`
 
-Auto-fix ESLint issues and sort package.json.
+Auto-fix linter issues. **Auto-detects ESLint or Biome.**
 
 ```bash
 runlintic lint:fix
 ```
 
+**Auto-Detection Behavior:**
+
+- **ESLint detected** → Runs `eslint . --fix`
+- **Biome detected** → Runs `biome check --write .`
+
 **What it fixes:**
 
 - Code formatting
 - Import/export organization
-- Package.json field ordering
+- Package.json field ordering (ESLint)
 - Basic style issues
+- Unsafe fixes (Biome with --write)
 
 ### `runlintic typecheck`
 
