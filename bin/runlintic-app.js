@@ -11,8 +11,8 @@ const _dirname = path.dirname(_filename);
 const commands = {
   'health-check': 'Run comprehensive health check',
   'check-all': 'Run all quality checks (lint + typecheck + deps)',
-  'lint': 'Run ESLint',
-  'lint:fix': 'Run ESLint and auto-fix issues',
+  'lint': 'Run linter (auto-detects ESLint/Biome)',
+  'lint:fix': 'Run linter and auto-fix issues',
   'typecheck': 'Run TypeScript type checking',
   'format': 'Run Prettier formatting',
   'maintenance': 'Run maintenance tasks (knip + depcheck + workspace fixes)',
