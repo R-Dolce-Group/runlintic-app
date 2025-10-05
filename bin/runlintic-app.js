@@ -594,6 +594,19 @@ async function initProject() {
         process.exit(1);
       }
     }
+  } else if (command === 'lint' || command === 'lint:fix') {
+    // Handle linting with auto-detection
+    try {
+      const exitCode = await detectLinterAndRun(command, args);
+      process.exit(exitCode || 0);
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        console.error('❌ Linter command not found. Please install eslint or @biomejs/biome');
+      } else {
+        console.error('❌ Error running linter:', err.message);
+      }
+      process.exit(1);
+    }
   } else if (commands[command]) {
     // Validate token requirements for tiers
     validateTokenTier();
