@@ -11,8 +11,8 @@ const _dirname = path.dirname(_filename);
 const commands = {
   'health-check': 'Run comprehensive health check',
   'check-all': 'Run all quality checks (lint + typecheck + deps)',
-  'lint': 'Run ESLint',
-  'lint:fix': 'Run ESLint and auto-fix issues',
+  'lint': 'Run linter (auto-detects ESLint/Biome)',
+  'lint:fix': 'Run linter and auto-fix issues',
   'typecheck': 'Run TypeScript type checking',
   'format': 'Run Prettier formatting',
   'maintenance': 'Run maintenance tasks (knip + depcheck + workspace fixes)',
@@ -126,6 +126,68 @@ function showHelp() {
       console.log('  💡 Try: runlintic health-check');
     }
   }
+}
+
+async function detectLinterAndRun(lintCommand, args = []) {
+  // Import ProjectDetector to detect linter
+  const { ProjectDetector } = await import(path.join('file://', _dirname, '..', 'lib', 'core', 'project-detector.js'));
+  const detector = new ProjectDetector(process.cwd());
+  const linterInfo = detector.detectLinter();
+
+  let command, fullArgs;
+
+  // Determine which linter to use
+  if (linterInfo.type === 'biome') {
+    // Use Biome
+    const biomeCmd = lintCommand === 'lint:fix' ? 'check' : 'lint';
+    const biomeBin = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+    fullArgs = ['biome', biomeCmd];
+
+    if (lintCommand === 'lint:fix') {
+      fullArgs.push('--write');
+    }
+
+    fullArgs.push('.', ...args);
+    command = biomeBin;
+
+    console.log(`🔍 Using Biome (detected: ${linterInfo.type})`);
+  } else if (linterInfo.type === 'eslint' || linterInfo.type === 'both' || linterInfo.type === 'none') {
+    // Use ESLint (default fallback)
+    const eslintBin = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+    fullArgs = ['eslint', '.'];
+
+    if (lintCommand === 'lint:fix') {
+      fullArgs.push('--fix');
+    } else {
+      fullArgs.push('--max-warnings', '0');
+    }
+
+    fullArgs.push(...args);
+    command = eslintBin;
+
+    if (linterInfo.type === 'both') {
+      console.log(`🔍 Using ESLint (both detected, preferring ESLint for stability)`);
+    } else if (linterInfo.type === 'none') {
+      console.log(`⚠️  No linter config detected, attempting ESLint...`);
+    } else {
+      console.log(`🔍 Using ESLint (detected: ${linterInfo.type})`);
+    }
+  }
+
+  const child = spawn(command, fullArgs, {
+    stdio: 'inherit',
+    shell: process.platform === 'win32'
+  });
+
+  return new Promise((resolve, reject) => {
+    child.on('close', (code) => {
+      resolve(code);
+    });
+
+    child.on('error', (err) => {
+      reject(err);
+    });
+  });
 }
 
 function runCommand(scriptName, args = []) {
@@ -531,6 +593,19 @@ async function initProject() {
         console.log('💡 Try running: runlintic health-check');
         process.exit(1);
       }
+    }
+  } else if (command === 'lint' || command === 'lint:fix') {
+    // Handle linting with auto-detection
+    try {
+      const exitCode = await detectLinterAndRun(command, args);
+      process.exit(exitCode || 0);
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        console.error('❌ Linter command not found. Please install eslint or @biomejs/biome');
+      } else {
+        console.error('❌ Error running linter:', err.message);
+      }
+      process.exit(1);
     }
   } else if (commands[command]) {
     // Validate token requirements for tiers

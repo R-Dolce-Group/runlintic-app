@@ -131,7 +131,7 @@ npx runlintic help        # Should show command list
 npx runlintic --version   # Should show version number
 npx runlintic health-check # Should run without errors
 npx runlintic check-all    # Should run parallel checks
-npx runlintic lint         # Should validate code
+npx runlintic lint         # Should validate code (auto-detects linter)
 npx runlintic typecheck    # Should check types
 npx runlintic format       # Should format code
 npx runlintic maintenance  # Should run cleanup
@@ -142,6 +142,7 @@ npx runlintic maintenance  # Should run cleanup
 - ✅ All commands execute without fatal errors
 - ✅ Help shows all available commands
 - ✅ Commands produce expected output
+- ✅ Linter auto-detection works correctly
 
 ### 2.3 Error Handling
 
@@ -298,9 +299,86 @@ echo "Monitoring memory usage..."
 - ✅ Memory usage is reasonable for project size
 - ✅ No memory leaks or excessive consumption
 
-## Phase 6: Edge Case Testing
+## Phase 6: Linter Auto-Detection Testing
 
-### 6.1 Empty Project Testing
+### 6.1 ESLint Detection
+
+```bash
+# Test ESLint auto-detection
+echo "module.exports = {};" > eslint.config.js
+npx runlintic lint  # Should detect and use ESLint
+```
+
+**Expected Results:**
+
+- ✅ Console shows "🔍 Using ESLint (detected: eslint)"
+- ✅ Runs `eslint . --max-warnings 0`
+
+### 6.2 Biome Detection
+
+```bash
+# Test Biome auto-detection
+npm install -D @biomejs/biome
+npx @biomejs/biome init
+rm eslint.config.js  # Remove ESLint config
+npx runlintic lint   # Should detect and use Biome
+```
+
+**Expected Results:**
+
+- ✅ Console shows "🔍 Using Biome (detected: biome)"
+- ✅ Runs `biome lint .`
+
+### 6.3 Both Linters Present
+
+```bash
+# Test with both linters present
+npm install -D @biomejs/biome eslint
+npx @biomejs/biome init
+echo "module.exports = {};" > eslint.config.js
+npx runlintic lint  # Should prefer ESLint for stability
+```
+
+**Expected Results:**
+
+- ✅ Console shows "🔍 Using ESLint (both detected, preferring ESLint for stability)"
+- ✅ Uses ESLint when both are available
+
+### 6.4 No Linter Present
+
+```bash
+# Test fallback behavior
+rm biome.json eslint.config.js
+npm uninstall @biomejs/biome eslint
+npx runlintic lint  # Should fall back to ESLint
+```
+
+**Expected Results:**
+
+- ✅ Console shows "⚠️  No linter config detected, attempting ESLint..."
+- ✅ Attempts to run ESLint as fallback
+
+### 6.5 Lint Fix with Different Linters
+
+```bash
+# Test lint:fix with ESLint
+echo "module.exports = {};" > eslint.config.js
+npx runlintic lint:fix  # Should run eslint --fix
+
+# Test lint:fix with Biome
+rm eslint.config.js
+npx @biomejs/biome init
+npx runlintic lint:fix  # Should run biome check --write
+```
+
+**Expected Results:**
+
+- ✅ ESLint: Runs `eslint . --fix`
+- ✅ Biome: Runs `biome check --write .`
+
+## Phase 7: Edge Case Testing
+
+### 7.1 Empty Project Testing
 
 ```bash
 # Test with minimal project
@@ -309,7 +387,7 @@ npm init -y
 npx runlintic init  # Should work with just package.json
 ```
 
-### 6.2 Existing Config Conflicts
+### 7.2 Existing Config Conflicts
 
 ```bash
 # Create conflicting config
@@ -317,7 +395,7 @@ echo "module.exports = {};" > eslint.config.js
 npx runlintic init  # Should show "already exists" messages
 ```
 
-### 6.3 Large Project Testing
+### 7.3 Large Project Testing
 
 ```bash
 # Test with large number of files
@@ -341,11 +419,20 @@ time npx runlintic lint      # Should handle large projects
 - [ ] `npx runlintic init` - Creates config files
 - [ ] `npx runlintic health-check` - Runs successfully
 - [ ] `npx runlintic check-all` - Parallel execution
-- [ ] `npx runlintic lint` - Linting works
+- [ ] `npx runlintic lint` - Linting works with auto-detection
 - [ ] `npx runlintic lint:fix` - Auto-fixing works
 - [ ] `npx runlintic typecheck` - TypeScript validation
 - [ ] `npx runlintic format` - Code formatting
 - [ ] `npx runlintic maintenance` - Cleanup tasks
+
+### Linter Auto-Detection ✅
+
+- [ ] ESLint detection works
+- [ ] Biome detection works
+- [ ] Both linters: ESLint preferred
+- [ ] No linters: ESLint fallback
+- [ ] Detection message displayed
+- [ ] Correct linter command executed
 
 ### Release Workflow ✅
 
@@ -418,7 +505,8 @@ run_test "Package installed" "npm list @rdolcegroup/runlintic-app"
 run_test "CLI help" "npx runlintic help"
 run_test "Version display" "npx runlintic --version"
 run_test "Health check" "npx runlintic health-check"
-run_test "Linting" "npx runlintic lint"
+run_test "Linting (auto-detect)" "npx runlintic lint"
+run_test "Lint fix (auto-detect)" "npx runlintic lint:fix"
 run_test "Type checking" "npx runlintic typecheck"
 
 echo "=================================="

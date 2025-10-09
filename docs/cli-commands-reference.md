@@ -10,15 +10,16 @@ runlintic <command> [options]
 
 ## Quick Reference
 
-| Command        | Description        | Example                  |
-|----------------|--------------------|--------------------------|
-| `init`         | Initialize project | `runlintic init`         |
-| `dashboard`    | Launch web UI      | `runlintic dashboard`    |
-| `help`         | Show help          | `runlintic help`         |
-| `health-check` | Full health check  | `runlintic health-check` |
-| `commit`       | Generate commit    | `runlintic commit`       |
-| `lint`         | Run ESLint         | `runlintic lint`         |
-| `release:dry`  | Preview release    | `runlintic release:dry`  |
+| Command        | Description                  | Example                  |
+| -------------- | ---------------------------- | ------------------------ |
+| `init`         | Initialize project           | `runlintic init`         |
+| `dashboard`    | Launch web UI                | `runlintic dashboard`    |
+| `help`         | Show help                    | `runlintic help`         |
+| `health-check` | Full health check            | `runlintic health-check` |
+| `commit`       | Generate commit              | `runlintic commit`       |
+| `lint`         | Run linter (ESLint or Biome) | `runlintic lint`         |
+| `release:dry`  | Preview release              | `runlintic release:dry`  |
+| `setup:auth`   | Setup NPM auth               | `runlintic setup:auth`   |
 
 ## Setup Commands
 
@@ -53,6 +54,21 @@ runlintic help
 runlintic --help
 runlintic -h
 ```
+
+### `runlintic setup:auth`
+
+Setup NPM authentication for release workflows.
+
+```bash
+runlintic setup:auth
+```
+
+**What it does:**
+
+- Guides you through NPM authentication setup
+- Configures tokens for release automation
+- Verifies authentication credentials
+- Sets up environment variables for CI/CD
 
 ## Dashboard Commands
 
@@ -92,7 +108,7 @@ runlintic dashboard --host 0.0.0.0 --port 8080
 - Generates unique token per session
 - No persistent authentication or data storage
 
-📖 **See also:** [`docs/DASHBOARD.md`](../_workflows/features/dashboard/DASHBOARD.md) for complete dashboard documentation.
+📖 **See also:** [`docs/dashboard/DASHBOARD.md`](dashboard/DASHBOARD.md) for complete dashboard documentation.
 
 ## Quality Commands
 
@@ -106,7 +122,7 @@ runlintic health-check
 
 **What it does:**
 
-1. ESLint validation (zero warnings)
+1. Linter validation (ESLint or Biome, auto-detected, zero warnings)
 2. TypeScript type checking
 3. Dependency validation
 4. Package.json cleanup
@@ -130,33 +146,60 @@ runlintic check-all
 
 ### `runlintic lint`
 
-Run ESLint with zero-warning policy.
+Run linter with zero-warning policy. **Auto-detects ESLint or Biome.**
 
 ```bash
 runlintic lint
 ```
 
-**Features:**
+**Auto-Detection:**
+
+Runlintic automatically detects which linter you're using:
+
+- **ESLint detected** → Runs `eslint . --max-warnings 0`
+- **Biome detected** → Runs `biome lint .`
+- **Both detected** → Uses ESLint (for stability)
+- **None detected** → Falls back to ESLint
+
+**Detection criteria:**
+
+- Config files: `eslint.config.js`, `.eslintrc.*`, `biome.json`, `biome.jsonc`
+- Package dependencies: `eslint`, `@biomejs/biome`
+
+**Features (ESLint):**
 
 - Zero warnings allowed
 - Node.js globals support
 - React/Next.js rules included
 - Modern ES2022 syntax
 
+**Features (Biome):**
+
+- Ultra-fast performance
+- Zero-config defaults
+- TypeScript native support
+- Integrated formatter
+
 ### `runlintic lint:fix`
 
-Auto-fix ESLint issues and sort package.json.
+Auto-fix linter issues. **Auto-detects ESLint or Biome.**
 
 ```bash
 runlintic lint:fix
 ```
 
+**Auto-Detection Behavior:**
+
+- **ESLint detected** → Runs `eslint . --fix`
+- **Biome detected** → Runs `biome check --write .`
+
 **What it fixes:**
 
 - Code formatting
 - Import/export organization
-- Package.json field ordering
+- Package.json field ordering (ESLint)
 - Basic style issues
+- Unsafe fixes (Biome with --write)
 
 ### `runlintic typecheck`
 
@@ -277,6 +320,7 @@ runlintic release
 
 **All release commands:**
 
+- **Enhanced Authentication**: Uses both environment variables and gh CLI fallback
 - Run pre-release health check
 - Update version in package.json
 - Generate conventional changelog
@@ -284,6 +328,11 @@ runlintic release
 - Push to GitHub
 - Create GitHub release
 - Clean up on completion
+
+**Authentication Methods** (in order of preference):
+1. Environment variables: `GH_TOKEN` + `NPM_TOKEN`/`NPM_ACCESS_TOKEN`
+2. gh CLI fallback: Automatically extracts token from authenticated gh CLI
+3. Manual setup: `runlintic setup:auth` for guided configuration
 
 ## Maintenance Commands
 

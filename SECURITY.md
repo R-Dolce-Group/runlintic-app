@@ -44,12 +44,14 @@ We follow responsible disclosure practices:
 When using Runlintic App, we recommend:
 
 ### For Users
+
 - Always use the latest stable version
 - Regularly run `npm audit` to check for vulnerabilities
 - Use `npm run health-check` to validate your project security
 - Keep your Node.js environment updated (we require Node.js >=22.16.0)
 
 ### For Contributors
+
 - Run security checks before submitting PRs
 - Follow our code review process
 - Use conventional commits for security fixes: `fix(security): description`
@@ -59,18 +61,21 @@ When using Runlintic App, we recommend:
 Runlintic App includes several built-in security features:
 
 ### Dependency Security
+
 - **Automated vulnerability scanning** with `npm audit`
 - **Dependency overrides** for known vulnerable packages
 - **Regular dependency updates** via Dependabot
 - **Zero-tolerance** for security vulnerabilities in CI/CD
 
 ### Code Quality Security
+
 - **ESLint rules** to prevent common security issues
 - **TypeScript strict mode** for type safety
 - **Input validation** in all CLI commands
 - **Secure defaults** in all configurations
 
 ### Release Security
+
 - **Signed releases** with GitHub Actions
 - **Automated security checks** before releases
 - **Immutable release artifacts** on npm registry

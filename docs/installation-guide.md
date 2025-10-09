@@ -4,14 +4,14 @@ Complete installation guide for all scenarios.
 
 ## Prerequisites
 
-- **Node.js** ≥ 22.16.0 ([Download](https://nodejs.org/))
+- **Node.js** ≥ 22.16.0 or ≥ 24.0.0 ([Download](https://nodejs.org/))
 - **npm** (comes with Node.js), **yarn**, or **pnpm**
 - **Git** (recommended for version control)
 
 ### Check Prerequisites
 
 ```bash
-node --version    # Should be >= 22.16.0
+node --version    # Should be >= 22.16.0 or >= 24.0.0
 npm --version     # Any recent version
 git --version     # Any recent version
 ```
@@ -171,9 +171,9 @@ node --version
 **Option 1: Using nvm**
 
 ```bash
-nvm install 22
-nvm use 22
-nvm alias default 22
+nvm install 24  # or nvm install 22
+nvm use 24      # or nvm use 22
+nvm alias default 24
 ```
 
 **Option 2: Direct download**
@@ -268,7 +268,34 @@ runlintic init
 runlintic health-check
 ```
 
-### 4. Setup GitHub Token (for releases)
+### 4. Linter Setup (Optional)
+
+Runlintic auto-detects and works with both **ESLint** and **Biome**!
+
+#### Using ESLint (Default)
+
+`runlintic init` creates `eslint.config.js` automatically. No additional setup needed.
+
+#### Using Biome
+
+If you prefer Biome:
+
+```bash
+# Install Biome
+npm install -D @biomejs/biome
+
+# Create biome.json config
+npx @biomejs/biome init
+
+# Runlintic will auto-detect and use Biome!
+runlintic lint
+```
+
+**Auto-Detection:** Runlintic checks for:
+- Config files: `biome.json`, `biome.jsonc`, `eslint.config.js`
+- Package dependencies: `@biomejs/biome`, `eslint`
+
+### 5. Setup GitHub Token (for releases)
 
 ```bash
 # Get token from: https://github.com/settings/tokens
